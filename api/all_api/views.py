@@ -5,18 +5,18 @@ from django.shortcuts import render,HttpResponse
 
 # import viewsets
 from rest_framework import viewsets
- 
-# import local data
-from .serializers import productSerializer
-from .models import product
+from .serializers import productSerializer,userSerializer
+from .models import *
  
 # create a viewset
 class productViewSet(viewsets.ModelViewSet):
-    # define queryset
     queryset = product.objects.all()
-     
-    # specify serializer to be used 
     serializer_class = productSerializer
+
+class userViewSet(viewsets.ModelViewSet):
+    queryset = user_detail.objects.all()
+    serializer_class = userSerializer
+
 
 def home(request):
     return HttpResponse("Hello")

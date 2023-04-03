@@ -8,7 +8,7 @@ from .views import *
 
 router = routers.DefaultRouter()  
 router.register(r'product', productViewSet)
-
+router.register(r'user',userViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 ]

@@ -4,6 +4,7 @@ class user_detail(models.Model):
     mobile=models.IntegerField(primary_key=True)
     first_name=models.CharField(max_length=50)
     last_name=models.CharField(max_length=30)
+    password=models.CharField(max_length=20,default=None)
     address=models.CharField(max_length=300)
     pin=models.IntegerField()
     state=models.CharField(max_length=20)
