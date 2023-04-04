@@ -18,5 +18,8 @@ class userViewSet(viewsets.ModelViewSet):
     serializer_class = userSerializer
 
 
+
+
+
 def home(request):
     return HttpResponse("Hello")

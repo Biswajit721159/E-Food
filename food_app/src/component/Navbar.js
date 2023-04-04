@@ -181,7 +181,8 @@ return (
          </div>
           <div className="d-flex-col-lg-7">
             <Link to={'Register'}> <button className="btn btn-info ">Register</button></Link>
-            {
+            <Link to={'Login'}> <button className="btn btn-info ">Login</button></Link>
+            {/* {
               product_count===0?<Link to={'Mybag'}><button className="btn btn-success mx-2 mx-5" type="submit">Bag+0</button></Link>
               :<Link to={'Mybag'}><button className="btn btn-success mx-2  mx-4" type="submit">Bag{"+"+product_count}</button></Link>
             }
@@ -189,7 +190,7 @@ return (
               login==false?<button className="btn btn-info mx-2" onClick={Login}>Log in</button>:
               <Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:40,width:40  }} alt="Wait"/></button></Link>
             }
-            {login==true?<button className="btn btn-info mx-2" onClick={logout} >Logout</button>:""}
+            {login==true?<button className="btn btn-info mx-2" onClick={logout} >Logout</button>:""} */}
           </div>
         </div>
       </nav>

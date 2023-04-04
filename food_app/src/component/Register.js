@@ -5,8 +5,9 @@ import swal from "sweetalert";
 
 export default function () {
 
+
 const [name,setname]=useState("");
-const [city,setcity]=useState("");
+const [address,setaddress]=useState("");
 const [state,setstate]=useState("");
 const [pin,setpin]=useState("");
 const [mobile,setmobile]=useState("");
@@ -25,6 +26,7 @@ let result = await axios.get("http://localhost/main/New%20folder/user.php");
 setuser(result.data.result);
 };
 
+
 function finalcheck(s)
 {
     for(let i=0;i<user.length;i++)
@@ -37,13 +39,16 @@ function finalcheck(s)
     return true;
 }
 
+
 let [input, setinput] = useState({
     name: "",
     city: "",
     state:"",
     pin:"",
-    mobile:""
+    mobile:"",
+    password:"",
 });
+
 
 function solve_name(s)
 {
@@ -161,65 +166,75 @@ function solve_state(s)
 
 function subnit()
 {
-    let x=solve_name(name);
-    let y=solve_state(state);
-    let z=solve_pin(pin);
-    let a=solve_mobile(mobile);
-    let b=solve_city(city);
-    if(x===true && y===true && z===true && a===true && b===true)
-    {
-      if(finalcheck(mobile)==true){
+  // console.log(name)
+  // console.log(mobile)
+  // console.log(password)
+  // console.log(confarmpassword)
+  // console.log(address)
+  // console.log(pin)
+  // console.log(state)
+    // let x=solve_name(name);
+    // let y=solve_state(state);
+    // let z=solve_pin(pin);
+    // let a=solve_mobile(mobile);
+    // let b=solve_city(address);
+    // if(x===true && y===true && z===true && a===true && b===true)
+    // {
+    //   if(finalcheck(mobile)==true){
         input.name = name;
         input.state = state;
-        input.city = city;
+        input.address = address;
         input.pin = pin;
         input.mobile=mobile;
-        
-        axios.post("http://localhost/main/New%20folder/user.php", input);
-        history('/');
-      }
-      else{
-        swal("This Mobile Number is already exit ?", {
-          buttons: [, "OK"],
-        });
-      }
-    }
-    else if(x===false)
-    {
-      swal("Sorry Your Name is incorrect ?", {
-        buttons: [, "OK"],
-      });
-    }
-    else if(a===false)
-    {
-      swal("Sorry Your Mobile Number Must be 10 digit ?", {
-        buttons: [, "OK"],
-      });
-    }
-    else if(b===false)
-    {
-      swal("Sorry Your city is incorrect ?", {
-        buttons: [, "OK"],
-      });
-    }
-    else if(y===false)
-    {
-      swal("Sorry Your State is incorrect ?", {
-        buttons: [, "OK"],
-      });
-    }
-    else if(z===false)
-    {
-      swal("Sorry Your Pin is incorrect ?", {
-        buttons: [, "OK"],
-      });
-    }
-    else
-    {
-      swal("Some Error in database please wait sometime?", {
-        buttons: [, "OK"],
-      });
-    }
+        input.password=password;
+        console.log(input)
+        const ans=axios.post("http://127.0.0.1:8000/user/?format=json", input); 
+        console.log(ans)
+        history('/Login');
+
+      //}
+    //   else{
+    //     swal("This Mobile Number is already exit ?", {
+    //       buttons: [, "OK"], 
+    //     });
+    //   }
+    // }
+    // else if(x===false)
+    // {
+    //   swal("Sorry Your Name is incorrect ?", {
+    //     buttons: [, "OK"],
+    //   });
+    // }
+    // else if(a===false)
+    // {
+    //   swal("Sorry Your Mobile Number Must be 10 digit ?", {
+    //     buttons: [, "OK"],
+    //   });
+    // }
+    // else if(b===false)
+    // {
+    //   swal("Sorry Your city is incorrect ?", {
+    //     buttons: [, "OK"],
+    //   });
+    // }
+    // else if(y===false)
+    // {
+    //   swal("Sorry Your State is incorrect ?", {
+    //     buttons: [, "OK"],
+    //   });
+    // }
+    // else if(z===false)
+    // {
+    //   swal("Sorry Your Pin is incorrect ?", {
+    //     buttons: [, "OK"],
+    //   });
+    // }
+    // else
+    // {
+    //   swal("Some Error in database please wait sometime?", {
+    //     buttons: [, "OK"],
+    //   });
+    // }
 }
 
 
@@ -276,8 +291,8 @@ function subnit()
             class="form-control"
             id="validationCustom03"
             placeholder="Full Address"
-            value={city}
-            onChange={(e)=>setcity(e.target.value)}
+            value={address}
+            onChange={(e)=>setaddress(e.target.value)}
             required
           />
         </div>
