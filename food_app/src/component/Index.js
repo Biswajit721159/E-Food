@@ -1,14 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
+import "../App.css";
 export default function Index() {
 
   const [product,setproduct]=useState([]);
 
-  let loadbag = async ()=>{
-      axios.get("http://127.0.0.1:8000/product/?format=json").then((res)=>{
-          setproduct(res.data)
-      })
-  }
   const [price_low_high,setprice_low_high]=useState(false);
   const [price_high_low,setprice_high_low]=useState(false);
   const [briyani,setbriyani]=useState(false);
@@ -17,15 +13,52 @@ export default function Index() {
   const [name,setname]=useState("");
 
 
+  let loadbag = async ()=>{
+      axios.get("http://127.0.0.1:8000/product/?format=json").then((res)=>{
+          setproduct(res.data)
+          sort_product_aviliable_not_avilible(res.data)
+      })
+  }
+
   const [index,setindex]=useState("first");
-    useEffect(()=>{
-      loadbag();
-    },[]);
+
+  useEffect(()=>{
+    loadbag();
+  },[]);
+  
+  function sort_product_aviliable_not_avilible(product)
+  {
+    if(product===undefined)
+    {
+      return ;
+    }
+    else
+    {
+      let arr=[];
+      for(let i=0;i<product.length;i++)
+      {
+        if(product[i].current_status=='Available')
+        {
+          arr.push(product[i]);
+        }
+      }
+      for(let i=0;i<product.length;i++)
+      {
+        if(product[i].current_status!='Available')
+        {
+          arr.push(product[i]);
+        }
+      }
+      setproduct([...arr]);
+    }
+  }
+
 
   function ADD_TO_DECREMENT(id)
   {
 
   }
+
   function ADD_TO_INCREMENT(id)
   {
 
@@ -165,37 +198,13 @@ export default function Index() {
               }
               {
                  item.current_status=='Not Available'?
-
-
-                 item.product_count==0?
-                 <button className="btn btn-secondary rounded-pill btn-sm mt-2" disabled >
-                  <button className="btn btn-secondary rounded-pill btn-sm mx-3"> - </button>
-                      ADD
-                   <button className="btn btn-secondary rounded-pill btn-sm mx-3"> + </button>
+                <button className="btn btn-secondary rounded-pill btn mt-2 mx-4" disabled >
+                      <h className='add'>ADD TO CART</h>
                 </button>
                 :
-                <button className="btn btn-secondary rounded-pill btn-sm mt-2"  >
-                  <button className="btn btn-secondary rounded-pill btn-sm mx-3"> - </button>
-                      {item.product_count} 
-                  <button className="btn btn-secondary rounded-pill btn-sm mx-3"> + </button>
-              </button>
-
-                :
-
-                item.product_count==0?
-                <button className="btn btn-primary rounded-pill btn-sm mt-2" >
-                  <button className="btn btn-primary rounded-pill btn-sm mx-3" onClick={()=>ADD_TO_DECREMENT(item.id)}> - </button>
-                      ADD
-                   <button className="btn btn-primary rounded-pill btn-sm mx-3" onClick={()=>ADD_TO_INCREMENT(item.id)}> + </button>
+                <button className="btn btn-primary rounded-pill btn mt-2">
+                 <h className='add'> ADD TO CART</h>
                 </button>
-                :
-                <button className="btn btn-primary rounded-pill btn-sm mt-2">
-                  <button className="btn btn-primary rounded-pill btn-sm mx-3" onClick={()=>ADD_TO_DECREMENT(item.id)}> - </button>
-                      {item.product_count} 
-                  <button className="btn btn-primary rounded-pill btn-sm mx-3" onClick={()=>ADD_TO_INCREMENT(item.id)}> + </button>
-              </button>
-
-
               }
             </div>
           </div>
