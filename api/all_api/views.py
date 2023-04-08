@@ -1,5 +1,7 @@
 from django.shortcuts import render,HttpResponse
-
+from rest_framework.parsers import JSONParser
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
@@ -23,3 +25,10 @@ class userViewSet(viewsets.ModelViewSet):
 
 def home(request):
     return HttpResponse("Hello")
+
+@csrf_exempt
+def productapi(request,pk=0):
+    if request.method=="GET":
+        all_product=product.objects.all()
+        students_serializer = productSerializer(all_product, many=True)
+        return JsonResponse(students_serializer.data,  safe=False)
