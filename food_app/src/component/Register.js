@@ -187,7 +187,7 @@ function solve_address(s)
     seterror_address(true)
     return false;
   }
-  else if(s.length>=30)
+  else if(s.length>=300)
   {
     setmessageaddress("Address is Must be in 30 latter")
     seterror_address(true)
@@ -258,7 +258,7 @@ function subnit()
     let h=solve_pin(pin);
     let i=solve_address(address);
 
-   console.log(a+" "+b+" "+c+" "+d+" "+e+" "+f+" "+g+" "+h+" "+i);
+  //  console.log(a+" "+b+" "+c+" "+d+" "+e+" "+f+" "+g+" "+h+" "+i);
 
     if(a==true && b==true && c==true && d==true && e==true && f==true && g==true && h==true && i==true)
     {
@@ -282,10 +282,10 @@ function subnit()
         })
         .then(response=>response.json())
         .then((result)=>{
-            alert(result);
+          swal(`SuccessFully Register`);
         },
         (error)=>{
-            alert("Failed");
+          swal(`We are find some Error`);
         })
         history('/Login');
     }
@@ -330,7 +330,7 @@ function subnit()
         </div>
         <div className="col-md-4 mt-3 ">
           <input
-            type="text"
+            type="password"
             className="form-control"
             placeholder="Password"
             value={password}
@@ -341,7 +341,7 @@ function subnit()
         </div>
         <div className="col-md-4 mt-3 ">
           <input
-            type="text"
+            type="password"
             className="form-control"
             placeholder="Confarm Password"
             value={confarmpassword}

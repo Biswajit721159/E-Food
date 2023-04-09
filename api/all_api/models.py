@@ -1,9 +1,9 @@
 from django.db import models
 
 class user_detail(models.Model):
-    mobile=models.IntegerField(primary_key=True)
+    mobile=models.CharField(primary_key=True,max_length=10)
     first_name=models.CharField(max_length=50)
-    last_name=models.CharField(max_length=30)
+    last_name=models.CharField(max_length=300)
     password=models.CharField(max_length=20,default=None)
     address=models.CharField(max_length=300)
     pin=models.IntegerField()

@@ -180,8 +180,8 @@ return (
             </ul>
          </div>
           <div className="d-flex-col-lg-7">
-            <Link to={'Register'}> <button className="btn btn-info ">Register</button></Link>
-            <Link to={'Login'}> <button className="btn btn-info ">Login</button></Link>
+            <Link to={'Register'}> <button className="btn btn-info mx-4">Register</button></Link>
+            <Link to={'Login'}> <button className="btn btn-info mx-4">Login</button></Link>
             {/* {
               product_count===0?<Link to={'Mybag'}><button className="btn btn-success mx-2 mx-5" type="submit">Bag+0</button></Link>
               :<Link to={'Mybag'}><button className="btn btn-success mx-2  mx-4" type="submit">Bag{"+"+product_count}</button></Link>
