@@ -7,7 +7,7 @@ export default function () {
 
 
 const [name,setname]=useState("");
-const[first_name,setfirst_name]=useState("");
+const [first_name,setfirst_name]=useState("");
 const [last_name,setlast_name]=useState("");
 const [address,setaddress]=useState("");
 const [state,setstate]=useState("");
@@ -30,58 +30,112 @@ function loaduser()
     .then(response=>response.json())
     .then((data) =>{
         setuser(data);
-        console.log(data);
+        // console.log(data);
     })
 };
 
-let error=[false,false,false,false,false,false,false];
-let message=["","","","","","",""]
+//error section
 
-function solve_name(s)
+const [messagefirst_name,setmessagefirst_name]=useState("")
+const [error_first_name,seterror_first_name]=useState(false)
+
+const [messagelast_name,setmessagelast_name]=useState("")
+const [error_last_name,seterror_last_name]=useState(false)
+
+const [messagemobile,setmessagemobile]=useState("")
+const [error_mobile,seterror_mobile]=useState(false)
+
+const [messagepassword,setmessagepassword]=useState("")
+const [error_password,seterror_password]=useState(false)
+
+const [messageconpassword,setmessageconpassword]=useState("")
+const [error_conpassword,seterror_conpassword]=useState(false)
+
+const [messageaddress,setmessageaddress]=useState("")
+const [error_address,seterror_address]=useState(false)
+
+const [messagestate,setmessagestate]=useState("")
+const [error_state,seterror_state]=useState(false)
+
+const [messagepin,setmessagepin]=useState("")
+const [error_pin,seterror_pin]=useState(false)
+
+function solve_first_name(s)
 {
-  if(s.length<=5)
+  if(s.length<=2)
   {
+    setmessagefirst_name("First_name is too small")
+    seterror_first_name(true)
+    return false;
+  }
+  else
+  {
+    for(let i =0;i<s.length;i++)
+    {
+      if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z'))
+      {
+        continue;
+      }
+      else
+      {
+        setmessagefirst_name("First_name is aplhanumatic")
+        seterror_first_name(true)
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function solve_last_name(s)
+{
+  if(s.length<=2)
+  {
+    setmessagelast_name("Last_name is too small")
+    seterror_last_name(true)
+    return false;
+  }
+  else
+  {
+    for(let i=0;i<s.length;i++)
+    {
+      if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z'))
+      {
+        continue;
+      }
+      else
+      {
+        setmessagelast_name("Last_name is aplhanumatic")
+        seterror_last_name(true)
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function solve_mobile(s)
+{
+  if(s.length!==10)
+  {
+    setmessagemobile("Mobile Number Must be 10 digit")
+    seterror_mobile(true)
     return false;
   }
   else 
   {
     for(let i=0;i<s.length;i++)
     {
-      if( (s[i]>='a'  && s[i]<='z') || (s[i]>='A'  && s[i]<='Z') || (s[i]==' ') )
+      if(s[i]>='0' && s[i]<='9')
       {
         continue;
       }
       else
       {
+        setmessagemobile("Mobile Number Must be 10 digit")
+        seterror_mobile(true)
         return false;
       }
-    }
-    let word="";
-    let count=0;
-    for(let i=0;i<s.length;i++)
-    {
-      if(s[i]==' ')
-      {
-        if(word.length)  
-        {
-          setfirst_name(word);
-          count++;
-        }
-        word="";
-      }
-      else
-      {
-        word+=s[i];
-      }
-    }
-    if(word.length)
-    {
-      count++;
-      setlast_name(word)
-    }
-    if(count>2)
-    {
-      return false;
     }
     return true;
   }
@@ -93,39 +147,60 @@ function finalcheck(s)
     {
         if(user[i].mobile==mobile)
         {
-           return false;
+          setmessagemobile("Mobile Number is already exit")
+          seterror_mobile(true)
         }
     }
     return true;
 }
 
-function solve_address(s)
+function checkpassword(password)
 {
-  if(s.lenght<=3)
+  if(password.length<=5)
   {
+    setmessagepassword("Password is too small")
+    seterror_password(true)
     return false;
   }
   else
   {
-    for(let i=0;i<s.lenght;i++)
-    {
-      if(s[i]>='a' && s[i]<='z')
-      {
-        continue;
-      }
-      else
-      {
-        return false;
-      }
-    }
     return true;
   }
+}
+
+function checkpasssword_confarmpassword(password,confarmpassword)
+{
+  if(password!=confarmpassword)
+  {
+    setmessageconpassword("Confarm password not same as password")
+    seterror_conpassword(true)
+    return false;
+  }
+  return true;
+}
+
+function solve_address(s)
+{
+  if(s.length<=3)
+  {
+    setmessageaddress("Address is too small")
+    seterror_address(true)
+    return false;
+  }
+  else if(s.length>=30)
+  {
+    setmessageaddress("Address is Must be in 30 latter")
+    seterror_address(true)
+  }
+  return true;
 }
 
 function solve_pin(s)
 {
   if(s.length!==6)
   {
+    setmessagepin("Invalid pin Number")
+    seterror_pin(true)
     return false;
   }
   else
@@ -136,30 +211,10 @@ function solve_pin(s)
       {
         continue;
       }
-      else{
-        return false;
-      }
-    }
-    return true;
-  }
-}
-
-function solve_mobile(s)
-{
-  if(s.length!==10)
-  {
-    return false;
-  }
-  else 
-  {
-    for(let i=0;i<s.length;i++)
-    {
-      if(s[i]>='0' && s[i]<='9')
-      {
-        continue;
-      }
       else
       {
+        setmessagepin("Invalid pin Number")
+        seterror_pin(true)
         return false;
       }
     }
@@ -169,35 +224,19 @@ function solve_mobile(s)
 
 function solve_state(s)
 {
-  if(s.lenght<=2)
+  if(s=="Select")
   {
+    setmessagestate("Please select a State")
+    seterror_state(true)
     return false;
   }
-  else
+  if(s.length==0)
   {
-    for(let i=0;i<s.lenght;i++)
-    {
-      if(s[i]>='a' && s[i]<='z')
-      {
-        continue;
-      }
-      else
-      {
-        return false;
-      }
-    }
-    return true;
-  } 
-}
-
-function checkpassword(password)
-{
-
-}
-
-function checkpasssword_confarmpassword(password,confarmpassword)
-{
-
+    setmessagestate("Please select a State")
+    seterror_state(true)
+    return false;
+  }
+  return true;
 }
 
 function subnit()
@@ -209,17 +248,21 @@ function subnit()
   // console.log(address)
   // console.log(pin)
   // console.log(state)
-    let a=solve_name(name);
-    let b=solve_mobile(mobile);
-    let c=finalcheck(mobile)
-    let d=checkpassword(password)
-    let e=checkpasssword_confarmpassword(password,confarmpassword)
-    let f=solve_state(state);
-    let g=solve_pin(pin);
-    let h=solve_address(address);
+    let a=solve_first_name(first_name);
+    let b=solve_last_name(last_name);
+    let c=solve_mobile(mobile);
+    let d=finalcheck(mobile)
+    let e=checkpassword(password)
+    let f=checkpasssword_confarmpassword(password,confarmpassword)
+    let g=solve_state(state);
+    let h=solve_pin(pin);
+    let i=solve_address(address);
 
-    if(a==true && b==true && c==true && d==true && e==true && f==true && g==true && h==true)
+   console.log(a+" "+b+" "+c+" "+d+" "+e+" "+f+" "+g+" "+h+" "+i);
+
+    if(a==true && b==true && c==true && d==true && e==true && f==true && g==true && h==true && i==true)
     {
+      console.log("come")
         fetch('http://127.0.0.1:8000/user/', 
         {
             method:'POST',
@@ -250,18 +293,29 @@ function subnit()
 
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-3">
       <h3>Register Form</h3>
-        <div className="col-md-4 mt-5">
+        <div className="col-md-4 mt-4">
           <input
             type="text"
             className="form-control"
-            placeholder="First name and Last Name"
-            value={name}
-            onChange={(e)=>setname(e.target.value)}
+            placeholder="First name"
+            value={first_name}
+            onChange={(e)=>setfirst_name(e.target.value)}
             required
           />
-          {error[0]==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{message[0]}</label>:""}
+          {error_first_name==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagefirst_name}</label>:""}
+        </div>
+        <div className="col-md-4 mt-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Last Name"
+            value={last_name}
+            onChange={(e)=>setlast_name(e.target.value)}
+            required
+          />
+          {error_last_name==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagelast_name}</label>:""}
         </div>
         <div className="col-md-4 mt-3 ">
           <input
@@ -272,29 +326,29 @@ function subnit()
             onChange={(e)=>setmobile(e.target.value)}
             required
           />
-          {error[1]==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{message[1]}</label>:""}
+         {error_mobile==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagemobile}</label>:""}
         </div>
         <div className="col-md-4 mt-3 ">
           <input
-            type="password"
+            type="text"
             className="form-control"
             placeholder="Password"
             value={password}
             onChange={(e)=>{setpassword(e.target.value)}}
             required
           />
-          {error[2]==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{message[2]}</label>:""}
+          {error_password==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagepassword}</label>:""}
         </div>
         <div className="col-md-4 mt-3 ">
           <input
-            type="password"
+            type="text"
             className="form-control"
             placeholder="Confarm Password"
             value={confarmpassword}
             onChange={(e)=>setconfarmpassowrd(e.target.value)}
             required
           />
-          {error[3]==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{message[3]}</label>:""}
+          {error_conpassword==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messageconpassword}</label>:""}
         </div>
         <div className="col-md-4 mt-3">
           <input
@@ -305,7 +359,7 @@ function subnit()
             onChange={(e)=>setaddress(e.target.value)}
             required
           />
-          {error[4]==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{message[4]}</label>:""}
+          {error_address==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messageaddress}</label>:""}
         </div>
         <div className="col-md-4 mt-3">
           <select className="form-select"  value={state} onChange={(e)=>setstate(e.target.value)}>
@@ -321,7 +375,7 @@ function subnit()
             <option>Jharkhand</option>
             <option>Mumbai</option>
           </select>
-          {error[5]==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{message[5]}</label>:""}
+          {error_state==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagestate}</label>:""}
         </div>
         <div className="col-md-4 mt-3">
           <input
@@ -333,7 +387,7 @@ function subnit()
             onChange={(e)=>setpin(e.target.value)}
             required
           />
-          {error[6]==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{message[6]}</label>:""}
+          {error_pin==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagepin}</label>:""}
         </div>
         <div className="col-md-3 mt-4">
           <button className="btn btn-primary" type="submit" onClick={subnit}>

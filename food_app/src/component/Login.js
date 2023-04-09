@@ -17,8 +17,8 @@ const [user,setuser]=useState([]);
   },[])
 
 const loaduser = async () => {
-let result = await axios.get("http://localhost/main/New%20folder/user.php");
-setuser(result.data.result);
+// let result = await axios.get("http://localhost/main/New%20folder/user.php");
+// setuser(result.data.result);
 };
 
 
