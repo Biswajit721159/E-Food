@@ -35,12 +35,12 @@ useEffect(()=>{
 
 //product
 const loadproduct = async () => {
-  await axios.get("http://localhost/main/New%20folder/my_bag.php").then((result)=>{
-    axios.get("http://localhost/main/New%20folder/user.php").then((res)=>{
-        set_product(result.data.result);
-        setuserdata(res.data.result); 
-    })
-  })
+  // await axios.get("http://localhost/main/New%20folder/my_bag.php").then((result)=>{
+  //   axios.get("http://localhost/main/New%20folder/user.php").then((res)=>{
+  //       set_product(result.data.result);
+  //       setuserdata(res.data.result); 
+  //   })
+  // })
 };
 
 // user 

@@ -16,5 +16,6 @@ from .views import *
 urlpatterns = [
     # path('', include(router.urls)),
     path('product/',views.productapi),
+    path('user/',views.userapi),
     
 ]

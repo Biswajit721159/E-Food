@@ -8,7 +8,9 @@ class user_detail(models.Model):
     address=models.CharField(max_length=300)
     pin=models.IntegerField()
     state=models.CharField(max_length=20)
-
+    
+    def __str__(self):
+        return str(self.mobile)
 
 class product(models.Model):
     id=models.AutoField(primary_key=True)

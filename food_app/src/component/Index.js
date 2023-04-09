@@ -14,7 +14,8 @@ export default function Index() {
 
 
   let loadbag = async ()=>{
-      axios.get("http://127.0.0.1:8000/product/?format=json").then((res)=>{
+      axios.get("http://127.0.0.1:8000/product/").then((res)=>{
+        console.log(res)
           setproduct(res.data)
           sort_product_aviliable_not_avilible(res.data)
       })
@@ -52,7 +53,6 @@ export default function Index() {
       setproduct([...arr]);
     }
   }
-
 
   function ADD_TO_DECREMENT(id)
   {

@@ -11,24 +11,38 @@ from .serializers import productSerializer,userSerializer
 from .models import *
  
 # create a viewset
-class productViewSet(viewsets.ModelViewSet):
-    queryset = product.objects.all()
-    serializer_class = productSerializer
-
-class userViewSet(viewsets.ModelViewSet):
-    queryset = user_detail.objects.all()
-    serializer_class = userSerializer
+# class productViewSet(viewsets.ModelViewSet):
+#     queryset = product.objects.all()
+#     serializer_class = productSerializer
 
 
+# class userViewSet(viewsets.ModelViewSet):
+#     queryset = user_detail.objects.all()
+#     serializer_class = userSerializer
 
-
-
-def home(request):
-    return HttpResponse("Hello")
 
 @csrf_exempt
+
+def userapi(request,pk=0):
+
+    if request.method=="GET":
+        all_user_detail=user_detail.objects.all()
+        user_detail_serializer = userSerializer(all_user_detail, many=True)
+        return JsonResponse(user_detail_serializer.data,  safe=False)
+    
+
+    elif request.method == 'POST':
+        user_data = JSONParser().parse(request)
+        user_serializer = userSerializer(data=user_data)
+        if user_serializer.is_valid():
+            user_serializer.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False)
+
+
 def productapi(request,pk=0):
+
     if request.method=="GET":
         all_product=product.objects.all()
-        students_serializer = productSerializer(all_product, many=True)
-        return JsonResponse(students_serializer.data,  safe=False)
+        product_serializer = productSerializer(all_product, many=True)
+        return JsonResponse(product_serializer.data,  safe=False)
