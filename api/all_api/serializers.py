@@ -15,4 +15,10 @@ class productSerializer(serializers.HyperlinkedModelSerializer):
 class userSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = user_detail
-        fields = ('mobile', 'first_name','last_name','password' ,'address','pin', 'state')        
+        fields = ('mobile', 'first_name','last_name','password' ,'address','pin', 'state')
+
+
+class mybagSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = mybag
+        fields = ('mobile', 'product_id','number_product')           

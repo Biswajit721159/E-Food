@@ -1,35 +1,65 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState ,useEffect,useContext } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { global } from "../App";
 
 export default function () {
+
+const {Mobile,Function,child,update} =useContext(global);
 
 const [mobile,setmobile]=useState("");
 const [password,setpassword]=useState("")
 const [confarmpassword,setconfarmpassowrd]=useState("")
 const history=useNavigate();
-
-
 const [user,setuser]=useState([]);
-  useEffect(()=>{
-    loaduser();
-  },[])
 
-const loaduser = async () => {
-// let result = await axios.get("http://localhost/main/New%20folder/user.php");
-// setuser(result.data.result);
+const [error,seterror]=useState(false);
+const [error_mess,seterror_mess]=useState("");
+
+useEffect(()=>{
+  loaduser();
+},[])
+
+function loaduser()
+{
+  fetch('http://127.0.0.1:8000/user/')
+    .then(response=>response.json())
+    .then((data) =>{
+        setuser(data);
+    })
 };
 
 
-
 function subnit()
-{
-  
-  // console.log(mobile)
-  // console.log(password)
-  // console.log(confarmpassword)
-    
+{   
+  if(password!=confarmpassword)
+  {
+    seterror(true)
+    seterror_mess("Password and confarmpassword is not match")
+  }
+  else
+  {
+    let count=0;
+    for(let i=0;i<user.length;i++)
+    {
+      if(user[i].mobile==mobile && user[i].password==password)
+      {
+        count++;
+        break;
+      }
+    }
+    if(count)
+    {
+      Function(mobile)
+      history('/');
+    }
+    else
+    {
+      seterror(true)
+      seterror_mess("Invalid user")
+    }
+  }
 }
 
 
@@ -69,13 +99,12 @@ function subnit()
             required
           />
         </div>
-        
         <div class="col-md-3 mt-4">
           <button class="btn btn-primary" type="submit" onClick={subnit}>
             Procide to Go
           </button>
         </div>
-     
+        {error==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label  mt-1">{error_mess}</label>:""}
     </div>
   );
 }

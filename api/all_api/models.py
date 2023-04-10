@@ -25,9 +25,12 @@ class product(models.Model):
         return str(self.product_name)
 
 class mybag(models.Model):
-    mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
-    product_id=models.ForeignKey(product,on_delete=models.CASCADE)
+    mobile=models.CharField(max_length=10)
+    product_id=models.CharField(max_length=100)
     number_product=models.IntegerField()
+
+    def __str__(self):
+        return str(self.mobile)
 
 class order_product(models.Model):
     mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)

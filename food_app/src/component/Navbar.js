@@ -2,20 +2,22 @@ import React, { useState,useEffect ,useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-
+import { global } from "../App";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 
   
 //data from useContext
-
+const {Mobile,Function,child,update} =useContext(global);
 
 //console.log(update);
 
 //product
 const [userdata,setuserdata]=useState([]);//for user
 const [product_count, setproduct_count] = useState(0);// only that user product
-const [login,setlogin]=useState(false);
+const history=useNavigate();
+// const [login,setlogin]=useState(false);
 
 
 const [name,setname]=useState("");
@@ -80,85 +82,9 @@ function set_product(allproduct)
 //   }
 }
 
-function stringToNumber(data)
-{
-  let ans=0;
-  for(let i=0;i<data.length;i++)
-  {
-    ans=ans*10+(data[i]-'0');
-  }
-  return ans;
-}
-
-function check_valid(mobile)
-{
-  if(mobile.length==0)
-  {
-    return "zero";
-  }
-  for(let i=0;i<mobile.length;i++)
-  {
-      if(mobile[i]>='0' && mobile[i]<='9')
-      {
-      continue;
-      }
-      else
-      {
-      return  "not integer";
-      }
-  }
-  if(mobile.length<10)
-  {
-    return "invalid";
-  }
-  
-  for(let i=0;i<userdata.length;i++)
-  {
-      if(userdata[i].mobile==mobile)
-      {
-          //setdata(mobile);
-          setname(userdata[i].name);
-          return "find";
-      }
-  }
-  return "not find";
-}
-
-function Login()
-{
-  swal("Write Typing Your Mobile Number:", {
-    content: "input",
-  })
-  .then((value) => {
-    let res=check_valid(value);
-    if(res=="find")
-    {
-      swal(`Welcome`);
-      setlogin(true);
-      Function(value);
-    }
-    else if(res=="not integer")
-    {
-      swal(`Please Type Integer value`);
-    }
-    else if(res=="zero")
-    {
-      swal(`Please Type Something`);
-    }
-    else if(res=="invalid")
-    {
-      swal(`This Mobile Number Must be 10 digit`);
-    }
-    else if(res=="not find")
-    {
-      swal(`This Mobile Number is not Register`);
-    }
-  });
-}
-
 function logout(){
   Function("");
-  setlogin(false);
+  history('/Login')
 }
 
 return (
@@ -168,7 +94,7 @@ return (
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent mx-6">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
+                <li className="nav-item"> 
                    <Link className="nav-link active" aria-current="page" to="/" style={{ color:'green' }}><h4>x-Food</h4></Link>
                 </li>
                 {/* <li className="nav-item mx-3 mt-1">
@@ -179,18 +105,17 @@ return (
                 </li> */}
             </ul>
          </div>
-          <div className="d-flex-col-lg-7">
-            <Link to={'Register'}> <button className="btn btn-info mx-4">Register</button></Link>
-            <Link to={'Login'}> <button className="btn btn-info mx-4">Login</button></Link>
-            {/* {
-              product_count===0?<Link to={'Mybag'}><button className="btn btn-success mx-2 mx-5" type="submit">Bag+0</button></Link>
-              :<Link to={'Mybag'}><button className="btn btn-success mx-2  mx-4" type="submit">Bag{"+"+product_count}</button></Link>
+          <div className="d-flex-col-lg-7"> 
+            {Mobile.length!=10?<Link to={'Register'}> <button className="btn btn-info mx-4">Register</button></Link>:""}
+            {Mobile.length!=10?<Link to={'Login'}> <button className="btn btn-info mx-4">Login</button></Link>:""}
+            {
+              Mobile.length==10?product_count===0?<Link to={'Mybag'}><button className="btn btn-success mx-2 mx-5" type="submit">Bag+0</button></Link>
+              :<Link to={'Mybag'}><button className="btn btn-success mx-2  mx-4" type="submit">Bag{"+"+product_count}</button></Link>:""
             }
             {
-              login==false?<button className="btn btn-info mx-2" onClick={Login}>Log in</button>:
-              <Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:40,width:40  }} alt="Wait"/></button></Link>
+              Mobile.length==10?<Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:40,width:40  }} alt="Wait"/></button></Link>:""
             }
-            {login==true?<button className="btn btn-info mx-2" onClick={logout} >Logout</button>:""} */}
+            {Mobile.length==10?<button className="btn btn-info mx-2" onClick={logout} >Logout</button>:""}
           </div>
         </div>
       </nav>

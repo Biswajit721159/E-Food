@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # import viewsets
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer
+from .serializers import productSerializer,userSerializer,mybagSerializer
 from .models import *
  
 # create a viewset
@@ -39,6 +39,21 @@ def userapi(request,pk=0):
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)
 
+def mybagapi(request,pk=0):
+
+    if request.method=="GET":
+        all_mybag=mybag.objects.all()
+        mybag_serializer = mybagSerializer(all_mybag, many=True)
+        print(mybag_serializer)
+        return JsonResponse(mybag_serializer.data,  safe=False)
+    
+    elif request.method == 'POST':
+        mybag_data = JSONParser().parse(request)
+        mybag_serializer = mybagSerializer(data=mybag_data)
+        if mybag_serializer.is_valid():
+            mybag_serializer.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False)
 
 def productapi(request,pk=0):
 

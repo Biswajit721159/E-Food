@@ -30,7 +30,6 @@ function loaduser()
     .then(response=>response.json())
     .then((data) =>{
         setuser(data);
-        // console.log(data);
     })
 };
 
