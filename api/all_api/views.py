@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from .serializers import productSerializer,userSerializer,mybagSerializer
 from .models import *
+from .models import mybag
  
 # create a viewset
 # class productViewSet(viewsets.ModelViewSet):
@@ -38,13 +39,23 @@ def userapi(request,pk=0):
             user_serializer.save()
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)
+    
 
+
+
+
+
+
+
+
+
+@csrf_exempt
 def mybagapi(request,pk=0):
 
     if request.method=="GET":
         all_mybag=mybag.objects.all()
         mybag_serializer = mybagSerializer(all_mybag, many=True)
-        print(mybag_serializer)
+        # print(mybag_serializer)
         return JsonResponse(mybag_serializer.data,  safe=False)
     
     elif request.method == 'POST':
@@ -54,7 +65,38 @@ def mybagapi(request,pk=0):
             mybag_serializer.save()
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)
+    
+    elif request.method == 'PUT':
+        mybag_data = JSONParser().parse(request)
+        data = mybag.objects.all()
+        mybag_arrays=[]
+        for i in data:
+            if str(i.mobile)==str(mybag_data['mobile']) and str(i.product_id)==str(mybag_data['product_id']):
+                mybag_arrays=i
+                break
 
+        mybag_serialzer = mybagSerializer(mybag_arrays, data=mybag_data)
+        if mybag_serialzer.is_valid():
+            mybag_serialzer.save() 
+            return JsonResponse("Updated Successfully", safe=False)
+        return JsonResponse("Failed To Update")	
+    
+    elif request.method == 'DELETE':
+        mybag_data = JSONParser().parse(request)
+        print(mybag_data)
+        data = mybag.objects.all()
+        new_data=[]
+        for i in data:
+            if str(i.mobile)==str(mybag_data['mobile']) and str(i.product_id)==str(mybag_data['product_id']):
+                new_data=i
+                break
+        new_data.delete()
+        return JsonResponse("Data Was Deleted Successfully", safe=False)	
+
+
+
+
+@csrf_exempt
 def productapi(request,pk=0):
 
     if request.method=="GET":
