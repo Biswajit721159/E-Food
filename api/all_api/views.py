@@ -4,10 +4,9 @@ from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
-
 # import viewsets
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer,mybagSerializer
+from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer
 from .models import *
 from .models import mybag
  
@@ -40,12 +39,20 @@ def userapi(request,pk=0):
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)
     
-
-
-
-
-
-
+    elif request.method == 'PUT':
+        user_data = JSONParser().parse(request)
+        data = user_detail.objects.all()
+        user_arrays=[]
+        for i in data:
+            if str(i.first_name)==str(user_data['mobile']):
+                user_arrays=i
+                break    
+        user_serialzer = userSerializer(user_arrays, data=user_data)
+        print(user_serialzer)
+        if user_serialzer.is_valid():
+            user_serialzer.save() 
+            return JsonResponse("Updated Successfully", safe=False)
+        return JsonResponse("Failed To Update")	
 
 
 
@@ -94,6 +101,23 @@ def mybagapi(request,pk=0):
         return JsonResponse("Data Was Deleted Successfully", safe=False)	
 
 
+
+@csrf_exempt
+
+def orderapi(request,pk=0):
+    if request.method=="GET":
+        all_order=order_product.objects.all()
+        order_serializer = orderSerializer(all_order, many=True)
+        return JsonResponse(order_serializer.data,  safe=False)
+    
+    elif request.method == 'POST':
+        order_data = JSONParser().parse(request)
+        order_serializerr = orderSerializer(data=order_data)
+        # print(order_serializerr)
+        if order_serializerr.is_valid():
+            order_serializerr.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False)
 
 
 @csrf_exempt

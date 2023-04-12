@@ -33,11 +33,12 @@ class mybag(models.Model):
         return str(self.mobile)
 
 class order_product(models.Model):
-    mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
-    product_id=models.ForeignKey(product,on_delete=models.CASCADE)
-    total_price=models.IntegerField()
+    order_id=models.AutoField(primary_key=True)
+    mobile=models.CharField(max_length=10)
+    product_id=models.IntegerField()
+    price=models.IntegerField()
     number_product=models.IntegerField()
-    date=models.DateField()
+    date=models.CharField(max_length=100)
 
  
 

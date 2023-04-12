@@ -21,4 +21,9 @@ class userSerializer(serializers.HyperlinkedModelSerializer):
 class mybagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = mybag
-        fields = ('mobile', 'product_id','number_product')           
+        fields = ('mobile', 'product_id','number_product') 
+
+class orderSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model=order_product
+        fields =('order_id','mobile','product_id','price','number_product','date')                

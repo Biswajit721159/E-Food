@@ -36,14 +36,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />}></Route>
             <Route path="Mybag" element={<Mybag />}></Route>
-           {/* <Route path="Mybag/:rupes/Payment" element={<Payment/>}></Route> */}
+            <Route path="Mybag/:rupes/Payment" element={<Payment/>}></Route>
             <Route path="Register" element={<Register />}></Route>
             <Route path="Login" element={<Login />}></Route>
-            {/* <Route path="User/Dashboard" element={<Userdetail/>}></Route>
-           <Route path="/MyOrder" element={<MyOrder/>}></Route>
-           <Route path="/update/detail" element={<Update_user/>}></Route>
-           <Route path="Technical_Support" element={<TechnicalSupport/>}></Route> */}
-            <Route path="About" element={<About />}></Route>
+            <Route path="User/Dashboard" element={<Userdetail/>}></Route>
+            <Route path="/MyOrder" element={<MyOrder/>}></Route>
+            <Route path="/update/detail" element={<Update_user/>}></Route>
+            {/* <Route path="Technical_Support" element={<TechnicalSupport/>}></Route>
+            <Route path="About" element={<About />}></Route> */}
             <Route path="*" element={<Error />}></Route>
           </Routes>
         </Router>

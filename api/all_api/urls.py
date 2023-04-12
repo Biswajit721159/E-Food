@@ -17,5 +17,6 @@ urlpatterns = [
     # path('', include(router.urls)),
     path('product/',views.productapi),
     path('user/',views.userapi),
-    path('mybag/',views.mybagapi)
+    path('mybag/',views.mybagapi),
+    path('order/',views.orderapi),
 ]
