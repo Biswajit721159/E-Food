@@ -14,7 +14,7 @@ const [first_name,setfirst_name]=useState("");
 const [last_name,setlast_name]=useState("");
 const [address,setaddress]=useState("");
 const [state,setstate]=useState("");
-const [pin,setpin]=useState("");
+const [pin,setpin]=useState(0);
 
 const history=useNavigate();
 
@@ -185,7 +185,7 @@ function subnit()
         (error)=>{
             alert("Failed");
         })
-        // history('/User/Dashboard');
+        history('/User/Dashboard');
     }
     else if(x===false)
     {

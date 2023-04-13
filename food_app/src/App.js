@@ -13,6 +13,7 @@ import TechnicalSupport from "./component/TechnicalSupport";
 import About from "./component/About";
 import Login from "./component/Login";
 import { createContext, useState } from "react";
+import Home from "./component/Home";
 
 export const global = createContext();
 
@@ -34,7 +35,8 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Index />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/index" element={<Index />}></Route>
             <Route path="Mybag" element={<Mybag />}></Route>
             <Route path="Mybag/:rupes/Payment" element={<Payment/>}></Route>
             <Route path="Register" element={<Register />}></Route>

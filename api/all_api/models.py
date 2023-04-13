@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 class user_detail(models.Model):
     mobile=models.CharField(primary_key=True,max_length=10)
     first_name=models.CharField(max_length=50)
@@ -36,7 +38,7 @@ class order_product(models.Model):
     order_id=models.AutoField(primary_key=True)
     mobile=models.CharField(max_length=10)
     product_id=models.IntegerField()
-    price=models.IntegerField()
+    price=models.CharField(max_length=100)
     number_product=models.IntegerField()
     date=models.CharField(max_length=100)
 

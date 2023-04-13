@@ -26,13 +26,13 @@ useEffect(() => {
   loadproduct();   
   set_product();   
   workonproductcount();
-},[]);
+},[Mobile]);
 
 useEffect(()=>{
   loadproduct();    
   set_product();   
   workonproductcount();
-},[]);
+},[update]);
 
 
 //product
@@ -43,9 +43,25 @@ const loadproduct = async () => {
   //       setuserdata(res.data.result); 
   //   })
   // })
+  
+    fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
+      // setcurrmybag(mybag);
+      set_product(mybag)
+    })
 };
 
 // user 
+
+function stringToNumber(data)
+{
+  if (typeof(data)=="number") return data;
+  let ans=0;
+  for(let i=0;i<data.length;i++)
+  {
+    ans=ans*10+(data[i]-'0');
+  }
+  return ans;
+}
 
 function workonproductcount(){
 //   if(Mobile.length!=10)
@@ -64,22 +80,22 @@ function workonproductcount(){
 
 function set_product(allproduct)
 {
-//   if(allproduct===undefined) 
-//   {
-//     setproduct_count(0);
-//   }
-//   else
-//   {
-//     let  data=0;
-//     for(let i=0;i<allproduct.length;i++)
-//     {
-//       if(allproduct[i].mobile==Mobile)
-//       {
-//         data+=(stringToNumber(allproduct[i].number_product));
-//       }
-//     }
-//     setproduct_count(data);
-//   }
+  if(allproduct===undefined) 
+  {
+    setproduct_count(0);
+  }
+  else
+  {
+    let  data=0;
+    for(let i=0;i<allproduct.length;i++)
+    {
+      if(allproduct[i].mobile==Mobile)
+      {
+        data+=(stringToNumber(allproduct[i].number_product));
+      }
+    }
+    setproduct_count(data);
+  }
 }
 
 function logout(){
@@ -106,8 +122,8 @@ return (
             </ul>
          </div>
           <div className="d-flex-col-lg-7"> 
-            {Mobile.length!=10?<Link to={'Register'}> <button className="btn btn-info mx-4">Register</button></Link>:""}
-            {Mobile.length!=10?<Link to={'Login'}> <button className="btn btn-info mx-4">Login</button></Link>:""}
+            {Mobile.length!=10?<Link to={'Register'}> <button className="btn btn-info mx-2">Sign Up</button></Link>:""}
+            {Mobile.length!=10?<Link to={'Login'}> <button className="btn btn-info mx-2">Login</button></Link>:""}
             {
               Mobile.length==10?product_count===0?<Link to={'Mybag'}><button className="btn btn-success mx-2 mx-5" type="submit">Bag+0</button></Link>
               :<Link to={'Mybag'}><button className="btn btn-success mx-2  mx-4" type="submit">Bag{"+"+product_count}</button></Link>:""

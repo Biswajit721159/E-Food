@@ -44,11 +44,10 @@ def userapi(request,pk=0):
         data = user_detail.objects.all()
         user_arrays=[]
         for i in data:
-            if str(i.first_name)==str(user_data['mobile']):
+            if str(i.mobile)==str(user_data['mobile']):
                 user_arrays=i
                 break    
         user_serialzer = userSerializer(user_arrays, data=user_data)
-        print(user_serialzer)
         if user_serialzer.is_valid():
             user_serialzer.save() 
             return JsonResponse("Updated Successfully", safe=False)

@@ -225,12 +225,12 @@ export default function Payment() {
 
   const put_data = async(input) => {
       // await axios.post("http://127.0.0.1:8000/order/",input);
-      console.log(typeof(input.mobile))
-      console.log(typeof(input.product_id))
-      console.log(typeof(input.price))
-      console.log(typeof(input.number_product))
-      console.log(typeof(input.date))
-      console.log(typeof(input.order_id))
+      // console.log(typeof(input.mobile))
+      // console.log(typeof(input.product_id))
+      // console.log(typeof(input.price))
+      // console.log(typeof(input.number_product))
+      // console.log(typeof(input.date))
+      // console.log(typeof(input.order_id))
 
         fetch('http://127.0.0.1:8000/order/', 
         {
@@ -240,12 +240,12 @@ export default function Payment() {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                order_id:null,
+                // order_id:null,
                 mobile:Mobile,
-                product_id:2,
-                price:100,
+                product_id:input.product_id,
+                price:input.price,
                 number_product:2,
-                date:"hello"
+                date:input.date
             })
         })
         .then(response=>response.json())
