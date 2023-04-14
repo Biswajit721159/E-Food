@@ -20,6 +20,11 @@ export const global = createContext();
 function App() {
   const [mobile,setmobile]=useState("");
   const [update,setupdate]=useState("normal");
+  const [location,setlocation]=useState("");
+  function locationfunction(data)
+  {
+    setlocation(data);
+  }
   function solve_Food(mobile)
   {
     setmobile(mobile);
@@ -28,10 +33,10 @@ function App() {
   {
     setupdate(data);
   }
-
+ console.log(location)
   return (
     <div className="App">
-      <global.Provider value={{Mobile:mobile,Function:solve_Food,child:updateData,update}}>
+      <global.Provider value={{Mobile:mobile,Function:solve_Food,child:updateData,update,location:locationfunction,Location:location}}>
         <Router>
           <Navbar />
           <Routes>

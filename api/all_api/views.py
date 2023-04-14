@@ -122,6 +122,13 @@ def orderapi(request,pk=0):
 @csrf_exempt
 def productapi(request,pk=0):
 
+    if request.method=="PATCH":
+        location = JSONParser().parse(request)
+        all_product=product.objects.filter(location=location['location'])
+        product_serializer = productSerializer(all_product, many=True)
+        return JsonResponse(product_serializer.data,  safe=False)
+    
+    
     if request.method=="GET":
         all_product=product.objects.all()
         product_serializer = productSerializer(all_product, many=True)

@@ -366,6 +366,7 @@ function subnit()
             State...
             </option>
             <option>West bengal</option>
+            <option>Kolkata</option>
             <option>Delhi</option>
             <option>Bihar</option>
             <option>UP</option>

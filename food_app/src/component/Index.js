@@ -3,10 +3,10 @@ import axios from "axios";
 import "../App.css";
 import { global } from "../App";
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Index() {
 
-const {Mobile,Function,child,update} =useContext(global);
+const {Mobile,Function,child,update,Location} =useContext(global);
 
 const [user, setuser] = useState([]);
 const [product,setproduct]=useState([]);
@@ -33,7 +33,18 @@ useEffect(()=>{
 
 function loadbag()
 {
-  fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
+  fetch('http://127.0.0.1:8000/product/',
+  {
+    method:'PATCH',
+    headers:{
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+    },
+    body:JSON.stringify({
+      location:Location
+    })
+  }
+  ).then(response=>response.json()).then((product) =>{
     fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
       setcurrmybag(mybag);
       setInTOproduct(product,mybag);
@@ -359,6 +370,10 @@ function ADD_TO_DECREMENT(id)
    }
 }
 
+function love(id)
+{
+
+}
 
   return (
     <>
@@ -419,10 +434,16 @@ function ADD_TO_DECREMENT(id)
         </div>
 </div>
     </div >
-      <div className="row">
+      <div className="row mt-5">
         {product !== undefined && product.length!==0
           ? product.map((item, ind) => (
+            
             <div className="card-shadow mt-4 mx-4 my-4" style={{ width: 200 }} key={ind}>
+            {
+              item.current_status=='Available'? 
+              <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"light",borderRadius:"18px"}}></button>: 
+              <button  className="fas fa-heart" style={{backgroundColor:"light",border:"4px"}} disabled></button>
+            }
             <img
               src={item.product_url}
               className="card-img-top"

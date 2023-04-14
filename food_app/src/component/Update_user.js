@@ -6,7 +6,7 @@ import axios from "axios";
 
 function Update_user() {
 
-const {Mobile,Function}=useContext(global);
+const {Mobile,Function,location}=useContext(global);
 
 const [user,setuser]=useState([])
 
@@ -181,6 +181,7 @@ function subnit()
         .then((result)=>{
             alert(result);
             loaduser()
+            location(state)
         },
         (error)=>{
             alert("Failed");
@@ -260,6 +261,7 @@ function subnit()
             State...
             </option>
             <option>West bengal</option>
+            <option>Kolkata</option>
             <option>Delhi</option>
             <option>Bihar</option>
             <option>UP</option>

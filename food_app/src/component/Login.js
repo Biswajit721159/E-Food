@@ -6,7 +6,7 @@ import { global } from "../App";
 
 export default function () {
 
-const {Mobile,Function,child,update} =useContext(global);
+const {Mobile,Function,child,update,location} =useContext(global);
 
 const [mobile,setmobile]=useState("");
 const [password,setpassword]=useState("")
@@ -31,7 +31,7 @@ function loaduser()
 };
 
 
-function subnit()
+function login()
 {   
   if(password!=confarmpassword)
   {
@@ -46,13 +46,14 @@ function subnit()
       if(user[i].mobile==mobile && user[i].password==password)
       {
         count++;
+        location(user[i].state)
         break;
       }
     }
     if(count)
     {
       Function(mobile)
-      history('/');
+      history('/index');
     }
     else
     {
@@ -100,7 +101,7 @@ function subnit()
           />
         </div>
         <div class="col-md-3 mt-4">
-          <button class="btn btn-primary" type="submit" onClick={subnit}>
+          <button class="btn btn-primary" type="submit" onClick={login}>
             Procide to Go
           </button>
         </div>

@@ -9,7 +9,7 @@ export default function Navbar() {
 
   
 //data from useContext
-const {Mobile,Function,child,update} =useContext(global);
+const {Mobile,Function,child,update,location} =useContext(global);
 
 //console.log(update);
 
@@ -101,6 +101,7 @@ function set_product(allproduct)
 function logout(){
   Function("");
   history('/Login')
+  location("");
 }
 
 return (
@@ -111,7 +112,7 @@ return (
           <div className="collapse navbar-collapse" id="navbarSupportedContent mx-6">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item"> 
-                   <Link className="nav-link active" aria-current="page" to="/" style={{ color:'green' }}><h4>x-Food</h4></Link>
+                   <Link className="nav-link active" aria-current="page" to="/index" style={{ color:'green' }}><h4>x-Food</h4></Link>
                 </li>
                 {/* <li className="nav-item mx-3 mt-1">
                    <Link className="nav-link active" aria-current="page" to="/Technical_Support" style={{ color:'green' }} ><h6>Support</h6></Link>
@@ -127,6 +128,9 @@ return (
             {
               Mobile.length==10?product_count===0?<Link to={'Mybag'}><button className="btn btn-success mx-2 mx-5" type="submit">Bag+0</button></Link>
               :<Link to={'Mybag'}><button className="btn btn-success mx-2  mx-4" type="submit">Bag{"+"+product_count}</button></Link>:""
+            }
+            {
+              Mobile.length==10?<Link to="#" className="fas fa-heart mx-2 my-2" style={{color:"red",textDecoration:"none" ,fontSize:"25px",marginTop:"20px"}}></Link>:""
             }
             {
               Mobile.length==10?<Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:40,width:40  }} alt="Wait"/></button></Link>:""
