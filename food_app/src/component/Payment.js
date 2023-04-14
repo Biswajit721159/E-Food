@@ -244,7 +244,7 @@ export default function Payment() {
                 mobile:Mobile,
                 product_id:input.product_id,
                 price:input.price,
-                number_product:2,
+                number_product:input.number_product,
                 date:input.date
             })
         })

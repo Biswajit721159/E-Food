@@ -93,9 +93,9 @@ def mybagapi(request,pk=0):
         data = mybag.objects.all()
         new_data=[]
         for i in data:
-            if str(i.mobile)==str(mybag_data['mobile']) and str(i.product_id)==str(mybag_data['product_id']):
+            if str(i.mobile)==str(mybag_data['mobile']):
                 new_data=i
-                break
+                break    
         new_data.delete()
         return JsonResponse("Data Was Deleted Successfully", safe=False)	
 

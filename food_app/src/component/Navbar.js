@@ -5,6 +5,7 @@ import swal from "sweetalert";
 import { global } from "../App";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Navbar() {
 
   
@@ -126,14 +127,17 @@ return (
             {Mobile.length!=10?<Link to={'Register'}> <button className="btn btn-info mx-2">Sign Up</button></Link>:""}
             {Mobile.length!=10?<Link to={'Login'}> <button className="btn btn-info mx-2">Login</button></Link>:""}
             {
-              Mobile.length==10?product_count===0?<Link to={'Mybag'}><button className="btn btn-success mx-2 mx-5" type="submit">Bag+0</button></Link>
-              :<Link to={'Mybag'}><button className="btn btn-success mx-2  mx-4" type="submit">Bag{"+"+product_count}</button></Link>:""
+              Mobile.length==10?
+                 product_count===0?
+                    <Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2 mx-5"  style={{ height:33,width:55 }} type="submit">+0</button></Link>
+                   :<Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2  mx-4" style={{ height:33,width:55 }} type="submit">{"+"+product_count}</button></Link>
+              :""
             }
             {
               Mobile.length==10?<Link to="#" className="fas fa-heart mx-2 my-2" style={{color:"red",textDecoration:"none" ,fontSize:"25px",marginTop:"20px"}}></Link>:""
             }
             {
-              Mobile.length==10?<Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:40,width:40  }} alt="Wait"/></button></Link>:""
+              Mobile.length==10?<Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:33,width:33 }} alt="Wait"/></button></Link>:""
             }
             {Mobile.length==10?<button className="btn btn-info mx-2" onClick={logout} >Logout</button>:""}
           </div>

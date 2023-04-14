@@ -123,7 +123,7 @@ export default function Home() {
     <div class="box-container">
 
         <div class="box">
-            <h3>locations</h3>
+            <h3>Locations</h3>
             <li>India</li>
             <li>Japan</li>
             <li>Russia</li>
@@ -132,11 +132,11 @@ export default function Home() {
         </div>
 
         <div class="box">
-            <h3>contact info</h3>
-            <a href="#">+123-456-7890</a>
-            <a href="#">facebook</a>
-            <a href="#">instagram</a>
-            <a href="#">linkedin</a>
+            <h3>Contact Info</h3>
+            <a style={{textDecoration:"none"}}>6295102811</a>
+            <a href="#" style={{textDecoration:"none"}}>Facebook</a>
+            <a href="#" style={{textDecoration:"none"}}>Instagram</a>
+            <a href="#" style={{textDecoration:"none"}}>Linkedin</a>
         </div>
 
     </div>
