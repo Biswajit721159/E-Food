@@ -19,4 +19,5 @@ urlpatterns = [
     path('user/',views.userapi),
     path('mybag/',views.mybagapi),
     path('order/',views.orderapi),
+    path('iswishlist/',views.iswishlistapi),
 ]

@@ -43,6 +43,12 @@ class order_product(models.Model):
     number_product=models.IntegerField()
     date=models.CharField(max_length=100)
 
+
+class iswishlist(models.Model):
+    loveid=models.AutoField(primary_key=True)
+    mobile=models.CharField(max_length=10)
+    product_id=models.CharField(max_length=100)    
+
  
 
 

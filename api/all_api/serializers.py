@@ -26,4 +26,9 @@ class mybagSerializer(serializers.HyperlinkedModelSerializer):
 class orderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=order_product
-        fields =('order_id','mobile','product_id','price','number_product','date')                
+        fields =('order_id','mobile','product_id','price','number_product','date')             
+
+class iswishlistSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model=iswishlist
+        fields =('loveid','mobile','product_id')              

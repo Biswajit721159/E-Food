@@ -11,3 +11,5 @@ admin.site.register(product)
 admin.site.register(mybag)
 
 admin.site.register(order_product)
+
+admin.site.register(iswishlist)

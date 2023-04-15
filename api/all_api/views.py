@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # import viewsets
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer
+from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer
 from .models import *
 from .models import mybag
  
@@ -129,7 +129,42 @@ def productapi(request,pk=0):
         return JsonResponse(product_serializer.data,  safe=False)
     
     
-    if request.method=="GET":
+    elif request.method=="GET":
         all_product=product.objects.all()
         product_serializer = productSerializer(all_product, many=True)
         return JsonResponse(product_serializer.data,  safe=False)
+    
+    
+
+
+@csrf_exempt
+
+def iswishlistapi(request,pk=0):
+    if request.method=="GET":
+        all_data=iswishlist.objects.all()
+        iswistlis_serilizer=iswishlistSerializer(all_data,many=True)
+        return JsonResponse(iswistlis_serilizer.data, safe=False)
+    
+    elif request.method=="POST":
+        get_data=JSONParser().parse(request)
+        iswistlist_serializerr = iswishlistSerializer(data=get_data)
+        if iswistlist_serializerr.is_valid():
+            iswistlist_serializerr.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False)
+    
+
+    elif request.method == 'DELETE':
+        all_data = JSONParser().parse(request)
+        data = iswishlist.objects.all()
+        new_data=[]
+        for i in data:
+            if str(i.mobile)==str(all_data['mobile']) and str(i.product_id)==str(all_data['product_id']):
+                new_data=i
+                break    
+        new_data.delete()
+        return JsonResponse("Deleted Successfully", safe=False)	
+
+
+
+

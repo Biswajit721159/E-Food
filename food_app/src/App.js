@@ -14,6 +14,7 @@ import About from "./component/About";
 import Login from "./component/Login";
 import { createContext, useState } from "react";
 import Home from "./component/Home";
+import Lovelist from "./component/Lovelist";
 
 export const global = createContext();
 
@@ -33,7 +34,6 @@ function App() {
   {
     setupdate(data);
   }
- console.log(location)
   return (
     <div className="App">
       <global.Provider value={{Mobile:mobile,Function:solve_Food,child:updateData,update,location:locationfunction,Location:location}}>
@@ -49,6 +49,7 @@ function App() {
             <Route path="User/Dashboard" element={<Userdetail/>}></Route>
             <Route path="/MyOrder" element={<MyOrder/>}></Route>
             <Route path="/update/detail" element={<Update_user/>}></Route>
+            <Route path="/lovelist" element={<Lovelist/>}></Route>
             {/* <Route path="Technical_Support" element={<TechnicalSupport/>}></Route>
             <Route path="About" element={<About />}></Route> */}
             <Route path="*" element={<Error />}></Route>

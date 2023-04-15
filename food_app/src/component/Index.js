@@ -3,7 +3,7 @@ import axios from "axios";
 import "../App.css";
 import { global } from "../App";
 import swal from "sweetalert";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 export default function Index() {
 
 const {Mobile,Function,child,update,Location} =useContext(global);
@@ -11,6 +11,7 @@ const {Mobile,Function,child,update,Location} =useContext(global);
 const [user, setuser] = useState([]);
 const [product,setproduct]=useState([]);
 const [currmybag,setcurrmybag]=useState([]);
+const [iswishlist,setiswistlist]=useState([]);
 
 const [price_low_high,setprice_low_high]=useState(false);
 const [price_high_low,setprice_high_low]=useState(false);
@@ -69,9 +70,12 @@ function loadbag()
   }
   ).then(response=>response.json()).then((product) =>{
     fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
-      setcurrmybag(mybag);
-      setuser(product)
-      setInTOproduct(product,mybag);
+      fetch('http://127.0.0.1:8000/iswishlist/').then(response=>response.json()).then((love) =>{
+        setcurrmybag(mybag);
+        setuser(product)
+        setiswistlist(love)
+        setInTOproduct(product,mybag,love);
+      })
     })
   })
 }
@@ -182,7 +186,7 @@ function sort_decanding()
 
 function change(s)
 {
-  if(typeof(s)===Number)
+  if(typeof(s)==="number")
   {
     return s;
   }
@@ -210,7 +214,7 @@ function sort_assending()
       for(let j=i+1;j<arr.length;j++)
       {
         let a=change(arr[i].price)
-        let b= change(arr[j].price);
+        let b= change(arr[j].price)
         if(a > b)
         {
           let temp=arr[i];
@@ -316,10 +320,14 @@ function solve2(s)
   return res;
 }
 
-
-function setInTOproduct(nums,currmybag)
+function setInTOproduct(nums,currmybag,love)
 {
-  if(nums==undefined || currmybag==undefined) return
+  if(Mobile.length!=10)
+  {
+    alert("login!!!")
+    history('/Login');
+  }
+  if(nums==undefined || currmybag==undefined|| love==undefined) return
   let ans=[];
   for(let i=0;i<nums.length;i++)
   {
@@ -332,7 +340,8 @@ function setInTOproduct(nums,currmybag)
       vage:"",
       offer:0,
       current_status:"",
-      product_count:0
+      product_count:0,
+      islove:false, 
     }
     obj.id=nums[i].id;
     obj.product_name=nums[i].product_name
@@ -342,14 +351,18 @@ function setInTOproduct(nums,currmybag)
     obj.vage=nums[i].vage;
     obj.offer=nums[i].offer;
     obj.current_status=nums[i].current_status;
-    if(Mobile.length==10)
+    for(let j=0;j<currmybag.length;j++)
     {
-      for(let j=0;j<currmybag.length;j++)
+      if(Mobile==currmybag[j].mobile && nums[i].id==currmybag[j].product_id)
       {
-        if(Mobile==currmybag[j].mobile && nums[i].id==currmybag[j].product_id)
-        {
-          obj.product_count=currmybag[j].number_product;
-        }
+        obj.product_count=currmybag[j].number_product;
+      }
+    }
+    for(let k=0;k<love.length;k++)
+    {
+      if(love[k].mobile==Mobile && love[k].product_id==nums[i].id)
+      {
+        obj.islove=true
       }
     }
     ans.push(obj);
@@ -670,9 +683,68 @@ function ADD_TO_DECREMENT(id)
    }
 }
 
+function check_alreadylove_list(id)
+{
+  if(iswishlist==undefined) return false;
+  else
+  {
+    for(let i=0;i<iswishlist.length;i++)
+    {
+      if(iswishlist[i].product_id==id)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+}
 function love(id)
 {
-
+  if(check_alreadylove_list(id)==true)
+  {
+    fetch('http://127.0.0.1:8000/iswishlist/',
+    {
+      method:'DELETE',
+      headers:{
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        mobile:Mobile,
+        product_id:id
+      })
+    }).then(response=>response.json())
+    .then((result)=>{
+      alert(result)
+      loadbag()
+    },
+    (error)=>{
+      alert("Failed")
+    })
+  }
+  else
+  {
+      fetch('http://127.0.0.1:8000/iswishlist/', 
+      {
+          method:'POST',
+          headers:{
+              'Accept':'application/json',
+              'Content-Type':'application/json'
+          },
+          body:JSON.stringify({
+            mobile:Mobile,
+            product_id:id,
+          })
+      })
+      .then(response=>response.json())
+      .then((result)=>{
+          alert(result);
+          loadbag()
+      },
+      (error)=>{
+          alert("Failed");
+      })
+  }
 }
 
   return (
@@ -739,10 +811,14 @@ function love(id)
           ? product.map((item, ind) => (
             
             <div className="card-shadow mt-4 mx-4 my-4" style={{ width: 200 }} key={ind}>
+            
             {
               item.current_status=='Available'? 
-              <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"light",borderRadius:"18px"}}></button>: 
-              <button  className="fas fa-heart" style={{backgroundColor:"light",border:"4px"}} disabled></button>
+                 item.islove==true?
+                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"red",borderRadius:"10px solid white"}}></button>:
+                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{borderRadius:"18px"}}></button>
+              : 
+              <button  className="fas fa-heart" style={{backgroundColor:"light",border:"4px",fontSize:"20px"}} disabled></button>
             }
             <img
               src={item.product_url}
