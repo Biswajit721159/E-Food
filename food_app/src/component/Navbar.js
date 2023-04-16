@@ -12,39 +12,29 @@ export default function Navbar() {
 //data from useContext
 const {Mobile,Function,child,update,location} =useContext(global);
 
-//console.log(update);
 
 //product
-const [userdata,setuserdata]=useState([]);//for user
-const [product_count, setproduct_count] = useState(0);// only that user product
+const [product_count, setproduct_count] = useState(0);
 const history=useNavigate();
-// const [login,setlogin]=useState(false);
 
-
-const [name,setname]=useState("");
 
 useEffect(() => {
   loadproduct();   
   set_product();   
-  workonproductcount();
 },[Mobile]);
 
 useEffect(()=>{
   loadproduct();    
   set_product();   
-  workonproductcount();
 },[update]);
 
 
-//product
-const loadproduct = async () => {
+function loadproduct(){
     fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
-      // setcurrmybag(mybag);
       set_product(mybag)
     })
 };
 
-// user 
 
 function stringToNumber(data)
 {
@@ -57,20 +47,6 @@ function stringToNumber(data)
   return ans;
 }
 
-function workonproductcount(){
-//   if(Mobile.length!=10)
-//   {
-//     setproduct_count(0);
-//   }
-//   if(update=="incre_first" || update=="incre_second")
-//   {
-//     setproduct_count(product_count+1);
-//   }
-//   else if(update=="decre_first" || update=="decre_second")
-//   {
-//     setproduct_count(product_count-1);
-//   }
-}
 
 function set_product(allproduct)
 {
@@ -117,13 +93,13 @@ return (
             </ul>
          </div>
           <div className="d-flex-col-lg-7"> 
-            {Mobile.length!=10?<Link to={'Register'}> <button className="btn btn-info mx-2">Sign Up</button></Link>:""}
-            {Mobile.length!=10?<Link to={'Login'}> <button className="btn btn-info mx-2">Login</button></Link>:""}
+            {Mobile.length!=10?<Link to={'Register'}><button className="btn btn-info mx-2">Register</button></Link>:" "}
+            {Mobile.length!=10?<Link to={'Login'}><button className="btn btn-info mx-2">Login</button></Link>:" "}
             {
               Mobile.length==10?
                  product_count===0?
-                    <Link to={'Mybag'}><i><button className="fas fa-shopping-cart mx-2 mx-5"  style={{ height:33,width:55,backgroundColor:"light" }} type="submit">+0</button></i></Link>
-                   :<Link to={'Mybag'}><i><button className="fas fa-shopping-cart mx-2  mx-4" style={{ height:33,width:55,backgroundColor:"white" }} type="submit">{"+"+product_count}</button> </i></Link>
+                    <Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2 mx-5"  style={{ height:33,width:60,backgroundColor:"light" }} type="submit">+0</button></Link>
+                   :<Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2  mx-4" style={{ height:33,width:60,backgroundColor:"white" }} type="submit">{"+"+product_count}</button></Link>
               :""
             }
             {

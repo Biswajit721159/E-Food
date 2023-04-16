@@ -3,6 +3,13 @@
   margin-top: 250px;
 }
 
+.red-color {
+    color:red;
+    font-size: 20px;
+}
+#containermain{
+    margin-left: 100px;
+}
 .about .row{
   display: flex;
   flex-wrap: wrap;

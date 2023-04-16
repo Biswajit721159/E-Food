@@ -814,10 +814,10 @@ function love(id)
             {
               item.current_status=='Available'? 
                  item.islove==true?
-                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"red",borderRadius:"10px solid white"}}></button>:
+                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"#F7173B",borderRadius:"18px"}}></button>:
                  <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{borderRadius:"18px"}}></button>
               : 
-              <button  className="fas fa-heart" style={{backgroundColor:"light",border:"4px",fontSize:"20px"}} disabled></button>
+              <button  className="fas fa-heart" style={{backgroundColor:"light", borderRadius:"18px"}} disabled></button>
             }
             <img
               src={item.product_url}

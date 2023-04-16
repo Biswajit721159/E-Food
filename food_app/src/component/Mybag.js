@@ -19,9 +19,11 @@ export default function Mybag() {
   useEffect(()=>{
     loadbag();
   },[]);
+
   useEffect(() => {
     loadbag();
   }, [Mobile]);
+  
   useEffect(()=>{
     loadbag();
   },[index]);
