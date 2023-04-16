@@ -38,13 +38,6 @@ useEffect(()=>{
 
 //product
 const loadproduct = async () => {
-  // await axios.get("http://localhost/main/New%20folder/my_bag.php").then((result)=>{
-  //   axios.get("http://localhost/main/New%20folder/user.php").then((res)=>{
-  //       set_product(result.data.result);
-  //       setuserdata(res.data.result); 
-  //   })
-  // })
-  
     fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
       // setcurrmybag(mybag);
       set_product(mybag)
@@ -139,7 +132,7 @@ return (
             {
               Mobile.length==10?<Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:33,width:33 }} alt="Wait"/></button></Link>:""
             }
-            {Mobile.length==10?<button className="btn btn-info mx-2" onClick={logout} >Logout</button>:""}
+            {Mobile.length==10?<button className="btn btn-info btn-sm mx-2" onClick={logout} >Logout</button>:""}
           </div>
         </div>
       </nav>

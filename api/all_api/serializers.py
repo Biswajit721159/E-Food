@@ -31,4 +31,10 @@ class orderSerializer(serializers.HyperlinkedModelSerializer):
 class iswishlistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=iswishlist
-        fields =('loveid','mobile','product_id')              
+        fields =('loveid','mobile','product_id')  
+
+
+class ReviewsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model=Reviews
+        fields =('Reviews_id','mobile','product_id','rating','review','time_created')   

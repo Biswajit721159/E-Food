@@ -322,11 +322,10 @@ function solve2(s)
 
 function setInTOproduct(nums,currmybag,love)
 {
-  if(Mobile.length!=10)
-  {
-    alert("login!!!")
-    history('/Login');
-  }
+  // if(Mobile.length!=10)
+  // {
+  //   history('/Login');
+  // }
   if(nums==undefined || currmybag==undefined|| love==undefined) return
   let ans=[];
   for(let i=0;i<nums.length;i++)

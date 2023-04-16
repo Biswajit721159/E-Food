@@ -8,9 +8,9 @@ export default function MyOrder() {
 
  const {Mobile,Function}=useContext(global); 
 
-
  const [product,setproduct]=useState([]);
  const [myproduct,setmyproduct]=useState([]);
+ const [reviews,setreviews]=useState([]);
 
 
  useEffect(() => {
@@ -18,58 +18,53 @@ export default function MyOrder() {
 }, [Mobile]);
 
  const loadproduct = async () => {
-    // await axios.get("http://localhost/main/New%20folder/order_product.php").then((res)=>{
-    //   axios.get("http://localhost/main/New%20folder/main.php").then((result)=>{
-    //     set_beg(res.data.result,result.data.result);
-    //     setproduct(result.data.result);
-    //   })
-    // })
-
-  fetch('http://127.0.0.1:8000/order/').then(response=>response.json()).then((res) =>{
-    fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((result) =>{
-      // setcurrmybag(mybag);
-      // setInTOproduct(product,mybag);
-      set_beg(res,result);
-      setproduct(result);
+    fetch('http://127.0.0.1:8000/order/').then(response=>response.json()).then((res) =>{
+      fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((result) =>{
+        fetch('http://127.0.0.1:8000/Reviews/').then(response=>response.json()).then((reviews) =>{
+          set_beg(res,result,reviews);
+          setproduct(result);
+          setreviews(reviews);
+        })
+      })
     })
-  })
-
 };
 
-function set_beg(nums,product){
-  if(nums==undefined) return ;
+function set_beg(order,product,reviews){
+  if(order==undefined || product==undefined || reviews==undefined ) return ;
   let arr=[];
-  for(let i=0;i<nums.length;i++)
+  for(let i=0;i<order.length;i++)
   {
     for(let j=0;j<product.length;j++)
     {
-      if(nums[i].mobile==Mobile && nums[i].product_id==product[j].id)
+      if(order[i].mobile==Mobile && order[i].product_id==product[j].id)
       {
         let obj={
           id:product[j].id,
           product_name:product[j].product_name,
           product_url:product[j].product_url,
-          price:nums[i].price,
-          product_count:nums[i].number_product,
-          date:nums[i].date
+          price:order[i].price,
+          product_count:order[i].number_product,
+          date:order[i].date,
+          isreviews:false
+        }
+        for(let k=0;k<reviews.length;k++)
+        {
+          if(reviews[k].mobile==Mobile && reviews[k].product_id==order[i].product_id)
+          {
+            obj.isreviews=true;
+          }
         }
         arr.push(obj);
       }
     }
   }
+  
   const reversed = [...arr].reverse();
   setmyproduct([...reversed]);
+  console.log(reversed)
 }
 
-function My_Feedback()
-{
-  swal("Write Typing Your Rating Out of 5", {
-    content: "input",
-  })
-  .then((value) => {
-    console.log(value);
-  })
-}
+
 
 
   return (
@@ -86,7 +81,7 @@ function My_Feedback()
                     <th scope="col">Price</th>
                     <th scope="col">Date</th>
                     <th scope='col'>No. Product</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Feedback</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -106,7 +101,13 @@ function My_Feedback()
                     <td><h5>₹{item.price}</h5></td>
                     <td><h5>{item.date}</h5></td>
                     <td><h5>{item.product_count}</h5></td>
-                    <td><button className='btn btn-primary' onClick={My_Feedback} >My Feedback</button></td>
+                    {
+                      item.isreviews==false?  
+                      <td>
+                        <Link to={`/Reviews/${item.id}`}><button className='btn btn-primary mx-0' >Give Feedback</button></Link>
+                      </td>
+                      :<button className='btn btn-danger mt-2 mx-3' disabled> Already  Given</button>
+                     }
                   </tr>
                 </tbody>
               </table>

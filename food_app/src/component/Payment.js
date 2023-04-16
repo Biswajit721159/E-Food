@@ -84,12 +84,6 @@ export default function Payment() {
   }
 
   function loadproduct() {
-    // await axios.get("http://localhost/main/New%20folder/my_bag.php").then((res)=>{
-    //   axios.get("http://localhost/main/New%20folder/main.php").then((result)=>{
-    //     set_beg(res.data.result,result.data.result);
-    //     //setproduct(result.data.result);
-    //   })
-    // })
     fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
       fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
           set_beg(mybag,product);
@@ -114,7 +108,6 @@ export default function Payment() {
 
   function check_card(name)
   {
-    return true
     if(name.length!==12)
     {
       return false;
@@ -137,7 +130,6 @@ export default function Payment() {
 
   function check_cvv(name)
   {
-    return true
     if(name.length!==4)
     {
       return false;
@@ -160,7 +152,6 @@ export default function Payment() {
 
   function check_expiry(name)
   {
-    return true
     if(name.length!==5)
     {
       return false;
@@ -189,7 +180,6 @@ export default function Payment() {
 
   function check_name(name)
   {
-    return true
     if(name.length<7)
     {
       return false;
@@ -224,14 +214,6 @@ export default function Payment() {
   }
 
   const put_data = async(input) => {
-      // await axios.post("http://127.0.0.1:8000/order/",input);
-      // console.log(typeof(input.mobile))
-      // console.log(typeof(input.product_id))
-      // console.log(typeof(input.price))
-      // console.log(typeof(input.number_product))
-      // console.log(typeof(input.date))
-      // console.log(typeof(input.order_id))
-
         fetch('http://127.0.0.1:8000/order/', 
         {
             method:'POST',

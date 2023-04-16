@@ -20,4 +20,5 @@ urlpatterns = [
     path('mybag/',views.mybagapi),
     path('order/',views.orderapi),
     path('iswishlist/',views.iswishlistapi),
+    path('Reviews/',views.Reviewsapi),
 ]

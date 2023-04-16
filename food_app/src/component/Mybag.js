@@ -89,18 +89,6 @@ export default function Mybag() {
     return ans;
   }
 
-  function updateProductCount(id,data)
-  {
-    // for(let i=0;i<product.length;i++)
-    // {
-    //   if(product[i].id==id)
-    //   {
-    //     product[i].product_count=data;
-    //     break;
-    //   }
-    // }
-    // setproduct([...product]);
-  }
 
   function ADD_TO_INCREMENT(id)
   { 
