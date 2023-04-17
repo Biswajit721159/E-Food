@@ -262,11 +262,10 @@ export default function Payment() {
               order[i].date=date;
               if(order[i].number_product!=0)
               {
-                //console.log(order[i]);
                 put_data(order[i]);
               }
         }
-        // history(`/User/Dashboard`);
+        history(`/MyOrder`);
     }
     else if(a===false)
     {

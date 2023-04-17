@@ -322,10 +322,6 @@ function solve2(s)
 
 function setInTOproduct(nums,currmybag,love)
 {
-  // if(Mobile.length!=10)
-  // {
-  //   history('/Login');
-  // }
   if(nums==undefined || currmybag==undefined|| love==undefined) return
   let ans=[];
   for(let i=0;i<nums.length;i++)
@@ -534,9 +530,6 @@ function ADD_TO_INCREMENT(id)
         }
         else
         {
-
-
-          
             if(window.confirm('Are you sure to replace this product ?'))
             {
                   fetch('http://127.0.0.1:8000/mybag/', {
@@ -649,25 +642,6 @@ function ADD_TO_DECREMENT(id)
                 (error)=>{
                     alert("Failed");
                 })
-              // updateProductCount(id,mybag.number_product);
-
-              // axios.put("http://localhost/main/New%20folder/my_bag.php", mybag).then(()=>{
-              //   axios.get("http://localhost/main/New%20folder/my_bag.php").then((res)=>{
-              //       setcurrmybag(res.data.result);
-              //       updateProductCount(id,mybag.number_product);
-              //       setInTOproduct(product,res.data.result);
-              //       if(index!="decre_first")
-              //       {
-              //         setindex("decre_first");
-              //         child("decre_first");
-              //       }
-              //       else if(index!="decre_second")
-              //       {
-              //         setindex("decre_second");
-              //         child("decre_second");
-              //       }
-              //   })
-              // })
             }
             else
             {
@@ -697,6 +671,7 @@ function check_alreadylove_list(id)
     return false;
   }
 }
+
 function love(id)
 {
   if(check_alreadylove_list(id)==true)
@@ -809,22 +784,23 @@ function love(id)
         {product !== undefined && product.length!==0
           ? product.map((item, ind) => (
             
-            <div className="card-shadow mt-4 mx-4 my-4" style={{ width: 200 }} key={ind}>
-            
+            <div className="card-shadow mt-4 mx-4" style={{ width: 200 }} key={ind}>
             {
               item.current_status=='Available'? 
-                 item.islove==true?
-                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"#F7173B",borderRadius:"18px"}}></button>:
-                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{borderRadius:"18px"}}></button>
+                item.islove==true?
+                <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"#F7173B",borderRadius:"18px"}}></button>:
+                <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{borderRadius:"18px"}}></button>
               : 
               <button  className="fas fa-heart" style={{backgroundColor:"light", borderRadius:"18px"}} disabled></button>
             }
-            <img
-              src={item.product_url}
-              className="card-img-top"
-              style={{ width: 200, height: 150,marginLeft:0,marginTop:10 }}
-              alt="Please Wait"
-            />
+            <Link to={`/product/${item.id}`}>
+              <img
+                src={item.product_url}
+                className="card-img-top"
+                style={{ width: 200, height: 150,marginLeft:0,marginTop:10 }}
+                alt="Please Wait"
+              />
+            </Link>
             <div className="card-body">
               <h6 className="card-title">{item.product_name}</h6>
               <div className="row">

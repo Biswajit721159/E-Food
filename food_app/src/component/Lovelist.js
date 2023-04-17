@@ -10,9 +10,6 @@ export default function Lovelist() {
   useEffect(()=>{
     loadwistlist();
   },[Mobile])
-  // useEffect(()=>{
-  //   loadwistlist();
-  // },[])
 
   function loadwistlist()
   {

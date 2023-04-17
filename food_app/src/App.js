@@ -16,6 +16,7 @@ import { createContext, useState } from "react";
 import Home from "./component/Home";
 import Lovelist from "./component/Lovelist";
 import Reviews from "./component/Reviews";
+import Product_view from "./component/Product_view";
 
 export const global = createContext();
 
@@ -52,8 +53,9 @@ function App() {
             <Route path="/update/detail" element={<Update_user/>}></Route>
             <Route path="/lovelist" element={<Lovelist/>}></Route>
             <Route path="/Reviews/:id" element={<Reviews/>}></Route>
-            {/* <Route path="Technical_Support" element={<TechnicalSupport/>}></Route>
-            <Route path="About" element={<About />}></Route> */}
+            <Route path="/product/:id" element={<Product_view />} ></Route>
+            <Route path="Technical_Support" element={<TechnicalSupport/>}></Route>
+            <Route path="About" element={<About />}></Route>
             <Route path="*" element={<Error />}></Route>
           </Routes>
         </Router>
