@@ -363,12 +363,14 @@ export default function Mybag() {
         {product !== undefined
           ? product.map((item, ind) => (
               <div className="card-shadow mt-3 mx-4" style={{ width: 230 }} key={ind}>
-                <img
-                  src={item.product_url}
-                  className="card-img-top"
-                  style={{ width: 210, height: 150 }}
-                  alt="Please Wait"
-                />
+                <Link to={`/product_id/${item.id}`}>
+                    <img
+                      src={item.product_url}
+                      className="card-img-top"
+                      style={{ width: 210, height: 150 }}
+                      alt="Please Wait"
+                    />
+                </Link>
                 <div className="card-body">
                   <h6 className="card-title">{item.product_name}</h6>
                   <div className="row">

@@ -19,10 +19,14 @@ export default function Payment() {
   const[namecard,setnamecard]=useState("");
   const [expiry,setexpity]=useState("");
   const [cvv,setcvv]=useState("");
+  const [save_card,setsave_card]=useState(false)
+
 
   useEffect(() => {
     loadproduct();
   }, [Mobile]);
+
+
 
   function findcost(currentbag,product) 
   {
@@ -83,13 +87,35 @@ export default function Payment() {
     }
   }
 
+  function find_card_info(nums)
+  {
+    if(Mobile.length!=10) return;
+    else
+    {
+      for(let i=0;i<nums.length;i++)
+      {
+        if(nums[i].mobile==Mobile)
+        {
+          setcard(nums[i].card_number)
+          setnamecard(nums[i].name)
+          setexpity(nums[i].expiry)
+          setcvv(nums[i].cvv)
+          setsave_card(true)
+        }
+      }
+    }
+  }
+
   function loadproduct() {
     fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
       fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
+        fetch('http://127.0.0.1:8000/card_info/').then(response=>response.json()).then((card_info)=>{
           set_beg(mybag,product);
+          find_card_info(card_info);
+        })
       })
     })
-  };
+  }
 
   function change(s)
   {
@@ -222,7 +248,6 @@ export default function Payment() {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                // order_id:null,
                 mobile:Mobile,
                 product_id:input.product_id,
                 price:input.price,
@@ -232,11 +257,38 @@ export default function Payment() {
         })
         .then(response=>response.json())
         .then((result)=>{
-          alert(result)
-          // swal(`SuccessFully added`);
+            alert(result)
+            if(save_card==false)
+            {
+              if(window.confirm('Are you save the card detail ?'))
+              {
+                fetch('http://127.0.0.1:8000/card_info/',
+                {
+                  method:"POST",
+                  headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
+                  },
+                  body:JSON.stringify({
+                        mobile:Mobile,
+                        card_number:card,
+                        name:namecard,
+                        expiry:expiry,
+                        cvv:cvv
+                  })
+                }).then(response=>response.json()).then((res)=>{
+                  alert(res)
+                },(error)=>{
+                  alert(error)
+                })
+              }
+            }
+            else
+            {
+    
+            }
         },
         (error)=>{
-          // swal(`We are find some Error`);
           alert(error)
         })
   }

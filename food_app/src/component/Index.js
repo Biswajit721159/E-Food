@@ -792,7 +792,7 @@ function love(id)
               : 
               <button  className="fas fa-heart" style={{backgroundColor:"light", borderRadius:"18px"}} disabled></button>
             }
-            <Link to={`/product/${item.id}`}>
+            <Link to={`/product_id/${item.id}`}>
               <img
                 src={item.product_url}
                 className="card-img-top"
@@ -833,7 +833,7 @@ function love(id)
                   <i className="fas fa-star"></i>
                 </div>
               ) : (
-                <div className="stars" style={{ color: "green" }}>
+                <div className="stars" style={{ color: " green" }}>
                   <i className="fas fa-star"></i>
                   <i className="fas fa-star"></i>
                   <i className="fas fa-star"></i>

@@ -50,6 +50,7 @@ class iswishlist(models.Model):
 
 class Reviews(models.Model):
     Reviews_id=models.AutoField(primary_key=True)
+    order_id=models.CharField(max_length=100,default=0)
     mobile = models.CharField(max_length=10)
     product_id = models.CharField(max_length=100)
     rating = models.CharField(max_length=10)
@@ -58,6 +59,16 @@ class Reviews(models.Model):
 
     def __str__ (self):
         return self.mobile
+
+class card_info(models.Model):
+    mobile=models.CharField(primary_key=True,max_length=12)
+    card_number=models.CharField(max_length=12)
+    name=models.CharField(max_length=50)
+    expiry=models.CharField(max_length=5)
+    cvv=models.CharField(max_length=4)  
+
+    def __str__(self):
+        return self.mobile       
  
 
 

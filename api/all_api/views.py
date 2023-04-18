@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # import viewsets
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer
+from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer
 from .models import *
 from .models import mybag
  
@@ -181,3 +181,22 @@ def Reviewsapi(request,pk=0):
                 Reviews_serializerr.save()
                 return JsonResponse("Added Successfully", safe=False)
             return JsonResponse("Failed To Add", safe=False)
+        
+
+@csrf_exempt
+
+def card_info_api(request,pk=0):
+         
+         if request.method=="GET":
+            all_data=card_info.objects.all()
+            card_info_serilizer=card_infoSerializer(all_data,many=True)
+            return JsonResponse(card_info_serilizer.data, safe=False)  
+         
+         elif request.method=="POST":
+            get_data=JSONParser().parse(request)
+            card_info_serializerr = card_infoSerializer(data=get_data)
+            if card_info_serializerr.is_valid():
+                card_info_serializerr.save()
+                return JsonResponse("Your Card is Successfully Added", safe=False)
+            return JsonResponse("Failed To Add", safe=False)
+

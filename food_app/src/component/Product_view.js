@@ -23,6 +23,7 @@ export default function Product_view() {
   let [number_2_star,setnumber_2_star]=useState(0);
   let [number_1_star,setnumber_1star]=useState(0);
   let [total,settotal]=useState(0);
+  let [overall_rating,setoverall_rating]=useState(0)
 
 
   useEffect(()=>{
@@ -95,23 +96,12 @@ export default function Product_view() {
             }
         }
 
-        // console.log("1 star"+a)
-        // console.log("2 star"+b)
-        // console.log("3 star"+c)
-        // console.log("4 star"+d)
-        // console.log("5 star"+e)
-
         setnumber_1star(a);
         setnumber_2_star(b);
         setnumber_3_star(c);
         setnumber_4_star(d);
         setnumber_5_star(e);
 
-        // console.log("1 star"+number_1_star)
-        // console.log("2 star"+number_2_star)
-        // console.log("3 star"+number_3_star)
-        // console.log("4 star"+number_4_star)
-        // console.log("5 star"+number_5_star)
         let x=a+b+c+d+e;
         settotal(a+b+c+d+e);
         if (x!=0) setpersentage_1_star(((a/x)*100))
@@ -119,13 +109,17 @@ export default function Product_view() {
         if (x!=0) setpersentage_3_star(((c/x)*100))
         if (x!=0) setpersentage_4_star(((d/x)*100))
         if (x!=0) setpersentage_5_star(((e/x)*100))
-        
-        // console.log(persentage_1_star)
-        // console.log(persentage_2_star)
-        // console.log(persentage_3_star)
-        // console.log(persentage_4_star)
-        // console.log(persentage_5_star)
+        let y=0
+        if(a!=0 || b!=0 || c!=0 || d!=0 || e!=0)
+        {
+            y=((a*1+b*2+c*3+d*4+e*5)/(x)).toFixed(1);
+        }
+       
+        console.log(y)
 
+        if(y=="NAN") y=0;
+        setoverall_rating(y)
+        
         setreview([...nums])
     }
   }
@@ -231,7 +225,7 @@ export default function Product_view() {
                 </div>
                 <div className='row'>
                     <div className='col'>
-                            <p>{product[0].rating} star average based on {total} reviews.</p>
+                            <p>{overall_rating} star average based on {total} reviews.</p>
                             <div class="row">
                                 <div class="side">
                                     <div>5 star</div>

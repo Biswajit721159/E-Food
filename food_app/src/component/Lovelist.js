@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import { global } from "../App";
 import "../App.css";
+import { Link } from 'react-router-dom';
 
 export default function Lovelist() {
 
@@ -132,13 +133,15 @@ export default function Lovelist() {
       {wistlist !== undefined && wistlist.length!==0
         ? wistlist.map((item, ind) => (
           <div className="card-shadow mt-4 mx-5 my-4" style={{ width: 200 }} key={ind}>
-          <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"red",borderRadius:"10px solid white"}}></button>
-          <img
-            src={item.product_url}
-            className="card-img-top"
-            style={{ width: 200, height: 150,marginLeft:0,marginTop:10 }}
-            alt="Please Wait"
-          />
+          <button  className="fas fa-heart"  onClick={()=>love(item.id)}  style={{backgroundColor:"#F7173B",borderRadius:"18px"}}></button>
+          <Link to={`/product_id/${item.id}`}>
+            <img
+              src={item.product_url}
+              className="card-img-top"
+              style={{ width: 200, height: 150,marginLeft:0,marginTop:10 }}
+              alt="Please Wait"
+            />
+          </Link>
           <div className="card-body">
             <h6 className="card-title">{item.product_name}</h6>
             <div className="row">

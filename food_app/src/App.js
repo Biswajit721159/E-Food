@@ -52,8 +52,8 @@ function App() {
             <Route path="/MyOrder" element={<MyOrder/>}></Route>
             <Route path="/update/detail" element={<Update_user/>}></Route>
             <Route path="/lovelist" element={<Lovelist/>}></Route>
-            <Route path="/Reviews/:id" element={<Reviews/>}></Route>
-            <Route path="/product/:id" element={<Product_view />} ></Route>
+            <Route path="/Reviews/order_id/:order_id/product_id/:product_id" element={<Reviews/>}></Route>
+            <Route path="/product_id/:id" element={<Product_view />} ></Route>
             <Route path="Technical_Support" element={<TechnicalSupport/>}></Route>
             <Route path="About" element={<About />}></Route>
             <Route path="*" element={<Error />}></Route>

@@ -18,11 +18,11 @@ export default function MyOrder() {
 }, [Mobile]);
 
  const loadproduct = async () => {
-    fetch('http://127.0.0.1:8000/order/').then(response=>response.json()).then((res) =>{
-      fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((result) =>{
+    fetch('http://127.0.0.1:8000/order/').then(response=>response.json()).then((order) =>{
+      fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
         fetch('http://127.0.0.1:8000/Reviews/').then(response=>response.json()).then((reviews) =>{
-          set_beg(res,result,reviews);
-          setproduct(result);
+          set_beg(order,product,reviews);
+          setproduct(product);
           setreviews(reviews);
         })
       })
@@ -31,6 +31,7 @@ export default function MyOrder() {
 
 function set_beg(order,product,reviews){
   if(order==undefined || product==undefined || reviews==undefined ) return ;
+
   let arr=[];
   for(let i=0;i<order.length;i++)
   {
@@ -40,21 +41,33 @@ function set_beg(order,product,reviews){
       {
         let obj={
           id:product[j].id,
+          order_id:order[i].order_id,
           product_name:product[j].product_name,
-          product_url:product[j].product_url,
+          product_url:product[j].product_url, 
           price:order[i].price,
           product_count:order[i].number_product,
           date:order[i].date,
           isreviews:false
         }
-        for(let k=0;k<reviews.length;k++)
-        {
-          if(reviews[k].mobile==Mobile && reviews[k].product_id==order[i].product_id)
-          {
-            obj.isreviews=true;
-          }
-        }
+        // for(let k=0;k<reviews.length;k++)
+        // {
+        //   if(reviews[k].mobile==Mobile && reviews[k].product_id==order[i].product_id)
+        //   {
+        //     obj.isreviews=true;
+        //   }
+        // }
         arr.push(obj);
+      }
+    }
+  }
+
+  for(let i=0;i<arr.length;i++)
+  {
+    for(let j=0;j<reviews.length;j++)
+    {
+      if(reviews[j].mobile==Mobile && reviews[j].order_id==arr[i].order_id)
+      {
+        arr[i].isreviews=true
       }
     }
   }
@@ -104,7 +117,7 @@ function set_beg(order,product,reviews){
                     {
                       item.isreviews==false?  
                       <td>
-                        <Link to={`/Reviews/${item.id}`}><button className='btn btn-primary mx-0' >Give Feedback</button></Link>
+                        <Link to={`/Reviews/order_id/${item.order_id}/product_id/${item.id}`}><button className='btn btn-primary mx-0' >Give Feedback</button></Link>
                       </td>
                       :<button className='btn btn-danger mt-2 mx-3' disabled> Already  Given</button>
                      }

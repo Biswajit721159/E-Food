@@ -10,7 +10,8 @@ export default function Reviews() {
   const [reviews,setreviews]=useState("");
   const[rating,setrating]=useState("Over All Rating Out of 5");
 
-  let { id } = useParams();
+  let { order_id,product_id } = useParams();
+  
 
   function submit()
   {
@@ -25,7 +26,8 @@ export default function Reviews() {
         },
         body:JSON.stringify({
           mobile:Mobile,
-          product_id:id,
+          product_id:product_id,
+          order_id:order_id,
           rating:rating,
           review:reviews,
           time_created:date,

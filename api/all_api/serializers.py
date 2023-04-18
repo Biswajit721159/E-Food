@@ -37,4 +37,10 @@ class iswishlistSerializer(serializers.HyperlinkedModelSerializer):
 class ReviewsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=Reviews
-        fields =('Reviews_id','mobile','product_id','rating','review','time_created')   
+        fields =('Reviews_id','order_id','mobile','product_id','rating','review','time_created')   
+
+
+class card_infoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model=card_info
+        fields =('mobile','card_number','name','expiry','cvv')          
