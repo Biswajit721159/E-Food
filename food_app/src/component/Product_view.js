@@ -10,7 +10,21 @@ export default function Product_view() {
   const [product,setproduct]=useState([])
   const [review,setreview]=useState([])
   const {id}=useParams()
+
+  let [persentage_5_star,setpersentage_5_star]=useState(0);
+  let [persentage_4_star,setpersentage_4_star]=useState(0);
+  let [persentage_3_star,setpersentage_3_star]=useState(0);
+  let [persentage_2_star,setpersentage_2_star]=useState(0);
+  let [persentage_1_star,setpersentage_1_star]=useState(0);
   
+  let [number_5_star,setnumber_5_star]=useState(0);
+  let [number_4_star,setnumber_4_star]=useState(0);
+  let [number_3_star,setnumber_3_star]=useState(0);
+  let [number_2_star,setnumber_2_star]=useState(0);
+  let [number_1_star,setnumber_1star]=useState(0);
+  let [total,settotal]=useState(0);
+
+
   useEffect(()=>{
     loadproduct();
   },[]);
@@ -56,6 +70,62 @@ export default function Product_view() {
                 nums.push(obj);
             }
         }
+        let a=0,b=0,c=0,d=0,e=0;
+        for(let i=0;i<nums.length;i++)
+        {
+            if(nums[i].rating=="1")
+            {
+                a++;
+            }
+            else if(nums[i].rating=="2")
+            {
+                b++;
+            }
+            else if(nums[i].rating=="3")
+            {
+                c++;
+            }
+            else if(nums[i].rating=="4")
+            {
+                d++;
+            }
+            else
+            {
+                e++;
+            }
+        }
+
+        // console.log("1 star"+a)
+        // console.log("2 star"+b)
+        // console.log("3 star"+c)
+        // console.log("4 star"+d)
+        // console.log("5 star"+e)
+
+        setnumber_1star(a);
+        setnumber_2_star(b);
+        setnumber_3_star(c);
+        setnumber_4_star(d);
+        setnumber_5_star(e);
+
+        // console.log("1 star"+number_1_star)
+        // console.log("2 star"+number_2_star)
+        // console.log("3 star"+number_3_star)
+        // console.log("4 star"+number_4_star)
+        // console.log("5 star"+number_5_star)
+        let x=a+b+c+d+e;
+        settotal(a+b+c+d+e);
+        if (x!=0) setpersentage_1_star(((a/x)*100))
+        if (x!=0) setpersentage_2_star(((b/x)*100))
+        if (x!=0) setpersentage_3_star(((c/x)*100))
+        if (x!=0) setpersentage_4_star(((d/x)*100))
+        if (x!=0) setpersentage_5_star(((e/x)*100))
+        
+        // console.log(persentage_1_star)
+        // console.log(persentage_2_star)
+        // console.log(persentage_3_star)
+        // console.log(persentage_4_star)
+        // console.log(persentage_5_star)
+
         setreview([...nums])
     }
   }
@@ -141,19 +211,86 @@ export default function Product_view() {
                 {
                     review!=undefined && review.length!=0?
                         review.map((data,ind)=>(
-                            <li>
-                                <span>Message : {data.review}</span>
+                            <ui>
                                 <li>
-                                    <span style={{color:"green"}}>
-                                        Over All Rating : {data.rating} star 
-                                    </span>
+                                    <span>Message : {data.review}</span>
+                                    <li>
+                                        <span style={{color:"green"}}>
+                                            Over All Rating : {data.rating} star 
+                                        </span>
+                                    </li>
+                                    <br></br>
                                 </li>
-                                <br></br>
-                            </li>
-                            
+                                {/* <li>
+
+                                </li> */}
+                            </ui>
                         ))
-                    :<h2  className="col-md-12 text-center" id="notfound">Review is not Found</h2>
+                    :<h2  className="col-md-12 text-center"  style={{marginTop:"100px",color: "#F1C8CE" }}>Review is not Posted</h2>
                 }
+                </div>
+                <div className='row'>
+                    <div className='col'>
+                            <p>{product[0].rating} star average based on {total} reviews.</p>
+                            <div class="row">
+                                <div class="side">
+                                    <div>5 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container">
+                                    <div class="bar-5" style={{width:`${persentage_5_star}%` , height: "18px",backgroundColor: "#04AA6D"}}></div>
+                                    </div>
+                                </div>
+                                <div class="side right">
+                                    <div>{number_5_star}</div>
+                                </div>
+                                <div class="side">
+                                    <div>4 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container">
+                                    <div class="bar-4"  style={{width:`${persentage_4_star}%` , height: "18px",backgroundColor: "#2196F3"}}></div>
+                                    </div>
+                                </div>
+                                <div class="side right">
+                                    <div>{number_4_star}</div>
+                                </div>
+                                <div class="side">
+                                    <div>3 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container">
+                                    <div class="bar-3" style={{width:`${persentage_3_star}%` , height: "18px",backgroundColor: "#00bcd4"}}></div>
+                                    </div>
+                                </div>
+                                <div class="side right">
+                                    <div>{number_3_star}</div>
+                                </div>
+                                <div class="side">
+                                    <div>2 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container">
+                                    <div class="bar-2" style={{width:`${persentage_2_star}%` , height: "18px",backgroundColor: "#ff9800"}}></div>
+                                    </div>
+                                </div>
+                                <div class="side right">
+                                    <div>{number_2_star}</div>
+                                </div>
+                                <div class="side">
+                                    <div>1 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container">
+                                    <div class="bar-1" style={{width:`${persentage_1_star}%` , height: "18px",backgroundColor: "#f44336"}}></div>
+                                    </div>
+                                </div>
+                                <div class="side right">
+                                    <div>{number_1_star}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='col'></div>
                 </div>
             </div>
             :<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>

@@ -371,7 +371,14 @@ export default function Mybag() {
                 />
                 <div className="card-body">
                   <h6 className="card-title">{item.product_name}</h6>
-                  <h5 className="card-text">₹{item.price}</h5>
+                  <div className="row">
+                  <div className="container col">
+                    <h5 className="card-text" style={{color:'orange'}}>{item.offer}% OFF</h5>
+                  </div>
+                  <div className="container col">
+                    <h5 className="card-text" style={{color:'gray'}}><s>₹{item.price}</s></h5> 
+                  </div>
+                </div>
                   
                   {item.view == 1 ? (
                     <div className="stars" style={{ color: "green" }}>
@@ -405,26 +412,25 @@ export default function Mybag() {
                     </div>
                   )}
                   {
-                 item.current_status=='not available'?
-                 <div className="row">
-                    <div className="container col-sm">
-                    <h5 className="card-text" style={{color:'lightgray'}}>Closed</h5>
+                    item.current_status=='Not Available'?
+                    <div className="row">
+                        <div className="container col-sm">
+                        <h5 className="card-text" style={{color:'lightgray'}}>Closed</h5>
+                        </div>
+                        <div className="container col-sm">
+                          <h5 className="card-text" style={{color:'tomato'}}>₹{(item.price-((item.price*item.offer)/100))}</h5>
+                        </div>
                     </div>
-                    <div className="container col-sm">
-                       <h5 className="card-text" style={{color:'tomato'}}>₹{(item.price-((item.price*item.offer)/100))}</h5>
+                    :
+                    <div className="row">
+                        <div className="container col-sm">
+                          <h5 className="card-text" style={{color:'green'}}>Available</h5>
+                        </div>
+                        <div className="container col-sm">
+                          <h5 className="card-text" style={{color:'tomato'}}>₹{(item.price-((item.price*item.offer)/100))}</h5>
+                        </div>
                     </div>
-                </div>
-                 :
-                 <div className="row">
-                    <div className="container col-sm">
-                       <h5 className="card-text" style={{color:'green'}}>Available</h5>
-                    </div>
-                    <div className="container col-sm">
-                       <h5 className="card-text" style={{color:'tomato'}}>₹{(item.price-((item.price*item.offer)/100))}</h5>
-                    </div>
-                </div>
-                 
-              }
+                  }
               {
                  item.current_status=='Not Available'?
 
@@ -465,7 +471,7 @@ export default function Mybag() {
               </div>
             ))
           : ""}
-          <nav className="navbar navbar-expand-lg  bg-success my-5 mx-4 col-lg-10">
+          <nav className="navbar navbar-expand-lg  bg-success my-2 mx-4 col-lg-9" style={{borderRadius:"50px"}}>
             <div className="container">
               <div className="d-flex">
                  {
@@ -485,7 +491,7 @@ export default function Mybag() {
             </div>
       </nav>
             </div>:<div className="container mt-5">
-                  <h1>Please add some product !</h1>
+               <h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>
             </div>
       }
     </div>

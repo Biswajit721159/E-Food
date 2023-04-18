@@ -8,6 +8,7 @@ export default function Index() {
 
 const {Mobile,Function,child,update,Location} =useContext(global);
 
+
 const [user, setuser] = useState([]);
 const [product,setproduct]=useState([]);
 const [currmybag,setcurrmybag]=useState([]);
@@ -132,8 +133,7 @@ function searchbriyani()
   if(product===undefined) return;
   if(briyani==false)
   {
-    setproduct(user);
-    sort_product_aviliable_not_avilible(user);
+    setInTOproduct(user,currmybag,iswishlist);
   }
   else
   {
@@ -159,8 +159,7 @@ function sort_decanding()
   if(product===undefined) return;
   if(price_high_low==false)
   {
-    setproduct(user);
-    sort_product_aviliable_not_avilible(user);
+    setInTOproduct(user,currmybag,iswishlist);
   }
   else
   {
@@ -204,7 +203,7 @@ function sort_assending()
   if(product===undefined) return;
   if(price_low_high==false)
   {
-    setInTOproduct(user);
+    setInTOproduct(user,currmybag,iswishlist);
   }
   else
   {
@@ -270,10 +269,10 @@ function check_All_Charcter(searchproduct,product_name){
 function searchproduct()
 {
   if(product===undefined) return
-  if(user===undefined) return;
+  if(user===undefined || iswishlist==undefined) return;
   else if(name.length===0)
   {
-    setInTOproduct(user,currmybag);
+    setInTOproduct(user,currmybag,iswishlist);
   }
   else
   {
@@ -663,7 +662,7 @@ function check_alreadylove_list(id)
   {
     for(let i=0;i<iswishlist.length;i++)
     {
-      if(iswishlist[i].product_id==id)
+      if(iswishlist[i].product_id==id && iswishlist[i].mobile==Mobile)
       {
         return true;
       }

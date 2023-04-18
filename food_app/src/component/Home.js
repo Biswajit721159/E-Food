@@ -21,8 +21,6 @@ export default function Home() {
   </div>
 </div>
     
-
-
 <section class="about" id="about">
 <div class="container text-center mt-5">
     <h1 class="heading"> why choose us ? </h1>

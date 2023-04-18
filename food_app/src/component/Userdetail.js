@@ -42,7 +42,7 @@ export default function Userdetail() {
   return (
     <div className='container mt-5'>
        <h3 style={{color:'green'}}>Mobile Number is  :- {Mobile} </h3>
-       <h3 style={{color:'green'}}>Name is :- {search.first_name +" "+search.last_name} </h3>
+       {search.first_name!=undefined && search.last_name!=undefined?<h3 style={{color:'green'}}>Name is :- {search.first_name +" "+search.last_name} </h3>:""}
        <h4 style={{color:'green'}}>Address is :- {search.address} </h4>
        <h4 style={{color:'green'}}>State is :- {search.state} </h4>
        <h4 style={{color:'green'}}>Pin is :- {search.pin} </h4>

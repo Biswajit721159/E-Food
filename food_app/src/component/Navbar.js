@@ -93,13 +93,13 @@ return (
             </ul>
          </div>
           <div className="d-flex-col-lg-7"> 
-            {Mobile.length!=10?<Link to={'Register'}><button className="btn btn-info mx-2">Register</button></Link>:" "}
-            {Mobile.length!=10?<Link to={'Login'}><button className="btn btn-info mx-2">Login</button></Link>:" "}
+            {Mobile.length!=10?<Link to={'Register'}><button className="btn btn-info mx-2">Register</button></Link>:""}
+            {Mobile.length!=10?<Link to={'Login'}><button className="btn btn-info mx-2">Login</button></Link>:""}
             {
               Mobile.length==10?
                  product_count===0?
-                    <Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2 mx-5"  style={{ height:33,width:60,backgroundColor:"light" }} type="submit">+0</button></Link>
-                   :<Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2  mx-4" style={{ height:33,width:60,backgroundColor:"white" }} type="submit">{"+"+product_count}</button></Link>
+                    <Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2 mx-4"  style={{ height:33,width:60,backgroundColor:"light" }} type="submit">+0</button></Link>
+                   :<Link to={'Mybag'}><button className="fas fa-shopping-cart mx-2 mx-4" style={{ height:33,width:60,backgroundColor:"white" }} type="submit">{"+"+product_count}</button></Link>
               :""
             }
             {
