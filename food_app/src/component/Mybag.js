@@ -487,7 +487,7 @@ export default function Mybag() {
               </div>
               <div className="d-flex">
                  {
-                  totalcost!==0? <Link to={`${totalcost}/Payment`}><button className="btn btn-warning rounded-pill btn-sm"> <h4>pay now</h4></button></Link>:""
+                  totalcost!==0? <Link to={`${totalcost}/Payment`}><button className="btn btn-warning  rounded-pill btn-sm"> <h4>pay now</h4></button></Link>:""
                  }
               </div>
             </div>

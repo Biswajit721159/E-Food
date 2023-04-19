@@ -342,7 +342,7 @@ function setInTOproduct(nums,currmybag,love)
     obj.rating=nums[i].rating;
     obj.product_url=nums[i].product_url;
     obj.price=nums[i].price;
-    obj.vage=nums[i].vage;
+    obj.vage=nums[i].product_type;
     obj.offer=nums[i].offer;
     obj.current_status=nums[i].current_status;
     for(let j=0;j<currmybag.length;j++)
@@ -773,7 +773,7 @@ function love(id)
           <input
                 type="text"
                 className="form-control"
-                value={name} onChange={(e)=>setname(e.target.value)} autoComplete='off'  placeholder="Search Product"
+                value={name} onChange={(e)=>setname(e.target.value)} autoComplete='off'  placeholder="Search Food"
               />
           </div>
         </div>

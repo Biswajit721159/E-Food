@@ -112,7 +112,6 @@ def orderapi(request,pk=0):
     elif request.method == 'POST':
         order_data = JSONParser().parse(request)
         order_serializerr = orderSerializer(data=order_data)
-        # print(order_serializerr)
         if order_serializerr.is_valid():
             order_serializerr.save()
             return JsonResponse("Added Successfully", safe=False)
@@ -133,7 +132,6 @@ def productapi(request,pk=0):
         all_product=product.objects.all()
         product_serializer = productSerializer(all_product, many=True)
         return JsonResponse(product_serializer.data,  safe=False)
-    
     
 
 
@@ -187,12 +185,12 @@ def Reviewsapi(request,pk=0):
 
 def card_info_api(request,pk=0):
          
-         if request.method=="GET":
+        if request.method=="GET":
             all_data=card_info.objects.all()
             card_info_serilizer=card_infoSerializer(all_data,many=True)
             return JsonResponse(card_info_serilizer.data, safe=False)  
          
-         elif request.method=="POST":
+        elif request.method=="POST":
             get_data=JSONParser().parse(request)
             card_info_serializerr = card_infoSerializer(data=get_data)
             if card_info_serializerr.is_valid():
@@ -200,3 +198,16 @@ def card_info_api(request,pk=0):
                 return JsonResponse("Your Card is Successfully Added", safe=False)
             return JsonResponse("Failed To Add", safe=False)
 
+        elif request.method == 'PUT':
+            card_data = JSONParser().parse(request)
+            data = card_info.objects.all()
+            card_arrays=[]
+            for i in data:
+                if str(i.mobile)==str(card_data['mobile']):
+                    card_arrays=i
+                    break
+            card_serialzer = card_infoSerializer(card_arrays, data=card_data)
+            if card_serialzer.is_valid():
+                card_serialzer.save() 
+                return JsonResponse("Updated Successfully", safe=False)
+            return JsonResponse("Failed To Update")	

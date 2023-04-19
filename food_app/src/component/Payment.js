@@ -285,7 +285,28 @@ export default function Payment() {
             }
             else
             {
-    
+              if(window.confirm('Are you save the card detail ?'))
+              {
+                fetch('http://127.0.0.1:8000/card_info/',
+                {
+                  method:"PUT",
+                  headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
+                  },
+                  body:JSON.stringify({
+                        mobile:Mobile,
+                        card_number:card,
+                        name:namecard,
+                        expiry:expiry,
+                        cvv:cvv
+                  })
+                }).then(response=>response.json()).then((res)=>{
+                  alert(res)
+                },(error)=>{
+                  alert(error)
+                })
+              }
             }
         },
         (error)=>{
