@@ -30,11 +30,34 @@ export default function Home() {
     </div>
     <div class="col">
     <div class="content">
-        <h3>Best food in the country</h3>
+        <h3>Best food</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sequi corrupti corporis quaerat voluptatem ipsam neque labore modi autem, saepe numquam quod reprehenderit rem? Tempora aut soluta odio corporis nihil!</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, nemo. Sit porro illo eos cumque deleniti iste alias, eum natus.</p>
         <div class="icons-container">
-            <div class="icons">
+            <div className='row'>
+                <div className='col'>
+                    <div class="icons">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>free delivery</span>
+                    </div>
+                </div>
+                <div className='col'>
+                    <div class="icons">
+                    <i class="fas fa-dollar-sign"></i>
+                       <span>easy payments</span>
+                    </div>
+                </div>
+                <div className='col'>
+                        <div class="icons">
+                        <i class="fas fa-headset"></i>
+                        <span>24/7 service</span>
+                        </div>
+                </div>
+                <div className='col'>
+                    
+                </div>
+            </div>
+            {/* <div class="icons">
                 <i class="fas fa-shipping-fast"></i>
                 <span>free delivery</span>
             </div>
@@ -45,7 +68,7 @@ export default function Home() {
             <div class="icons">
                 <i class="fas fa-headset"></i>
                 <span>24/7 service</span>
-            </div>
+            </div> */}
         </div>
         </div>
     </div>

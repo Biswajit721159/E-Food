@@ -19,6 +19,7 @@ const [price_high_low,setprice_high_low]=useState(false);
 const [briyani,setbriyani]=useState(false);
 const [vage,setvage]=useState(false);
 const [notvage,setnonvage]=useState(false);
+const [first_food,setfirst_food]=useState(false);
 const [name,setname]=useState("");
 
 
@@ -55,6 +56,10 @@ useEffect(()=>{
 useEffect(()=>{
   searchnonvage();
 },[notvage]);
+useEffect(()=>{
+  search_First_Food();
+},[])
+
 
 function loadbag()
 {
@@ -81,6 +86,11 @@ function loadbag()
   })
 }
 
+//search first food 
+function search_First_Food()
+{
+
+}
 //sort by nonvage
 function searchnonvage()
 {
@@ -765,6 +775,14 @@ function love(id)
                 <input className="form-check-input" type="checkbox" checked={notvage} onChange={(e)=>setnonvage(e.target.checked)} id="flexCheckDefault"/>
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                 Non Vage Food
+                </label>
+              </div>
+        </div>
+        <div className="container col-sm mt-1">
+              <div className="form-check mt-2">
+                <input className="form-check-input" type="checkbox" checked={first_food} onChange={(e)=>setfirst_food(e.target.checked)} id="flexCheckDefault"/>
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                First Food
                 </label>
               </div>
         </div>
