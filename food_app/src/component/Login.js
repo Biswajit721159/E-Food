@@ -52,6 +52,8 @@ function login()
     }
     if(count)
     {
+      localStorage.clear();
+      localStorage.setItem('user_token', mobile);
       Function(mobile)
       history('/index');
     }

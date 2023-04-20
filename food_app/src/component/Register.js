@@ -280,12 +280,18 @@ function subnit()
         })
         .then(response=>response.json())
         .then((result)=>{
-          swal(`SuccessFully Register`);
+          if(result=="Added Successfully")
+          {
+            localStorage.clear();
+            localStorage.setItem('user_token', mobile);
+            Function(mobile)
+            history('/index');
+          }
+          swal(result);
         },
         (error)=>{
           swal(`We are find some Error`);
         })
-        history('/Login');
     }
 }
 

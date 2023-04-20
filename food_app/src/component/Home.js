@@ -1,8 +1,11 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import "../App.css";
 import { Link } from "react-router-dom";
-
+import { global } from "../App";
 export default function Home() {
+    
+const {Mobile,Function,child,update,Location} =useContext(global);
+
   return (
     <div >
 
@@ -13,7 +16,8 @@ export default function Home() {
         <p>Our Special Dish amet consectetur adipisicing elit. Dolore, sequi corrupti corporis quaerat voluptatem ipsam neque labore modi autem, saepe numquam quod reprehenderit rem? Tempora aut soluta odio corporis</p>
         <h3>22% OFF</h3>
         <p className='page'>Order Today</p>
-        <Link to="/register" class="btn btn-primary  mx-2">Register Now </Link>
+        {Mobile.length!=10?<Link to="/register" class="btn btn-primary  mx-2">Register Now </Link>:
+        <Link to={'/Mybag'}><button className='btn btn-primary'>Order Now</button></Link>}
     </div>
     <div class="col">
     <img  src="https://i.ibb.co/WsvhYqS/home-img-2.png" alt=""/>

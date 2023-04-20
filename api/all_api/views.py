@@ -123,8 +123,17 @@ def productapi(request,pk=0):
 
     if request.method=="PATCH":
         location = JSONParser().parse(request)
-        all_product=product.objects.filter(location=location['location'])
-        product_serializer = productSerializer(all_product, many=True)
+        all_product=product.objects.all()
+        user_data=user_detail.objects.all()
+        count=''
+        for i in user_data:
+            if i.mobile==location['mobile']:
+                count=i.state
+        arr=[]
+        for i in all_product:
+            if i.location==count:
+                arr.append(i)
+        product_serializer = productSerializer(arr, many=True)
         return JsonResponse(product_serializer.data,  safe=False)
     
     

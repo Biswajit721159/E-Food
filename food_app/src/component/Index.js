@@ -71,7 +71,8 @@ function loadbag()
         'Content-Type':'application/json'
     },
     body:JSON.stringify({
-      location:Location
+      location:Location,
+      mobile:Mobile,
     })
   }
   ).then(response=>response.json()).then((product) =>{
