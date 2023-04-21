@@ -88,12 +88,6 @@ return (
                 <li className="nav-item"> 
                    <Link className="nav-link active" aria-current="page" to="/index" style={{ color:'green' }}><h4>x-Food</h4></Link>
                 </li>
-                {/* <li className="nav-item mx-3 mt-1">
-                   <Link className="nav-link active" aria-current="page" to="/Technical_Support" style={{ color:'green' }} ><h6>Support</h6></Link>
-                </li>
-                <li className="nav-item mx-2 mt-1">
-                   <Link className="nav-link active" aria-current="page" to="/About" style={{ color:'green' }} ><h6>About</h6></Link>
-                </li> */}
             </ul>
          </div>
           <div className="d-flex-col-lg-7"> 

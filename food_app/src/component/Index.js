@@ -642,7 +642,7 @@ function ADD_TO_DECREMENT(id)
   {
         let mybag={ mobile: "", product_id: 0, number_product: 0};
         let ans=checkTheProductIsAllReadyExit(id);
-        if(ans!=0)
+        if(ans!=-1 && ans!=0)
         {
             mybag.product_id=id;
             mybag.mobile=Mobile;

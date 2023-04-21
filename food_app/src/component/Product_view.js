@@ -23,12 +23,12 @@ export default function Product_view() {
   let [number_2_star,setnumber_2_star]=useState(0);
   let [number_1_star,setnumber_1star]=useState(0);
   let [total,settotal]=useState(0);
-  let [overall_rating,setoverall_rating]=useState(0)
+  let [overall_rating,setoverall_rating]=useState(0);
 
 
   useEffect(()=>{
     loadproduct();
-  },[]);
+  },[Mobile]);
 
   function loadproduct()
   {

@@ -9,8 +9,6 @@ import Userdetail from "./component/Userdetail";
 import MyOrder from "./component/MyOrder";
 import Index from "./component/Index";
 import Update_user from "./component/Update_user";
-import TechnicalSupport from "./component/TechnicalSupport";
-import About from "./component/About";
 import Login from "./component/Login";
 import { createContext, useState } from "react";
 import Home from "./component/Home";
@@ -54,8 +52,6 @@ function App() {
             <Route path="/lovelist" element={<Lovelist/>}></Route>
             <Route path="/Reviews/order_id/:order_id/product_id/:product_id" element={<Reviews/>}></Route>
             <Route path="/product_id/:id" element={<Product_view />} ></Route>
-            <Route path="Technical_Support" element={<TechnicalSupport/>}></Route>
-            <Route path="About" element={<About />}></Route>
             <Route path="*" element={<Error />}></Route>
           </Routes>
         </Router>

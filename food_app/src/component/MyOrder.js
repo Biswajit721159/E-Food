@@ -11,65 +11,82 @@ export default function MyOrder() {
  const [product,setproduct]=useState([]);
  const [myproduct,setmyproduct]=useState([]);
  const [reviews,setreviews]=useState([]);
+ const [load,setload]=useState(true);
+ 
 
+  useEffect(() => {
+    loadproduct();
+  }, [Mobile]);
 
- useEffect(() => {
-  loadproduct();
-}, [Mobile]);
-
- const loadproduct = async () => {
-    fetch('http://127.0.0.1:8000/order/').then(response=>response.json()).then((order) =>{
-      fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
-        fetch('http://127.0.0.1:8000/Reviews/').then(response=>response.json()).then((reviews) =>{
-          set_beg(order,product,reviews);
-          setproduct(product);
-          setreviews(reviews);
+  const loadproduct = async () => {
+      fetch('http://127.0.0.1:8000/order/').then(response=>response.json()).then((order) =>{
+        fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
+          fetch('http://127.0.0.1:8000/Reviews/').then(response=>response.json()).then((reviews) =>{
+            set_beg(order,product,reviews);
+            setreviews(reviews);
+          })
         })
       })
-    })
-};
+  };
 
-function set_beg(order,product,reviews){
-  if(order==undefined || product==undefined || reviews==undefined ) return ;
+  function set_beg(order,product,reviews){
+    if(order==undefined || product==undefined || reviews==undefined ) return ;
 
-  let arr=[];
-  for(let i=0;i<order.length;i++)
-  {
-    for(let j=0;j<product.length;j++)
+    let arr=[];
+    for(let i=0;i<order.length;i++)
     {
-      if(order[i].mobile==Mobile && order[i].product_id==product[j].id)
+      for(let j=0;j<product.length;j++)
       {
-        let obj={
-          id:product[j].id,
-          order_id:order[i].order_id,
-          product_name:product[j].product_name,
-          product_url:product[j].product_url, 
-          price:order[i].price,
-          product_count:order[i].number_product,
-          date:order[i].date,
-          isreviews:false
+        if(order[i].mobile==Mobile && order[i].product_id==product[j].id)
+        {
+          let obj={
+            id:product[j].id,
+            order_id:order[i].order_id,
+            product_name:product[j].product_name,
+            product_url:product[j].product_url, 
+            price:order[i].price,
+            product_count:order[i].number_product,
+            date:order[i].date,
+            isreviews:false
+          }
+          arr.push(obj);
         }
-        arr.push(obj);
       }
     }
-  }
 
-  for(let i=0;i<arr.length;i++)
-  {
-    for(let j=0;j<reviews.length;j++)
+    for(let i=0;i<arr.length;i++)
     {
-      if(reviews[j].mobile==Mobile && reviews[j].order_id==arr[i].order_id)
+      for(let j=0;j<reviews.length;j++)
       {
-        arr[i].isreviews=true
+        if(reviews[j].mobile==Mobile && reviews[j].order_id==arr[i].order_id)
+        {
+          arr[i].isreviews=true
+        }
       }
     }
+    
+    let reversed = [...arr].reverse();
+    setproduct([...reversed]);
+    if(reversed.length<=10)
+    {
+      setmyproduct([...reversed]);
+    }
+    else
+    {
+      let newarr=[];
+      for(let i=0;i<10;i++)
+      {
+        newarr.push(reversed[i]);
+      }
+      setmyproduct([...newarr]);
+    }
   }
-  
-  const reversed = [...arr].reverse();
-  setmyproduct([...reversed]);
-}
 
-
+  function load_more()
+  {
+    setload(false)
+    setmyproduct([...product])
+  }
 
 
   return (
@@ -78,7 +95,7 @@ function set_beg(order,product,reviews){
         <div className="col mt-5">
         {(myproduct.length!==0)?
           myproduct.map((item,ind)=>(
-            <table class="table shadow-lg p-0 mb-2 bg-white rounded" key={ind}>
+            <table className="table shadow-lg p-0 mb-2 bg-white rounded" key={ind}>
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -117,7 +134,10 @@ function set_beg(order,product,reviews){
                 </tbody>
               </table>
           ))
-          : "Order Not Found !"}
+          : <h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
+          <div className='container my-5'>
+             {load==true?<button className='btn btn-primary mx' onClick={load_more}>Load More</button>:""}
+          </div>
       </div>
     </div>
   )

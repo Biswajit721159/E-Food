@@ -7,6 +7,7 @@ export default function Lovelist() {
 
   const {Mobile,Function,child,update,Location} =useContext(global);
   const [wistlist,setwishlist]=useState([]);
+  
 
   useEffect(()=>{
     loadwistlist();
@@ -91,7 +92,7 @@ export default function Lovelist() {
         },
         body:JSON.stringify({
           mobile:Mobile,
-          product_id:id
+          product_id:id,
         })
       }).then(response=>response.json())
       .then((result)=>{
