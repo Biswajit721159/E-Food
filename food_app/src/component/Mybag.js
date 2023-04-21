@@ -28,7 +28,6 @@ export default function Mybag() {
     loadbag();
   },[index]);
   
-
   
   function loadbag(){
     fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
@@ -91,7 +90,6 @@ export default function Mybag() {
     return ans;
   }
 
-
   function ADD_TO_INCREMENT(id)
   { 
     if(Mobile.length==0)
@@ -99,122 +97,59 @@ export default function Mybag() {
       swal(`Please Login `);
       history('/Login');
     }
-  else
-  {
-    let mybag={ mobile: "", product_id: -1, number_product: 0};
-    let ans=checkTheProductIsAllReadyExit(id);
-    if(ans!=-1)
+    else
     {
+      let mybag={ mobile: "", product_id: -1, number_product: 0};
+      let ans=checkTheProductIsAllReadyExit(id);
+      if(ans!=-1)
+      {
         mybag.product_id=id;
         mybag.mobile=Mobile;
         mybag.number_product=chengeToInteger(ans)+1;
-        fetch('http://127.0.0.1:8000/mybag/', 
+        if(mybag.number_product<=product[0].number_count)
         {
-            method:'PUT',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-              mobile:Mobile,
-              product_id:id,
-              number_product:mybag.number_product
+            fetch('http://127.0.0.1:8000/mybag/', 
+            {
+                method:'PUT',
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                  mobile:Mobile,
+                  product_id:id,
+                  number_product:mybag.number_product
+                })
             })
-        })
-        .then(response=>response.json())
-        .then((result)=>{
-            alert(result);
-            loadbag()
-            if(index!="incre_first")
-            {
-              setindex("incre_first");
-              child("incre_first");
-            }
-            else if(index!="incre_second")
-            {
-              setindex("incre_second");
-              child("incre_second");
-            }
-        },
-        (error)=>{
-            alert("Failed");
-        })
-
-        // axios.put("http://localhost/main/New%20folder/my_bag.php", mybag).then(()=>{
-        //   axios.get("http://localhost/main/New%20folder/my_bag.php").then((res)=>{
-        //         setcurrmybag(res.data.result);
-        //         updateProductCount(id,mybag.number_product);
-        //         setInTOproduct(product,res.data.result);
-        //         if(index!="incre_first")
-        //         {
-        //           setindex("incre_first");
-        //           child("incre_first");
-        //         }
-        //         else if(index!="incre_second")
-        //         {
-        //           setindex("incre_second");
-        //           child("incre_second");
-        //         }
-        //     })
-        // })
+            .then(response=>response.json())
+            .then((result)=>{
+                alert(result);
+                loadbag()
+                if(index!="incre_first")
+                {
+                  setindex("incre_first");
+                  child("incre_first");
+                }
+                else if(index!="incre_second")
+                {
+                  setindex("incre_second");
+                  child("incre_second");
+                }
+            },
+            (error)=>{
+                alert("Failed");
+            })
+          }
+          else
+          {
+            alert("sorry you are not allow to added!!")
+          }
+      }
+      else
+      {
+        alert("we find some error?")
+      }   
     }
-    else
-    {
-        mybag.product_id=id;
-        mybag.mobile=Mobile;
-        mybag.number_product=1;
-
-        fetch('http://127.0.0.1:8000/mybag/', 
-        {
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                mobile:Mobile,
-                product_id:id,
-                number_product:1
-            })
-        })
-        .then(response=>response.json())
-        .then((result)=>{
-            alert(result);
-            loadbag()
-            if(index!="incre_first")
-            {
-              setindex("incre_first");
-              child("incre_first");
-            }
-            else if(index!="incre_second")
-            {
-              setindex("incre_second");
-              child("incre_second");
-            }
-        },
-        (error)=>{
-            alert("Failed");
-        })
-
-      //   axios.post("http://127.0.0.1:8000/mybag/", mybag).then(()=>{
-      //     axios.get("http://localhost/main/New%20folder/my_bag.php").then((res)=>{
-      //         setcurrmybag(res.data.result);
-      //         updateProductCount(id,mybag.number_product);
-      //         setInTOproduct(product,res.data.result);
-      //         if(index!="incre_first")
-      //         {
-      //           setindex("incre_first");
-      //           child("incre_first");
-      //         }
-      //         else if(index!="incre_second")
-      //         {
-      //           setindex("incre_second");
-      //           child("incre_second");
-      //         }
-      //     })
-      //  })
-    }   
-  }
   }
 
   function ADD_TO_DECREMENT(id){ 
@@ -303,7 +238,7 @@ export default function Mybag() {
       let cost=0;
       for(let i=0;i<user.length;i++)
       {
-          if(user[i].current_status=="Available")
+          if(user[i].number_count!=0)
           {
             let s=chengeToInteger(user[i].price);
             let product_count=chengeToInteger(user[i].product_count);
@@ -328,8 +263,8 @@ export default function Mybag() {
         price:0,
         vage:"",
         offer:0,
-        current_status:"",
-        product_count:0
+        number_count:0,
+        product_count:0,
       }
       obj.id=nums[i].id;
       obj.product_name=nums[i].product_name
@@ -338,7 +273,7 @@ export default function Mybag() {
       obj.price=nums[i].price;
       obj.vage=nums[i].vage;
       obj.offer=nums[i].offer;
-      obj.current_status=nums[i].current_status;
+      obj.number_count=nums[i].number_count;
       if(Mobile.length==10)
       {
         for(let j=0;j<currmybag.length;j++)
@@ -414,7 +349,7 @@ export default function Mybag() {
                     </div>
                   )}
                   {
-                    item.current_status=='Not Available'?
+                    item.number_count==0?
                     <div className="row">
                         <div className="container col-sm">
                         <h5 className="card-text" style={{color:'lightgray'}}>Closed</h5>
@@ -434,7 +369,7 @@ export default function Mybag() {
                     </div>
                   }
               {
-                 item.current_status=='Not Available'?
+                 item.number_count==0?
 
 
                  item.product_count==0?

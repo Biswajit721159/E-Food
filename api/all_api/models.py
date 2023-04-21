@@ -19,10 +19,10 @@ class product(models.Model):
     product_name=models.CharField(max_length=50)
     price=models.IntegerField()
     rating =models.IntegerField()
-    current_status=models.CharField(max_length=50)
     offer=models.IntegerField(default=0)
     product_type=models.CharField(max_length=100,default="non vage")
     location=models.CharField(max_length=100,default="Delhi")
+    number_count=models.IntegerField(default=10)
 
     def __str__(self):
         return str(self.product_name)

@@ -9,7 +9,7 @@ from .models import *
 class productSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = product
-        fields = ('id', 'product_url','product_name', 'price','rating', 'current_status','offer','product_type','location')
+        fields = ('id', 'product_url','product_name', 'price','rating','number_count','offer','product_type','location')
 
 
 class userSerializer(serializers.HyperlinkedModelSerializer):

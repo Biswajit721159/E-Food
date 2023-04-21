@@ -49,13 +49,6 @@ function set_beg(order,product,reviews){
           date:order[i].date,
           isreviews:false
         }
-        // for(let k=0;k<reviews.length;k++)
-        // {
-        //   if(reviews[k].mobile==Mobile && reviews[k].product_id==order[i].product_id)
-        //   {
-        //     obj.isreviews=true;
-        //   }
-        // }
         arr.push(obj);
       }
     }
@@ -74,7 +67,6 @@ function set_beg(order,product,reviews){
   
   const reversed = [...arr].reverse();
   setmyproduct([...reversed]);
-  console.log(reversed)
 }
 
 

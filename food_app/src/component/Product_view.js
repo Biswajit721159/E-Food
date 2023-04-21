@@ -115,7 +115,6 @@ export default function Product_view() {
             y=((a*1+b*2+c*3+d*4+e*5)/(x)).toFixed(1);
         }
        
-        console.log(y)
 
         if(y=="NAN") y=0;
         setoverall_rating(y)
@@ -179,7 +178,7 @@ export default function Product_view() {
                             </div>
                         )}
                         {
-                         product[0].current_status=='Not Available'?
+                         product[0].number_count==0?
                             <div className="row">
                                 <div className="container col-sm">
                                 <h5 className="card-text" style={{color:'lightgray'}}>Closed</h5>

@@ -12,6 +12,7 @@ export default function Payment() {
   const [product, setproduct] = useState([]);
   const [order,setorder]=useState([]);
   const [currentbag,setcurrentbag]=useState([]);
+  const [id,setid]=useState(-1);
   const [cost, setcost] = useState(0);
   const history=useNavigate();
   
@@ -26,7 +27,17 @@ export default function Payment() {
     loadproduct();
   }, [Mobile]);
 
-
+  function loadproduct() {
+    fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
+      fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
+        fetch('http://127.0.0.1:8000/card_info/').then(response=>response.json()).then((card_info)=>{
+          setproduct(product);
+          set_beg(mybag,product);
+          find_card_info(card_info);
+        })
+      })
+    })
+  }
 
   function findcost(currentbag,product) 
   {
@@ -39,7 +50,7 @@ export default function Payment() {
           let data=0;
           for(let j=0;j<product.length;j++)
           {
-              if(product[j].id==currentbag[i].product_id && product[j].current_status=="Available")
+              if(product[j].id==currentbag[i].product_id && product[j].number_count!=0)
               {
                   let price=change(product[j].price);
                   let offer=change(product[j].offer);
@@ -54,7 +65,7 @@ export default function Payment() {
                     number_product:currentbag[i].number_product,
                     date:"",
                   }
-                  ans.push(obj);
+                  ans.push(obj); 
               }
           }
           cost+=data;
@@ -67,11 +78,9 @@ export default function Payment() {
   {
     if(Mobile.length==0)
     {
-      swal("Please Login ?", {
-        buttons: [, "OK"],
-      });
-      return;
+      return
     }
+    else if(nums==undefined || product==undefined) return
     else
     {
       let ans=[];
@@ -80,6 +89,7 @@ export default function Payment() {
         if(nums[i].mobile==Mobile)
         {
           ans.push(nums[i]);
+          setid(nums[i].product_id);
         }
       }
       setcurrentbag([...ans]);
@@ -104,17 +114,6 @@ export default function Payment() {
         }
       }
     }
-  }
-
-  function loadproduct() {
-    fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product) =>{
-      fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
-        fetch('http://127.0.0.1:8000/card_info/').then(response=>response.json()).then((card_info)=>{
-          set_beg(mybag,product);
-          find_card_info(card_info);
-        })
-      })
-    })
   }
 
   function change(s)
@@ -238,8 +237,27 @@ export default function Payment() {
       }
     }
   }
+  
+  function checking_aviliblity(id,count)
+  {
+    if(product==undefined) return;
+    else
+    {
+      for(let i=0;i<product.length;i++)
+      {
+        if(product[i].id==id && product[i].number_count>=count)
+        {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
   const put_data = async(input) => {
+      let check=checking_aviliblity(input.product_id,input.number_product)
+      if(check==true)
+      {  
         fetch('http://127.0.0.1:8000/order/', 
         {
             method:'POST',
@@ -283,10 +301,8 @@ export default function Payment() {
                 })
               }
             }
-            else
+            else 
             {
-              if(window.confirm('Are you save the card detail ?'))
-              {
                 fetch('http://127.0.0.1:8000/card_info/',
                 {
                   method:"PUT",
@@ -302,20 +318,31 @@ export default function Payment() {
                         cvv:cvv
                   })
                 }).then(response=>response.json()).then((res)=>{
-                  alert(res)
+                  alert("Your card information also updateed successfully ")
                 },(error)=>{
                   alert(error)
                 })
-              }
             }
         },
         (error)=>{
           alert(error)
         })
+        history(`/MyOrder`);
+      }
+      else
+      {
+        alert("sorry please reduce the number of product count !!");
+        history('/Mybag');
+      }  
   }
 
   function pay() 
   {
+    if(Mobile.length!=10)
+    {
+      swal("Please login");
+      return;
+    }
     const a=check_card(card);
     const b=check_name(namecard);
     const c=check_expiry(expiry);
@@ -338,7 +365,6 @@ export default function Payment() {
                 put_data(order[i]);
               }
         }
-        history(`/MyOrder`);
     }
     else if(a===false)
     {

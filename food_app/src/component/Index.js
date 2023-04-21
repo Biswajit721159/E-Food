@@ -92,6 +92,7 @@ function search_First_Food()
 {
 
 }
+
 //sort by nonvage
 function searchnonvage()
 {
@@ -116,6 +117,7 @@ function searchnonvage()
     sort_product_aviliable_not_avilible(arr);
   }
 }
+
 //sort by vage
 function searchvage()
 {
@@ -138,6 +140,7 @@ function searchvage()
     sort_product_aviliable_not_avilible(arr);
   }
 }
+
 //sort by briyani
 function searchbriyani()
 {
@@ -164,6 +167,7 @@ function searchbriyani()
     sort_product_aviliable_not_avilible(newproduct);
   }
 }
+
 //high to low
 function sort_decanding()
 {
@@ -344,7 +348,7 @@ function setInTOproduct(nums,currmybag,love)
       price:0,
       vage:"",
       offer:0,
-      current_status:"",
+      number_count:0,
       product_count:0,
       islove:false, 
     }
@@ -355,7 +359,7 @@ function setInTOproduct(nums,currmybag,love)
     obj.price=nums[i].price;
     obj.vage=nums[i].product_type;
     obj.offer=nums[i].offer;
-    obj.current_status=nums[i].current_status;
+    obj.number_count=nums[i].number_count;
     for(let j=0;j<currmybag.length;j++)
     {
       if(Mobile==currmybag[j].mobile && nums[i].id==currmybag[j].product_id)
@@ -388,14 +392,14 @@ function sort_product_aviliable_not_avilible(product)
     let arr=[];
     for(let i=0;i<product.length;i++)
     {
-      if(product[i].current_status=='Available')
+      if(product[i].number_count!=0)
       {
         arr.push(product[i]);
       }
     }
     for(let i=0;i<product.length;i++)
     {
-      if(product[i].current_status!='Available')
+      if(product[i].number_count==0)
       {
         arr.push(product[i]);
       }
@@ -449,6 +453,22 @@ function anyproduct_exit()
    }
 }
 
+function checking_aviliblity(id,count)
+{
+  if(product==undefined) return;
+  else
+  {
+    for(let i=0;i<product.length;i++)
+    {
+      if(product[i].id==id && product[i].number_count>=count)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function ADD_TO_INCREMENT(id)
 {
   if(Mobile.length==0)
@@ -465,37 +485,45 @@ function ADD_TO_INCREMENT(id)
         mybag.product_id=id;
         mybag.mobile=Mobile;
         mybag.number_product=chengeToInteger(ans)+1;
-        fetch('http://127.0.0.1:8000/mybag/', 
+        let check=checking_aviliblity(id,mybag.number_product)
+        if(check)
         {
-            method:'PUT',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-              mobile:Mobile,
-              product_id:id,
-              number_product:mybag.number_product
+            fetch('http://127.0.0.1:8000/mybag/', 
+            {
+                method:'PUT',
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                  mobile:Mobile,
+                  product_id:id,
+                  number_product:mybag.number_product
+                })
             })
-        })
-        .then(response=>response.json())
-        .then((result)=>{
-            alert(result);
-            loadbag()
-            if(index!="incre_first")
-            {
-              setindex("incre_first");
-              child("incre_first");
-            }
-            else if(index!="incre_second")
-            {
-              setindex("incre_second");
-              child("incre_second");
-            }
-        },
-        (error)=>{
-            alert("Failed");
-        })
+            .then(response=>response.json())
+            .then((result)=>{
+                alert(result);
+                loadbag()
+                if(index!="incre_first")
+                {
+                  setindex("incre_first");
+                  child("incre_first");
+                }
+                else if(index!="incre_second")
+                {
+                  setindex("incre_second");
+                  child("incre_second");
+                }
+            },
+            (error)=>{
+                alert("Failed");
+            })
+          }
+          else
+          {
+            alert("sorry you are not allow to added!!")
+          }
     }
     else
     {
@@ -656,7 +684,7 @@ function ADD_TO_DECREMENT(id)
             else
             {
               
-              swal('Sorry This Product is not to your bag!');
+              swal('Sorry You are not Allow!');
             }
         }
         else
@@ -804,7 +832,7 @@ function love(id)
             
             <div className="card-shadow mt-4 mx-4" style={{ width: 200 }} key={ind}>
             {
-              item.current_status=='Available'? 
+              item.number_count!=0? 
                 item.islove==true?
                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{backgroundColor:"#F7173B",borderRadius:"18px"}}></button>:
                 <button  className="fas fa-heart"  onClick={()=>love(item.id)} style={{borderRadius:"18px"}}></button>
@@ -861,7 +889,7 @@ function love(id)
                 </div>
               )}
               {
-                 item.current_status=='Not Available'?
+                 item.number_count==0?
                  <div className="row">
                     <div className="container col-sm">
                     <h5 className="card-text" style={{color:'lightgray'}}>Closed</h5>
@@ -884,7 +912,7 @@ function love(id)
               {
                 
 
-                item.current_status=='Not Available'?
+                item.number_count==0?
 
                 item.product_count==0?
                 <button className="btn btn-secondary rounded-pill btn-sm mt-2" disabled >
