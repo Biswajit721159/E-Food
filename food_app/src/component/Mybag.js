@@ -258,7 +258,6 @@ export default function Mybag() {
       let obj={
         id:0,
         product_name:"",
-        rating:0,
         product_url:"",
         price:0,
         vage:"",
@@ -268,7 +267,6 @@ export default function Mybag() {
       }
       obj.id=nums[i].id;
       obj.product_name=nums[i].product_name
-      obj.rating=nums[i].rating;
       obj.product_url=nums[i].product_url;
       obj.price=nums[i].price;
       obj.vage=nums[i].vage;
@@ -316,38 +314,6 @@ export default function Mybag() {
                     <h5 className="card-text" style={{color:'gray'}}><s>₹{item.price}</s></h5> 
                   </div>
                 </div>
-                  
-                  {item.view == 1 ? (
-                    <div className="stars" style={{ color: "green" }}>
-                      <i className="fas fa-star"></i>
-                    </div>
-                  ) : item.view == 2 ? (
-                    <div className="stars" style={{ color: "green" }}>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                  ) : item.view == 3 ? (
-                    <div className="stars" style={{ color: "green" }}>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                  ) : item.view == 4 ? (
-                    <div className="stars" style={{ color: "green" }}>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                  ) : (
-                    <div className="stars" style={{ color: "green" }}>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                  )}
                   {
                     item.number_count==0?
                     <div className="row">

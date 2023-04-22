@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState,useEffect,useContext, useDebugValue} from 'react'
 import axios from "axios";
 import "../App.css";
 import { global } from "../App";
@@ -13,13 +13,13 @@ const [user, setuser] = useState([]);
 const [product,setproduct]=useState([]);
 const [currmybag,setcurrmybag]=useState([]);
 const [iswishlist,setiswistlist]=useState([]);
+const [review,setreview]=useState([])
 
 const [price_low_high,setprice_low_high]=useState(false);
 const [price_high_low,setprice_high_low]=useState(false);
 const [briyani,setbriyani]=useState(false);
 const [vage,setvage]=useState(false);
 const [notvage,setnonvage]=useState(false);
-const [first_food,setfirst_food]=useState(false);
 const [name,setname]=useState("");
 
 
@@ -56,9 +56,6 @@ useEffect(()=>{
 useEffect(()=>{
   searchnonvage();
 },[notvage]);
-useEffect(()=>{
-  search_First_Food();
-},[])
 
 
 function loadbag()
@@ -78,20 +75,18 @@ function loadbag()
   ).then(response=>response.json()).then((product) =>{
     fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
       fetch('http://127.0.0.1:8000/iswishlist/').then(response=>response.json()).then((love) =>{
-        setcurrmybag(mybag);
-        setuser(product)
-        setiswistlist(love)
-        setInTOproduct(product,mybag,love);
+        fetch('http://127.0.0.1:8000/Reviews/').then(responce=>responce.json()).then((review)=>{
+          setcurrmybag(mybag);
+          setuser(product)
+          setiswistlist(love)
+          setreview(review)
+          setInTOproduct(product,mybag,love,review);
+        })
       })
     })
   })
 }
 
-//search first food 
-function search_First_Food()
-{
-
-}
 
 //sort by nonvage
 function searchnonvage()
@@ -147,7 +142,7 @@ function searchbriyani()
   if(product===undefined) return;
   if(briyani==false)
   {
-    setInTOproduct(user,currmybag,iswishlist);
+    setInTOproduct(user,currmybag,iswishlist,review);
   }
   else
   {
@@ -174,7 +169,7 @@ function sort_decanding()
   if(product===undefined) return;
   if(price_high_low==false)
   {
-    setInTOproduct(user,currmybag,iswishlist);
+    setInTOproduct(user,currmybag,iswishlist,review);
   }
   else
   {
@@ -218,7 +213,7 @@ function sort_assending()
   if(product===undefined) return;
   if(price_low_high==false)
   {
-    setInTOproduct(user,currmybag,iswishlist);
+    setInTOproduct(user,currmybag,iswishlist,review);
   }
   else
   {
@@ -242,7 +237,6 @@ function sort_assending()
   }
 }
 
-//search section 
 function KMP(searchproduct,product_name)
 {
     let patt=solve1(searchproduct);
@@ -334,16 +328,66 @@ function solve2(s)
   return res;
 }
 
-function setInTOproduct(nums,currmybag,love)
+function find_rating_product_id(id,review)
 {
-  if(nums==undefined || currmybag==undefined|| love==undefined) return
+        if(review==undefined) return 0;
+        let arr=[]
+        for(let i=0;i<review.length && review!=undefined;i++)
+        {
+            if(review[i].product_id==id)
+            {
+                let obj={
+                    rating:"",
+                }
+                obj.rating=review[i].rating;
+                arr.push(obj);
+            }
+        }
+        let a=0,b=0,c=0,d=0,e=0;
+        for(let i=0;i<arr.length;i++)
+        {
+            if(arr[i].rating=="1")
+            {
+                a++;
+            }
+            else if(arr[i].rating=="2")
+            {
+                b++;
+            }
+            else if(arr[i].rating=="3")
+            {
+                c++;
+            }
+            else if(arr[i].rating=="4")
+            {
+                d++;
+            }
+            else
+            {
+                e++;
+            }
+        }
+        let x=a+b+c+d+e;
+        let y=0
+        if(a!=0 || b!=0 || c!=0 || d!=0 || e!=0)
+        {
+            y=((a*1+b*2+c*3+d*4+e*5)/(x)).toFixed(1);
+        }
+
+        if(y=="NAN") y=0;
+        return y;
+}
+
+function setInTOproduct(nums,currmybag,love,review)
+{
+  if(nums==undefined || currmybag==undefined|| love==undefined || review==undefined) return
   let ans=[];
   for(let i=0;i<nums.length;i++)
   {
     let obj={
       id:0,
       product_name:"",
-      rating:0,
+      rating:"0",
       product_url:"",
       price:0,
       vage:"",
@@ -354,12 +398,13 @@ function setInTOproduct(nums,currmybag,love)
     }
     obj.id=nums[i].id;
     obj.product_name=nums[i].product_name
-    obj.rating=nums[i].rating;
     obj.product_url=nums[i].product_url;
     obj.price=nums[i].price;
     obj.vage=nums[i].product_type;
     obj.offer=nums[i].offer;
     obj.number_count=nums[i].number_count;
+    obj.rating=find_rating_product_id(obj.id,review)
+   
     for(let j=0;j<currmybag.length;j++)
     {
       if(Mobile==currmybag[j].mobile && nums[i].id==currmybag[j].product_id)
@@ -405,10 +450,10 @@ function sort_product_aviliable_not_avilible(product)
       }
     }
     setproduct([...arr]);
+    // find_rating(arr);
   }
 }
 
-// Add to Bag section 
 function checkTheProductIsAllReadyExit(id)
 {
   let ans=-1;
@@ -807,14 +852,6 @@ function love(id)
                 </label>
               </div>
         </div>
-        <div className="container col-sm mt-1">
-              <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={first_food} onChange={(e)=>setfirst_food(e.target.checked)} id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                First Food
-                </label>
-              </div>
-        </div>
         <div className="container col-sm mt-2">
           <div className="container">
           <input
@@ -857,37 +894,21 @@ function love(id)
                    <h5 className="card-text" style={{color:'gray'}}><s>₹{item.price}</s></h5> 
                 </div>
               </div>
-              {item.rating == 1 ? (
-                <div className="stars" style={{ color: "green" }}>
-                  <i className="fas fa-star"></i>
-                </div>
-              ) : item.rating == 2 ? (
-                <div className="stars" style={{ color: "green" }}>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
-              ) : item.rating == 3 ? (
-                <div className="stars" style={{ color: "green" }}>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
-              ) : item.rating == 4 ? (
-                <div className="stars" style={{ color: "green" }}>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
+              {
+
+              item.rating >= "1.0" && item.rating<="2.5" ? (
+                <button className='btn btn-danger btn-sm' style={{fontSize:"13px"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
+              ) : item.rating >"2.5" && item.rating<="3.5" ? (
+                <button className='btn btn btn-sm' style={{fontSize:"13px",backgroundColor:"#F3CB89"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
+              ) : item.rating >"3.5" && item.rating<="4.0" ? (
+                <button className='btn btn-success btn-sm' style={{fontSize:"13px"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
+              ) : item.rating >"4.0" && item.rating<="5.0"? (
+                <button className='btn btn-info btn-sm' style={{fontSize:"13px",backgroundColor:"#8BDD8A"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
               ) : (
-                <div className="stars" style={{ color: " green" }}>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
-              )}
+                <button className='btn btn btn-sm' style={{fontSize:"13px",backgroundColor:"#D6D7F6"}} ><span class="fa fa-star checked"></span>{item.rating}</button> 
+              )
+
+              }
               {
                  item.number_count==0?
                  <div className="row">

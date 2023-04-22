@@ -37,7 +37,6 @@ export default function Lovelist() {
             let obj={
                 id:0,
                 product_name:"",
-                rating:0,
                 product_url:"",
                 price:0,
                 vage:"",
@@ -48,7 +47,6 @@ export default function Lovelist() {
             }
               obj.id=product[j].id;
               obj.product_name=product[j].product_name
-              obj.rating=product[j].rating;
               obj.product_url=product[j].product_url;
               obj.price=product[j].price;
               obj.vage=product[j].vage;

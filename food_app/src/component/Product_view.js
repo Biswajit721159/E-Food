@@ -122,6 +122,7 @@ export default function Product_view() {
         setreview([...nums])
     }
   }
+  
   return (
       <div className='container'>
         {
@@ -146,37 +147,6 @@ export default function Product_view() {
                                 </div>
                             </div>
                         </div>
-                        {product[0].rating == 1 ? (
-                            <div className="stars" style={{ color: "green" }}>
-                            <i className="fas fa-star"></i>
-                            </div>
-                        ) : product[0].rating == 2 ? (
-                            <div className="stars" style={{ color: "green" }}>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            </div>
-                        ) : product[0].rating == 3 ? (
-                            <div className="stars" style={{ color: "green" }}>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            </div>
-                        ) : product[0].rating == 4 ? (
-                            <div className="stars" style={{ color: "green" }}>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            </div>
-                        ) : (
-                            <div className="stars" style={{ color: "green" }}>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            <i className="fas fa-star"></i>
-                            </div>
-                        )}
                         {
                          product[0].number_count==0?
                             <div className="row">
@@ -199,32 +169,10 @@ export default function Product_view() {
                             
                         }
                     </div>
-               </div>
-               <div className='col mt-5'>
-                {
-                    review!=undefined && review.length!=0?
-                        review.map((data,ind)=>(
-                            <ui>
-                                <li>
-                                    <span>Message : {data.review}</span>
-                                    <li>
-                                        <span style={{color:"green"}}>
-                                            Over All Rating : {data.rating} star 
-                                        </span>
-                                    </li>
-                                    <br></br>
-                                </li>
-                                {/* <li>
-
-                                </li> */}
-                            </ui>
-                        ))
-                    :<h2  className="col-md-12 text-center"  style={{marginTop:"100px",color: "#F1C8CE" }}>Review is not Posted</h2>
-                }
                 </div>
-                <div className='row'>
+                <div className='col-6 col-sm-5'>
                     <div className='col'>
-                            <p>{overall_rating} star average based on {total} reviews.</p>
+                            <p className='mt-4'>{overall_rating} star average based on {total} reviews.</p>
                             <div class="row">
                                 <div class="side">
                                     <div>5 star</div>
@@ -285,7 +233,29 @@ export default function Product_view() {
                         </div>
                         <div className='col'></div>
                 </div>
-            </div>
+                <div className='col mt-5 mx-5'>
+                {
+                    review!=undefined && review.length!=0?
+                        review.map((data,ind)=>(
+                            <ui>
+                                <li>
+                                    <span>Message : {data.review}</span>
+                                    <li>
+                                        <span style={{color:"green"}}>
+                                            Over All Rating : {data.rating} star 
+                                        </span>
+                                    </li>
+                                    <br></br>
+                                </li>
+                                {/* <li>
+
+                                </li> */}
+                            </ui>
+                        ))
+                    :<h2  className="col-md-12 text-center"  style={{marginTop:"100px",color: "#F1C8CE" }}>Review is not Posted</h2>
+                }
+                </div>
+            </div>    
             :<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>
         }
       </div>

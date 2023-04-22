@@ -18,7 +18,6 @@ class product(models.Model):
     product_url=models.CharField(max_length=200)
     product_name=models.CharField(max_length=50)
     price=models.IntegerField()
-    rating =models.IntegerField()
     offer=models.IntegerField(default=0)
     product_type=models.CharField(max_length=100,default="non vage")
     location=models.CharField(max_length=100,default="Delhi")

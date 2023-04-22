@@ -89,7 +89,6 @@ def mybagapi(request,pk=0):
     
     elif request.method == 'DELETE':
         mybag_data = JSONParser().parse(request)
-        print(mybag_data)
         data = mybag.objects.all()
         new_data=[]
         for i in data:
@@ -142,7 +141,21 @@ def productapi(request,pk=0):
         product_serializer = productSerializer(all_product, many=True)
         return JsonResponse(product_serializer.data,  safe=False)
     
-
+    # elif request.method == 'PUT':
+    #         product_data = JSONParser().parse(request)
+    #         data = product.objects.all()
+    #         product_arrays=[]
+    #         for i in data:
+    #             if str(i.id)==str(product_data['id']):
+    #                 product_arrays.append(i)
+    #                 break    
+    #         print(product_arrays)    
+    #         product_serialzerr = productSerializer(product_arrays, data=product_data)
+    #         if product_serialzerr.is_valid():
+    #             product_serialzerr.save() 
+    #             return JsonResponse("Updated Successfully", safe=False)
+    #         return JsonResponse("Failed To Update")	
+    
 
 @csrf_exempt
 

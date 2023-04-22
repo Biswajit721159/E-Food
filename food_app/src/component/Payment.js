@@ -6,7 +6,7 @@ import { global } from "../App";
 
 export default function Payment() {
 
-  const {Mobile,Function}=useContext(global);
+  const {Mobile,Function,location}=useContext(global);
 
   //const [user,setuser]=useState([]);
   const [product, setproduct] = useState([]);
@@ -323,11 +323,28 @@ export default function Payment() {
                   alert(error)
                 })
             }
+
+            // fetch('http://127.0.0.1:8000/product/',
+            // {
+            //   method:"PUT",
+            //   headers:{
+            //     'Accept':'application/json',
+            //     'Content-Type':'application/json'
+            //   },
+            //   body:JSON.stringify({
+            //       id:input.product_id,
+            //       number_count:input.number_product,
+            //   })
+            // }).then(response=>response.json()).then((res)=>{
+            //   alert("Successfull")
+            // },(error)=>{
+            //   alert(error)
+            // })
         },
         (error)=>{
           alert(error)
         })
-        history(`/MyOrder`);
+        // history(`/MyOrder`);
       }
       else
       {

@@ -7,10 +7,7 @@
     font-size: 10px;
 }
 
-  
 
-  
-  /* Three column layout */
   .side {
     float: left;
     width: 15%;
@@ -23,19 +20,16 @@
     width: 70%;
   }
   
-  /* Place text to the right */
   .right {
     text-align: right;
   }
   
-  /* Clear floats after the columns */
   .row:after {
     content: "";
     display: table;
     clear: both;
   }
   
-  /* The bar container */
   .bar-container {
     width: 100%;
     background-color: #f1f1f1;
