@@ -22,7 +22,6 @@ export default function Payment() {
   const [cvv,setcvv]=useState("");
   const [save_card,setsave_card]=useState(false)
 
-
   useEffect(() => {
     loadproduct();
   }, [Mobile]);
@@ -247,17 +246,18 @@ export default function Payment() {
       {
         if(product[i].id==id && product[i].number_count>=count)
         {
-          return true;
+          return (product[i].number_count)
         }
       }
     }
-    return false;
+    return 0;
   }
 
   const put_data = async(input) => {
-      let check=checking_aviliblity(input.product_id,input.number_product)
-      if(check==true)
+      let count_product=checking_aviliblity(input.product_id,input.number_product)
+      if(count_product>0)
       {  
+        console.log(count_product)
         fetch('http://127.0.0.1:8000/order/', 
         {
             method:'POST',
@@ -274,7 +274,8 @@ export default function Payment() {
             })
         })
         .then(response=>response.json())
-        .then((result)=>{
+        .then((result)=>
+        {
             alert(result)
             if(save_card==false)
             {
@@ -317,34 +318,25 @@ export default function Payment() {
                         expiry:expiry,
                         cvv:cvv
                   })
-                }).then(response=>response.json()).then((res)=>{
-                  alert("Your card information also updateed successfully ")
-                },(error)=>{
-                  alert(error)
                 })
             }
-
-            // fetch('http://127.0.0.1:8000/product/',
-            // {
-            //   method:"PUT",
-            //   headers:{
-            //     'Accept':'application/json',
-            //     'Content-Type':'application/json'
-            //   },
-            //   body:JSON.stringify({
-            //       id:input.product_id,
-            //       number_count:input.number_product,
-            //   })
-            // }).then(response=>response.json()).then((res)=>{
-            //   alert("Successfull")
-            // },(error)=>{
-            //   alert(error)
-            // })
+            fetch('http://127.0.0.1:8000/product/',
+            {
+              method:"PUT",
+              headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+              },
+              body:JSON.stringify({
+                  id:input.product_id,
+                  number_count:count_product-input.number_product,
+              })
+            })
         },
         (error)=>{
           alert(error)
         })
-        // history(`/MyOrder`);
+        history(`/MyOrder`);
       }
       else
       {

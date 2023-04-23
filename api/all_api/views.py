@@ -3,23 +3,12 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-
 # import viewsets
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer
+from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer
 from .models import *
-from .models import mybag
+from .models import mybag,adminuser
  
-# create a viewset
-# class productViewSet(viewsets.ModelViewSet):
-#     queryset = product.objects.all()
-#     serializer_class = productSerializer
-
-
-# class userViewSet(viewsets.ModelViewSet):
-#     queryset = user_detail.objects.all()
-#     serializer_class = userSerializer
-
 
 @csrf_exempt
 
@@ -51,17 +40,16 @@ def userapi(request,pk=0):
         if user_serialzer.is_valid():
             user_serialzer.save() 
             return JsonResponse("Updated Successfully", safe=False)
-        return JsonResponse("Failed To Update")	
-
+        return JsonResponse("Failed To Update",safe=False)	
 
 
 @csrf_exempt
+
 def mybagapi(request,pk=0):
 
     if request.method=="GET":
         all_mybag=mybag.objects.all()
         mybag_serializer = mybagSerializer(all_mybag, many=True)
-        # print(mybag_serializer)
         return JsonResponse(mybag_serializer.data,  safe=False)
     
     elif request.method == 'POST':
@@ -98,8 +86,6 @@ def mybagapi(request,pk=0):
         new_data.delete()
         return JsonResponse("Data Was Deleted Successfully", safe=False)	
 
-
-
 @csrf_exempt
 
 def orderapi(request,pk=0):
@@ -115,7 +101,6 @@ def orderapi(request,pk=0):
             order_serializerr.save()
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)
-
 
 @csrf_exempt
 def productapi(request,pk=0):
@@ -141,20 +126,19 @@ def productapi(request,pk=0):
         product_serializer = productSerializer(all_product, many=True)
         return JsonResponse(product_serializer.data,  safe=False)
     
-    # elif request.method == 'PUT':
-    #         product_data = JSONParser().parse(request)
-    #         data = product.objects.all()
-    #         product_arrays=[]
-    #         for i in data:
-    #             if str(i.id)==str(product_data['id']):
-    #                 product_arrays.append(i)
-    #                 break    
-    #         print(product_arrays)    
-    #         product_serialzerr = productSerializer(product_arrays, data=product_data)
-    #         if product_serialzerr.is_valid():
-    #             product_serialzerr.save() 
-    #             return JsonResponse("Updated Successfully", safe=False)
-    #         return JsonResponse("Failed To Update")	
+    elif request.method == 'PUT':
+        product_data = JSONParser().parse(request)
+        data = product.objects.all()
+        product_arrays=[]
+        for i in data:
+            if str(i.id)==str(product_data['id']):
+                product_arrays=i
+                break            
+        product_s = productSerializer(product_arrays, data=product_data)   
+        if product_s.is_valid():
+            product_s.save() 
+            return JsonResponse("Updated Successfully", safe=False)
+        return JsonResponse("Failed To Update",  safe=False)	
     
 
 @csrf_exempt
@@ -202,7 +186,6 @@ def Reviewsapi(request,pk=0):
                 return JsonResponse("Added Successfully", safe=False)
             return JsonResponse("Failed To Add", safe=False)
         
-
 @csrf_exempt
 
 def card_info_api(request,pk=0):
@@ -233,3 +216,11 @@ def card_info_api(request,pk=0):
                 card_serialzer.save() 
                 return JsonResponse("Updated Successfully", safe=False)
             return JsonResponse("Failed To Update")	
+        
+@csrf_exempt
+
+def admin_user(request,pk=0):
+        if request.method=="GET":
+            admindata=adminuser.objects.all()
+            admin_s=adminuser_Serializer(admindata,many=True)
+            return JsonResponse(admin_s.data, safe=False)  

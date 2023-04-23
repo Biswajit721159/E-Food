@@ -43,4 +43,10 @@ class ReviewsSerializer(serializers.HyperlinkedModelSerializer):
 class card_infoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=card_info
-        fields =('mobile','card_number','name','expiry','cvv')          
+        fields =('mobile','card_number','name','expiry','cvv') 
+
+        
+class adminuser_Serializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model=adminuser
+        fields =('username','password')                   

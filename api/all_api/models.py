@@ -15,9 +15,9 @@ class user_detail(models.Model):
 
 class product(models.Model):
     id=models.AutoField(primary_key=True)
-    product_url=models.CharField(max_length=200)
-    product_name=models.CharField(max_length=50)
-    price=models.IntegerField()
+    product_url=models.CharField(max_length=200,default="error")
+    product_name=models.CharField(max_length=50,default="error")
+    price=models.IntegerField(default=0)
     offer=models.IntegerField(default=0)
     product_type=models.CharField(max_length=100,default="non vage")
     location=models.CharField(max_length=100,default="Delhi")
@@ -70,8 +70,12 @@ class card_info(models.Model):
     def __str__(self):
         return self.mobile       
  
-
-
+class adminuser(models.Model):
+    username=models.CharField(primary_key=True,max_length=100)
+    password=models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.username
 
 
     
