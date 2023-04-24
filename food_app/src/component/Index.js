@@ -91,12 +91,9 @@ function loadbag()
 //sort by nonvage
 function searchnonvage()
 {
-  // console.log(user);
-  // console.log(product);
   if(notvage==false)
   {
-    setproduct(user);
-    sort_product_aviliable_not_avilible(user);
+    setInTOproduct(user,currmybag,iswishlist,review);
   }
   else
   {
@@ -118,8 +115,7 @@ function searchvage()
 {
   if(vage==false)
   {
-    setproduct(user);
-    sort_product_aviliable_not_avilible(user);
+    setInTOproduct(user,currmybag,iswishlist,review);
   }
   else
   {
@@ -422,7 +418,6 @@ function setInTOproduct(nums,currmybag,love,review)
     ans.push(obj);
   }
   setproduct([...ans]);
-  setuser([...ans]);
   sort_product_aviliable_not_avilible(ans);
 }
 
@@ -450,7 +445,6 @@ function sort_product_aviliable_not_avilible(product)
       }
     }
     setproduct([...arr]);
-    // find_rating(arr);
   }
 }
 
@@ -898,15 +892,15 @@ function love(id)
                 <div className='col'>
                   {
                    item.rating >= "1.0" && item.rating<="2.5" ? (
-                      <button className='btn btn-danger btn-sm' style={{fontSize:"13px"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
+                      <button className='btn btn-danger btn-sm' style={{fontSize:"13px"}} ><span className="fa fa-star checked"></span>{item.rating}</button>
                     ) : item.rating >"2.5" && item.rating<="3.5" ? (
-                      <button className='btn btn btn-sm' style={{fontSize:"13px",backgroundColor:"#F3CB89"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
+                      <button className='btn btn btn-sm' style={{fontSize:"13px",backgroundColor:"#F3CB89"}} ><span className="fa fa-star checked"></span>{item.rating}</button>
                     ) : item.rating >"3.5" && item.rating<="4.0" ? (
-                      <button className='btn btn-success btn-sm' style={{fontSize:"13px"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
+                      <button className='btn btn-success btn-sm' style={{fontSize:"13px"}} ><span className="fa fa-star checked"></span>{item.rating}</button>
                     ) : item.rating >"4.0" && item.rating<="5.0"? (
-                      <button className='btn btn-info btn-sm' style={{fontSize:"13px",backgroundColor:"#8BDD8A"}} ><span class="fa fa-star checked"></span>{item.rating}</button>
+                      <button className='btn btn-info btn-sm' style={{fontSize:"13px",backgroundColor:"#8BDD8A"}} ><span className="fa fa-star checked"></span>{item.rating}</button>
                     ) : (
-                      <button className='btn btn btn-sm' style={{fontSize:"13px",backgroundColor:"#D6D7F6"}} ><span class="fa fa-star checked"></span>{item.rating}</button> 
+                      <button className='btn btn btn-sm' style={{fontSize:"13px",backgroundColor:"#D6D7F6"}} ><span className="fa fa-star checked"></span>{item.rating}</button> 
                     )
                   }
                 </div>
