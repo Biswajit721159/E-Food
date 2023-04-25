@@ -1,9 +1,11 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState,useContext} from 'react'
 import { useNavigate } from "react-router-dom";
 import '../App.css';
-
+import { global } from "../App";
 export default function Adminlogin() {
 
+
+const {Username,Function} =useContext(global);
 const history=useNavigate();
 const [username,setusername]=useState("");
 const [password,setpassword]=useState("");
@@ -14,12 +16,15 @@ const [check,setcheck]=useState(false)
 useEffect(()=>{
     loaduser();
 },[])
+
+
 function loaduser()
 {
     fetch('http://127.0.0.1:8000/admin_user/').then(response=>response.json()).then((res)=>{
         setuser(res)
     })
 }
+
 function login()
 {
     let count=0;
@@ -34,8 +39,8 @@ function login()
     if(count)
     {
         localStorage.clear();
-        localStorage.setItem('user_token', username);
-        
+        localStorage.setItem('user_name', username);
+        Function(username)
         history('/Dashboard');
     }
     else

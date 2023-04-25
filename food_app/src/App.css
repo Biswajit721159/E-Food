@@ -258,7 +258,7 @@ header{
 }
 
 
-.order form{
+.order .boss{
     max-width:90rem;
     border-radius: .5rem;
     box-shadow: var(--box-shadow);
@@ -268,25 +268,25 @@ header{
     margin:0 auto;
 }
 
-.order form .inputBox{
+.order .boss .inputBox{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.order form .inputBox .input{
+.order .boss .inputBox .input{
     width:49%;
 }
 
-.order form .inputBox .input span{
+.order .boss .inputBox .input span{
     display:block;
     padding:.5rem 0;
     font-size: 1rem;
     color:var(--light-color);
 }
 
-.order form .inputBox .input input,
-.order form .inputBox .input textarea{
+.order .boss .inputBox .input input,
+.order .boss .inputBox .input textarea{
     background:#eee;
     border-radius: .5rem;
     padding:1rem;
@@ -297,8 +297,8 @@ header{
     width:100%;
 }
 
-.order form .inputBox .input input:focus,
-.order form .inputBox .input textarea:focus{
+.order boss .inputBox .input input:focus,
+.order boss .inputBox .input textarea:focus{
     border:.1rem solid var(--green);
 }
 

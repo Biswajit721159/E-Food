@@ -19,3 +19,5 @@ admin.site.register(Reviews)
 admin.site.register(card_info)
 
 admin.site.register(adminuser)
+
+admin.site.register(contact)

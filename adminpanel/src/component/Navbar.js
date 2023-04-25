@@ -1,26 +1,47 @@
-import React from 'react'
+import React, { useState,useEffect ,useContext } from "react";
+import { Link } from "react-router-dom";
+import { global } from "../App";
+import { useNavigate } from "react-router-dom";
 
-export default function 
-() {
-  return (
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-            <a class="navbar-brand mx-2" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            {/* <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+export default function Navbar() {
+
+
+const {Username,Function} =useContext(global);
+const history=useNavigate();
+
+// console.log(Username)
+
+useEffect(()=>{
+    if (localStorage.getItem('user_name') !== null) {
+        Function(localStorage.getItem('user_name'))
+      }
+},[])
+
+function logout()
+{
+  localStorage.clear();
+  Function("");
+  history('/')
+}
+
+return (
+    <>
+    
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent mx-6">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item"> 
+                   <Link className="nav-link active" aria-current="page" to="/Dashboard" style={{ color:'green' }}><h4>x-Food</h4></Link>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                </ul>
-            </div> */}
-            </nav>
-    </div>
-  )
+            </ul>
+         </div>
+          <div className="d-flex-col-lg-7"> 
+            {Username.length!=0?<button className="btn btn-info btn-sm mx-2" onClick={logout} >Logout</button>:""}
+          </div>
+        </div>
+      </nav>
+    </>
+  );
 }

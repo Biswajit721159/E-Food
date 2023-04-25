@@ -23,4 +23,5 @@ urlpatterns = [
     path('Reviews/',views.Reviewsapi),
     path('card_info/',views.card_info_api),
     path('admin_user/',views.admin_user),
+    path('contact_api/',views.contact_api),
 ]

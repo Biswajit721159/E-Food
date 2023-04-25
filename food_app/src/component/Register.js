@@ -6,7 +6,6 @@ import swal from "sweetalert";
 export default function () {
 
 
-const [name,setname]=useState("");
 const [first_name,setfirst_name]=useState("");
 const [last_name,setlast_name]=useState("");
 const [address,setaddress]=useState("");
@@ -240,13 +239,6 @@ function solve_state(s)
 
 function subnit()
 {
-  // console.log(name)
-  // console.log(mobile)
-  // console.log(password)
-  // console.log(confarmpassword)
-  // console.log(address)
-  // console.log(pin)
-  // console.log(state)
     let a=solve_first_name(first_name);
     let b=solve_last_name(last_name);
     let c=solve_mobile(mobile);
@@ -256,8 +248,6 @@ function subnit()
     let g=solve_state(state);
     let h=solve_pin(pin);
     let i=solve_address(address);
-
-  //  console.log(a+" "+b+" "+c+" "+d+" "+e+" "+f+" "+g+" "+h+" "+i);
 
     if(a==true && b==true && c==true && d==true && e==true && f==true && g==true && h==true && i==true)
     {
@@ -285,9 +275,9 @@ function subnit()
             localStorage.clear();
             localStorage.setItem('user_token', mobile);
             Function(mobile)
-            history('/index');
+            history('/Login');
+            swal(result);
           }
-          swal(result);
         },
         (error)=>{
           swal(`We are find some Error`);

@@ -965,8 +965,6 @@ function love(id)
              </button>
 
 
-
-
               }
             </div>
           </div>

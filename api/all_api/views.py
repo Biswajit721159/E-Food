@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 # import viewsets
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer
+from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer,contact_Serializer
 from .models import *
 from .models import mybag,adminuser
  
@@ -224,3 +224,19 @@ def admin_user(request,pk=0):
             admindata=adminuser.objects.all()
             admin_s=adminuser_Serializer(admindata,many=True)
             return JsonResponse(admin_s.data, safe=False)  
+          
+@csrf_exempt
+def contact_api(request,pk=0):
+    if request.method=="GET":
+        contactdata=contact.objects.all()
+        contact_s=contact_Serializer(contactdata,many=True)
+        return JsonResponse(contact_s.data, safe=False) 
+    
+    # elif request.method=="POST":
+        
+    #     get_data=JSONParser().parse(request)
+    #     contact_serializerr = contact_Serializer(data=get_data)
+    #     if contact_serializerr.is_valid():
+    #         contact_serializerr.save()
+    #         return JsonResponse("Added Successfully", safe=False)
+    #     return JsonResponse("Failed To Add", safe=False)         

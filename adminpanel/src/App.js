@@ -1,27 +1,30 @@
-
 import './App.css';
 import Adminlogin from './component/Adminlogin';
 import Dashboard from './component/Dashboard';
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './component/Navbar';
+import Manage_product from './component/Manage_product';
 export const global = createContext();
 
 
 function App() {
-  const [mobile,setmobile]=useState("");
-  function solve_mobile(mobile)
+
+  const [Username,setusername]=useState("");
+  function solve_username(username)
   {
-    setmobile(mobile);
+    setusername(username); 
   }
+
   return (
     <div className="App">
-      <global.Provider value={{Mobile:mobile,Function:solve_mobile}}>
+      <global.Provider value={{Username:Username,Function:solve_username}}>
         <Router>
           <Navbar/>
           <Routes>
             <Route path="/" element={<Adminlogin />}></Route>
             <Route path='/Dashboard' element={<Dashboard/>}></Route>
+            <Route path='/product_info' element={<Manage_product/>}></Route>
           </Routes>
         </Router>
       </global.Provider>

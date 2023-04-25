@@ -50,3 +50,8 @@ class adminuser_Serializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=adminuser
         fields =('username','password')                   
+        
+class contact_Serializer(serializers.HyperlinkedModelSerializer):  
+    class Meta:
+        model=contact
+        fields=('contact_id','mobile','message')   
