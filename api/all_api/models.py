@@ -81,6 +81,9 @@ class contact(models.Model):
     contact_id=models.AutoField(primary_key=True)
     mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
     message=models.TextField()
+
+    def __str__(self): 
+        return self.mobile
     
  
 

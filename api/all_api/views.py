@@ -232,11 +232,11 @@ def contact_api(request,pk=0):
         contact_s=contact_Serializer(contactdata,many=True)
         return JsonResponse(contact_s.data, safe=False) 
     
-    # elif request.method=="POST":
+    elif request.method=="POST":
         
-    #     get_data=JSONParser().parse(request)
-    #     contact_serializerr = contact_Serializer(data=get_data)
-    #     if contact_serializerr.is_valid():
-    #         contact_serializerr.save()
-    #         return JsonResponse("Added Successfully", safe=False)
-    #     return JsonResponse("Failed To Add", safe=False)         
+        get_data=JSONParser().parse(request)
+        contact_serializerr = contact_Serializer(data=get_data)
+        if contact_serializerr.is_valid():
+            contact_serializerr.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False)         

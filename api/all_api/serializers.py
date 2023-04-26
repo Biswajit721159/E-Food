@@ -12,7 +12,7 @@ class productSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'product_url','product_name', 'price','number_count','offer','product_type','location')
 
 
-class userSerializer(serializers.HyperlinkedModelSerializer):
+class userSerializer(serializers.ModelSerializer):
     class Meta:
         model = user_detail
         fields = ('mobile', 'first_name','last_name','password' ,'address','pin', 'state')
@@ -51,7 +51,8 @@ class adminuser_Serializer(serializers.HyperlinkedModelSerializer):
         model=adminuser
         fields =('username','password')                   
         
-class contact_Serializer(serializers.HyperlinkedModelSerializer):  
+class contact_Serializer(serializers.ModelSerializer):  
+    tracks = userSerializer(many=True, read_only=True)
     class Meta:
         model=contact
-        fields=('contact_id','mobile','message')   
+        fields=('tracks','contact_id','mobile','message')   

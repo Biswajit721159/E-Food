@@ -1,14 +1,20 @@
 import React,{useContext,useState} from 'react'
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { global } from "../App";
 export default function Home() {
     
 const {Mobile} =useContext(global);
 const [message,setmessage]=useState()
+const history=useNavigate();
 
 function submit()
 {
+    if(Mobile.length==0)
+    {
+        history('/Login')
+        return;
+    }
     fetch('http://127.0.0.1:8000/contact_api/',{
         method:'POST',
         headers:{
