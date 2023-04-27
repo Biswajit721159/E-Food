@@ -2,8 +2,7 @@ from django.shortcuts import render,HttpResponse
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
-# import viewsets
+
 from rest_framework import viewsets
 from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer,contact_Serializer
 from .models import *
@@ -11,7 +10,6 @@ from .models import mybag,adminuser
  
 
 @csrf_exempt
-
 def userapi(request,pk=0):
 
     if request.method=="GET":
@@ -44,7 +42,6 @@ def userapi(request,pk=0):
 
 
 @csrf_exempt
-
 def mybagapi(request,pk=0):
 
     if request.method=="GET":
@@ -65,10 +62,9 @@ def mybagapi(request,pk=0):
         data = mybag.objects.all()
         mybag_arrays=[]
         for i in data:
-            if str(i.mobile)==str(mybag_data['mobile']) and str(i.product_id)==str(mybag_data['product_id']):
+            if str(i.mobile)==str(mybag_data['mobile']) and str(i.product_id.id)==str(mybag_data['product_id']):
                 mybag_arrays=i
-                break
-
+                break 
         mybag_serialzer = mybagSerializer(mybag_arrays, data=mybag_data)
         if mybag_serialzer.is_valid():
             mybag_serialzer.save() 
@@ -86,8 +82,8 @@ def mybagapi(request,pk=0):
         new_data.delete()
         return JsonResponse("Data Was Deleted Successfully", safe=False)	
 
-@csrf_exempt
 
+@csrf_exempt
 def orderapi(request,pk=0):
     if request.method=="GET":
         all_order=order_product.objects.all()
@@ -102,6 +98,7 @@ def orderapi(request,pk=0):
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)
 
+
 @csrf_exempt
 def productapi(request,pk=0):
 
@@ -112,7 +109,7 @@ def productapi(request,pk=0):
         count=''
         for i in user_data:
             if i.mobile==location['mobile']:
-                count=i.state
+                count=i.city
         arr=[]
         for i in all_product:
             if i.location==count:
@@ -131,10 +128,17 @@ def productapi(request,pk=0):
         data = product.objects.all()
         product_arrays=[]
         for i in data:
+            # print()
+            # print(i.id)
+            # print(product_data['id'])
+            # print("Hello")
+            # print()
             if str(i.id)==str(product_data['id']):
                 product_arrays=i
-                break            
-        product_s = productSerializer(product_arrays, data=product_data)   
+                break          
+        print(product_arrays)      
+        product_s = productSerializer(product_arrays, data=product_data) 
+        print(product_s.error_messages)  
         if product_s.is_valid():
             product_s.save() 
             return JsonResponse("Updated Successfully", safe=False)
@@ -142,7 +146,6 @@ def productapi(request,pk=0):
     
 
 @csrf_exempt
-
 def iswishlistapi(request,pk=0):
     if request.method=="GET":
         all_data=iswishlist.objects.all()
@@ -163,14 +166,13 @@ def iswishlistapi(request,pk=0):
         data = iswishlist.objects.all()
         new_data=[]
         for i in data:
-            if str(i.mobile)==str(all_data['mobile']) and str(i.product_id)==str(all_data['product_id']):
+            if str(i.mobile)==str(all_data['mobile']) and str(i.product_id.id)==str(all_data['product_id']):
                 new_data=i
                 break    
         new_data.delete()
         return JsonResponse("Deleted Successfully", safe=False)	
 
 @csrf_exempt
-
 def Reviewsapi(request,pk=0):
 
         if request.method=="GET":
@@ -185,9 +187,9 @@ def Reviewsapi(request,pk=0):
                 Reviews_serializerr.save()
                 return JsonResponse("Added Successfully", safe=False)
             return JsonResponse("Failed To Add", safe=False)
-        
-@csrf_exempt
 
+
+@csrf_exempt
 def card_info_api(request,pk=0):
          
         if request.method=="GET":
@@ -198,6 +200,7 @@ def card_info_api(request,pk=0):
         elif request.method=="POST":
             get_data=JSONParser().parse(request)
             card_info_serializerr = card_infoSerializer(data=get_data)
+            print(card_info_serializerr.error_messages)
             if card_info_serializerr.is_valid():
                 card_info_serializerr.save()
                 return JsonResponse("Your Card is Successfully Added", safe=False)
@@ -216,14 +219,15 @@ def card_info_api(request,pk=0):
                 card_serialzer.save() 
                 return JsonResponse("Updated Successfully", safe=False)
             return JsonResponse("Failed To Update")	
-        
-@csrf_exempt
 
+
+@csrf_exempt
 def admin_user(request,pk=0):
         if request.method=="GET":
             admindata=adminuser.objects.all()
             admin_s=adminuser_Serializer(admindata,many=True)
             return JsonResponse(admin_s.data, safe=False)  
+    
           
 @csrf_exempt
 def contact_api(request,pk=0):

@@ -253,11 +253,10 @@ export default function Payment() {
     return 0;
   }
 
-  const put_data = async(input) => {
+  function put_data (input) {
       let count_product=checking_aviliblity(input.product_id,input.number_product)
       if(count_product>0)
       {  
-        console.log(count_product)
         fetch('http://127.0.0.1:8000/order/', 
         {
             method:'POST',
@@ -319,6 +318,11 @@ export default function Payment() {
                         cvv:cvv
                   })
                 })
+                .then(response=>response.json()).then((res)=>{
+                  alert(res)
+                },(error)=>{
+                  alert(error)
+                })
             }
             fetch('http://127.0.0.1:8000/product/',
             {
@@ -331,6 +335,11 @@ export default function Payment() {
                   id:input.product_id,
                   number_count:count_product-input.number_product,
               })
+            })
+            .then(response=>response.json()).then((res)=>{
+              alert(res)
+            },(error)=>{
+              alert(error)
             })
         },
         (error)=>{
@@ -409,6 +418,7 @@ export default function Payment() {
 
   return (
     <>
+    {Mobile.length==10?
       <div className="container">
         <h1 className="h3 mb-5 mt-5"> Safe Payment</h1>
         <div className="col-lg-7" style={{backgroundColor:'yellow'}}>
@@ -465,6 +475,7 @@ export default function Payment() {
           </div>
         </div>
       </div>
+      :<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
     </>
   );
 }

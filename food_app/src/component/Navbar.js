@@ -29,8 +29,9 @@ useEffect(()=>{
 },[update]);
 
 
-function loadproduct(){
-    if (localStorage.getItem('user_token') !== null) {
+function loadproduct()
+{
+    if (localStorage.getItem('user_token') !== null  ) {
       Function(localStorage.getItem('user_token'))
     }
     fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{

@@ -46,7 +46,7 @@ function login()
       if(user[i].mobile==mobile && user[i].password==password)
       {
         count++;
-        location(user[i].state)
+        location(user[i].city)
         break;
       }
     }
