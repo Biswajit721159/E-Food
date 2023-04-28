@@ -15,6 +15,7 @@ import Home from "./component/Home";
 import Lovelist from "./component/Lovelist";
 import Reviews from "./component/Reviews";
 import Product_view from "./component/Product_view";
+import Forgot_password from "./component/Forgot_password";
 
 export const global = createContext();
 
@@ -52,6 +53,7 @@ function App() {
             <Route path="/lovelist" element={<Lovelist/>}></Route>
             <Route path="/Reviews/order_id/:order_id/product_id/:product_id" element={<Reviews/>}></Route>
             <Route path="/product_id/:id" element={<Product_view />} ></Route>
+            <Route path="/forgot_password" element={<Forgot_password/>}></Route>
             <Route path="*" element={<Error />}></Route>
           </Routes>
         </Router>

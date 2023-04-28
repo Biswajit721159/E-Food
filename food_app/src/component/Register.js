@@ -14,6 +14,7 @@ const [pin,setpin]=useState("");
 const [mobile,setmobile]=useState("");
 const [password,setpassword]=useState("")
 const [confarmpassword,setconfarmpassowrd]=useState("")
+const [city,setcity]=useState("")
 const history=useNavigate();
 
 
@@ -266,6 +267,7 @@ function subnit()
                 address:address,
                 state:state,
                 pin:pin,
+                city:city,
             })
         })
         .then(response=>response.json())
@@ -383,6 +385,17 @@ function subnit()
             required
           />
           {error_pin==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagepin}</label>:""}
+        </div>
+        <div className="col-md-4 mt-3">
+          <input
+            type="text"
+            className="form-control"
+            id="validationCustom05"
+            placeholder="city"
+            value={city}
+            onChange={(e)=>setcity(e.target.value)}
+            required
+          />
         </div>
         <div className="col-md-3 mt-4">
           <button className="btn btn-primary" type="submit" onClick={subnit}>

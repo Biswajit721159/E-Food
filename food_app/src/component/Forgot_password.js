@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { global } from "../App";
 
-export default function () {
-
+export default function Forgot_password() {
+   
 const {Mobile,Function,child,update,location} =useContext(global);
 
 const [mobile,setmobile]=useState("");
@@ -68,8 +68,8 @@ function login()
 
   return (
     <div className="container mt-5">
-      <h3>Login Form</h3>
-        <div class="col-md-4 mt-3 ">
+      <h3>Forgot Password Form</h3>
+        <div class="col-md-4 mt-5 ">
           <input
             type="number"
             class="form-control"
@@ -106,9 +106,6 @@ function login()
           <button class="btn btn-primary" type="submit" onClick={login}>
             Procide to Go
           </button>
-        </div>
-        <div class="col-md-3 mt-3">
-             <Link to={'/forgot_password'} className="mt-5" style={{textDecoration:"none"}}>Forgot Password</Link>
         </div>
         {error==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label  mt-1">{error_mess}</label>:""}
     </div>

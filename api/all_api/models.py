@@ -7,11 +7,11 @@ class user_detail(models.Model):
     last_name=models.CharField(max_length=300)
     password=models.CharField(max_length=20)
     address=models.CharField(max_length=300)
-    pin=models.IntegerField()
+    pin=models.CharField(max_length=100)
     state=models.CharField(max_length=20)
     city=models.CharField(max_length=100,default="Jalpaiguri")
-    def __str__(self):
-        return str(self.mobile)
+    # def __str__(self):
+    #     return str(self.first_name)
 
 
 class product(models.Model):
@@ -24,17 +24,11 @@ class product(models.Model):
     location=models.CharField(max_length=100,default="Jalpaiguri")
     number_count=models.IntegerField(default=10)
 
-    def __str__(self):
-        return str(self.product_name)
-
 
 class mybag(models.Model):
     mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
     product_id=models.ForeignKey(product,on_delete=models.CASCADE)
     number_product=models.IntegerField()
-
-    def __str__(self):
-        return str(self.mobile)
 
 
 class order_product(models.Model):
@@ -61,8 +55,7 @@ class Reviews(models.Model):
     review = models.CharField(max_length=500)
     time_created = models.CharField(max_length=100)  
 
-    def __str__ (self):
-        return self.mobile
+   
 
 
 class card_info(models.Model):
@@ -73,8 +66,7 @@ class card_info(models.Model):
     expiry=models.CharField(max_length=15)
     cvv=models.CharField(max_length=4)  
 
-    # def __str__(self):
-    #     return self.mobile       
+     
  
 
 class adminuser(models.Model):
@@ -90,8 +82,6 @@ class contact(models.Model):
     mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
     message=models.TextField()
 
-    def __str__(self): 
-        return self.mobile
     
  
 

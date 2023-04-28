@@ -475,7 +475,7 @@ export default function Payment() {
           </div>
         </div>
       </div>
-      :<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
+      :<h2 className="col-md-12 text-center" id="notfound">Oops Not Found  ! </h2>}
     </>
   );
 }

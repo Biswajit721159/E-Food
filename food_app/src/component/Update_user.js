@@ -14,29 +14,25 @@ const [first_name,setfirst_name]=useState("");
 const [last_name,setlast_name]=useState("");
 const [address,setaddress]=useState("");
 const [state,setstate]=useState("");
-const [pin,setpin]=useState(0);
+const [pin,setpin]=useState("");
+const [city,setcity]=useState("");
 
 const history=useNavigate();
 
 
 useEffect(()=>{
-loaduser();
-},[])
+   loaduser();
+},[Mobile])
 
 function loaduser(){
-if(Mobile.length==0)
-{
-    swal('Please Login !');
-}
-else
-{
-    fetch('http://127.0.0.1:8000/user/')
-    .then(response=>response.json())
-    .then((data) =>{
-        setuser(data);
-        finduser(data)
-    })
-}
+
+  fetch('http://127.0.0.1:8000/user/')
+  .then(response=>response.json())
+  .then((data) =>{
+      setuser(data);
+      finduser(data)
+  })
+  
 }
 
 function finduser(user)
@@ -50,6 +46,7 @@ function finduser(user)
             setaddress(user[i].address)
             setpin(user[i].pin)
             setstate(user[i].state)
+            setcity(user[i].city);
         }
     }
 }  
@@ -175,6 +172,7 @@ function subnit()
                 address:address,
                 state:state,
                 pin:pin,
+                city:city,
             })
         })
         .then(response=>response.json())
@@ -186,7 +184,7 @@ function subnit()
         (error)=>{
             alert("Failed");
         })
-        history('/User/Dashboard');
+        //history('/User/Dashboard');
     }
     else if(x===false)
     {
@@ -279,6 +277,16 @@ function subnit()
             placeholder="Pin"
             value={pin}
             onChange={(e)=>setpin(e.target.value)}
+          />
+        </div>
+        <div class="col-md-4 mt-3">
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom05"
+            placeholder="City"
+            value={city}
+            onChange={(e)=>setcity(e.target.value)}
           />
         </div>
         <div class="col-12 mt-4">

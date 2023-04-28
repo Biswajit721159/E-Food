@@ -40,6 +40,8 @@ export default function Userdetail() {
 
   };
   return (
+    <>
+    {Mobile.length==10?
     <div className='container mt-5'>
        <h3 style={{color:'green'}}>Mobile Number is  :- {Mobile} </h3>
        {search.first_name!=undefined && search.last_name!=undefined?<h3 style={{color:'green'}}>Name is :- {search.first_name +" "+search.last_name} </h3>:""}
@@ -51,5 +53,7 @@ export default function Userdetail() {
            search!==undefined?<Link to={`/MyOrder`}><button className='btn btn-warning mt-5 mx-5'>My Order </button></Link>:""
        }
     </div>
+    :<h2 className="col-md-12 text-center" id="notfound">Record is Not Found  ! </h2>}
+    </>
   )
 }

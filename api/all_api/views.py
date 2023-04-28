@@ -2,13 +2,13 @@ from django.shortcuts import render,HttpResponse
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
 from rest_framework import viewsets
 from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer,contact_Serializer
 from .models import *
 from .models import mybag,adminuser
  
-
 @csrf_exempt
 def userapi(request,pk=0):
 
@@ -33,7 +33,7 @@ def userapi(request,pk=0):
         for i in data:
             if str(i.mobile)==str(user_data['mobile']):
                 user_arrays=i
-                break    
+                break     
         user_serialzer = userSerializer(user_arrays, data=user_data)
         if user_serialzer.is_valid():
             user_serialzer.save() 
@@ -62,9 +62,9 @@ def mybagapi(request,pk=0):
         data = mybag.objects.all()
         mybag_arrays=[]
         for i in data:
-            if str(i.mobile)==str(mybag_data['mobile']) and str(i.product_id.id)==str(mybag_data['product_id']):
+            if str(i.mobile.mobile)==str(mybag_data['mobile']) and str(i.product_id.id)==str(mybag_data['product_id']):
                 mybag_arrays=i
-                break 
+                break    
         mybag_serialzer = mybagSerializer(mybag_arrays, data=mybag_data)
         if mybag_serialzer.is_valid():
             mybag_serialzer.save() 
@@ -166,9 +166,9 @@ def iswishlistapi(request,pk=0):
         data = iswishlist.objects.all()
         new_data=[]
         for i in data:
-            if str(i.mobile)==str(all_data['mobile']) and str(i.product_id.id)==str(all_data['product_id']):
+            if str(i.mobile.mobile)==str(all_data['mobile']) and str(i.product_id.id)==str(all_data['product_id']):
                 new_data=i
-                break    
+                break     
         new_data.delete()
         return JsonResponse("Deleted Successfully", safe=False)	
 
@@ -200,7 +200,6 @@ def card_info_api(request,pk=0):
         elif request.method=="POST":
             get_data=JSONParser().parse(request)
             card_info_serializerr = card_infoSerializer(data=get_data)
-            print(card_info_serializerr.error_messages)
             if card_info_serializerr.is_valid():
                 card_info_serializerr.save()
                 return JsonResponse("Your Card is Successfully Added", safe=False)
@@ -211,7 +210,7 @@ def card_info_api(request,pk=0):
             data = card_info.objects.all()
             card_arrays=[]
             for i in data:
-                if str(i.mobile)==str(card_data['mobile']):
+                if str(i.mobile.mobile)==str(card_data['mobile']):
                     card_arrays=i
                     break
             card_serialzer = card_infoSerializer(card_arrays, data=card_data)

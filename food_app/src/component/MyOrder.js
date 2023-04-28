@@ -140,6 +140,6 @@ export default function MyOrder() {
              {load==true?<button className='btn btn-primary mx' onClick={load_more}>Load More</button>:""}
           </div>
       </div>
-    </div>:<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>
+    </div>:<h2 className="col-md-12 text-center" id="notfound">Record Not Found  ! </h2>
   )
 }
