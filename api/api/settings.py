@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'all_api',
+    'adminpanel',
     'rest_framework',
     "corsheaders",
 ]

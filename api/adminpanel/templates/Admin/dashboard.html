@@ -171,20 +171,32 @@ ol,ul {
         <li>
           <a href="/adminpanel/managereviews">
             {% comment %} <i class='bx bx-list-ul' ></i> {% endcomment %}
-            <span class="links_name">Manage reviews</span>
+            <span class="links_name">Manage Reviews</span>
           </a>
         </li>
         <li>
           <a href="/adminpanel/manageproperties">
             {% comment %} <i class='bx bx-book-alt' ></i> {% endcomment %}
-            <span class="links_name">Manage properties </span>
+            <span class="links_name">Manage product </span>
           </a>
         </li>
         
         <li>
           <a href="/adminpanel/managerental">
             {% comment %} <i class='bx bx-user' ></i> {% endcomment %}
-            <span class="links_name">Manage Rental properties</span>
+            <span class="links_name">Manage Bag/Cart</span>
+          </a>
+        </li>
+        <li>
+          <a href="/adminpanel/order">
+            {% comment %} <i class='bx bx-user' ></i> {% endcomment %}
+            <span class="links_name">Manage Order</span>
+          </a>
+        </li>
+        <li>
+          <a href="/adminpanel/managerental">
+            {% comment %} <i class='bx bx-user' ></i> {% endcomment %}
+            <span class="links_name">Manage iswishlist</span>
           </a>
         </li>
         <li class="log_out">
@@ -199,51 +211,31 @@ ol,ul {
     <div class="home-content">
       <div class="overview-boxes">
         <div class="box">
-          <div class="right-side">
-               <div class="box-topic" >Total Admin</div>
-               <div class="number">{{Total_admin}}</div>
-               <div class="indicator"></div>
-          </div> 
-        </div>
-        <div class="box">
             <div class="right-side">
-              <div class="box-topic" >Total Owner</div>
-              <div class="number">{{Total_owner}}</div>
+              <div class="box-topic" >Total Product</div>
+              <div class="number">{{Total_product}}</div>
               <div class="indicator">
               </div>
             </div>
         </div>
         <div class="box">
           <div class="right-side">
-            <div class="box-topic" >Total Rentee</div>
-             <div class="number">{{Total_rentee}}</div>
+            <div class="box-topic" >Total User</div>
+             <div class="number">{{Total_user}}</div>
              <div class="indicator">
             </div>
           </div>
         </div>
         <div class="box">
           <div class="right-side">
-            <div class="box-topic"  >Total Rented House</div>
-            <div class="number">{{Total_Rented_House}}</div>
-          </div>  
-        </div>
-        <div class="box" style="margin-top:13px">
-          <div class="right-side">
-            <div class="box-topic"  >Available for Rent</div>
-            <div class="number">{{Available_for_Rent}}</div>
-          </div>  
-        </div>
-        <div class="box" style="margin-top:13px">
-          <div class="right-side">
-            <div class="box-topic" >Total House</div>
-            <div class="number">{{Total_House}}</div>
-          </div>  
-        </div>
-
-        <div class="box" style="margin-top:13px">
-          <div class="right-side">
-            <div class="box-topic" >Total Reviews</div>
+            <div class="box-topic"  >Total Reviews</div>
             <div class="number">{{Total_reviews}}</div>
+          </div>  
+        </div>
+        <div class="box" style="margin-top:13px">
+          <div class="right-side">
+            <div class="box-topic"  >Total Order product</div>
+            <div class="number">{{Total_Order_product}}</div>
           </div>  
         </div>
 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    {% load static %}  
+<style>
+    
+  .table{
+    font-size: 13px;
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    text-align: center;
+  }
+  .table tr:nth-child(odd){
+    background: #ADB5BD;
+  }
+  .table tr:nth-child(even){
+    background: white;
+  }
+  th {
+    color: black;
+    text-align: left;
+  }
+  h2{
+    padding-bottom: 15px;
+    padding-top: 18px;
+  }
+  .display_table{
+    border-bottom-right-radius: 20px;
+    padding-left: 5px;
+    padding-bottom: 20px;
+    box-shadow: 12px 12px 20px 6px;
+  }
+
+  .header {
+      font-family: helvetica;
+      font-size: 50px;
+      text-align: center;
+      width: 100%;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;
+  }
+  .btn-primary:hover{
+      background-color:#081D45 !important;
+  }
+  .body
+  {
+    background: white;
+    border-image-repeat: none;
+  }
+  ol,ul {
+    padding-left: 0px;
+  }
+</style>
+<body class="body">
+  {% if user.is_authenticated %}
+  
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title" style="width: 85%;margin-left: 0%" >
+                <div class="row">
+                    <div class="col-sm-6">
+                      <h2>Manage <b>Order</b></h2>
+                    </div>
+                    <div class="col-sm-7">
+                        <a href="/adminpanel/userinfo/adduser" class="btn btn-success btn-sm"><span>Add User</span></a>	
+                        <a href="/adminpanel/dashboard"><button class="btn btn-dark btn-sm">Back to main page</button></a>	
+                        <a href="/adminpanel/order"><button class="btn btn-dark btn-sm">Clear Search</button></a>			
+                    </div>  
+                </div>
+            </div>
+            <div class="container">
+                <table class="table table-striped table-hover" style="width:85%;margin-left:0%;margin-top:2%">
+                    <thead>
+                        <tr>
+                            <th>Order id</th>
+                            <th>Product id</th>
+                            <th>PhoneNo</th>
+                            <th>price</th>
+                            <th>number_product</th>
+                            <th>date</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <form action="/adminpanel/order/search_order_id" method="GET">
+                            <td><input type="search" class="searchInput" name="order_id" class="form-control" placeholder="Search order_id" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/order/search_product_id" method="GET">
+                            <td><input type="search" class="searchInput" name="product_id" class="form-control" placeholder="Search product_id" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/order/search_mobile" method="GET">
+                            <td><input type="search" class="searchInput" name="mobile" class="form-control" placeholder="Search phone_number" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/order/search_price" method="GET">
+                            <td><input type="search" class="searchInput" name="price" class="form-control" placeholder="Search price" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/order/search_number_product" method="GET">
+                            <td><input type="search" class="searchInput" name="number_product" class="form-control" placeholder="number of product" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/order/search_date" method="GET">
+                            <td><input type="search" class="searchInput" name="date" class="form-control" placeholder="Search date" aria-label="Search" /></td>
+                        </form>
+                        <td colspan="2"></td>
+                        </tr>
+                        {% if userlist %}
+                            {% for i in userlist %}
+                                <tr>
+                                    <td>{{i.order_id}}</td>
+                                    <td>{{i.product_id}}</td>
+                                    <td>{{i.mobile}}</td>
+                                    <td>{{i.price}}</td>
+                                    <td>{{i.number_product}}</td>
+                                    <td>{{i.date}}</td>
+                                    <td>
+                                        <a href="/adminpanel/userinfo/update/{{i.user_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
+                                    </td>
+                                    <td>
+                                        <a href="/adminpanel/userinfo/delete/{{i.user_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
+                                    </td>
+                                </tr>
+                            {%endfor%}
+                        {% else %}
+                        <td colspan="9" style="text-align:center;">Result not Found</td>
+                        {%endif%}    
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    {%else%}
+      <h1 class="logout">You are Logged Out</h1>
+    {%endif%}
+
+</body>
+</html>
