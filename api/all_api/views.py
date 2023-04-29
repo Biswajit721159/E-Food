@@ -28,12 +28,7 @@ def userapi(request,pk=0):
     
     elif request.method == 'PUT':
         user_data = JSONParser().parse(request)
-        data = user_detail.objects.all()
-        user_arrays=[]
-        for i in data:
-            if str(i.mobile)==str(user_data['mobile']):
-                user_arrays=i
-                break     
+        user_arrays=user_detail.objects.get(mobile=user_data['mobile'])
         user_serialzer = userSerializer(user_arrays, data=user_data)
         if user_serialzer.is_valid():
             user_serialzer.save() 
@@ -76,7 +71,7 @@ def mybagapi(request,pk=0):
         data = mybag.objects.all()
         new_data=[]
         for i in data:
-            if str(i.mobile)==str(mybag_data['mobile']):
+            if str(i.mobile.mobile)==str(mybag_data['mobile']):
                 new_data=i
                 break    
         new_data.delete()
@@ -95,7 +90,7 @@ def orderapi(request,pk=0):
         order_serializerr = orderSerializer(data=order_data)
         if order_serializerr.is_valid():
             order_serializerr.save()
-            return JsonResponse("Added Successfully", safe=False)
+            return JsonResponse("Successfully order", safe=False)
         return JsonResponse("Failed To Add", safe=False)
 
 
@@ -128,17 +123,10 @@ def productapi(request,pk=0):
         data = product.objects.all()
         product_arrays=[]
         for i in data:
-            # print()
-            # print(i.id)
-            # print(product_data['id'])
-            # print("Hello")
-            # print()
             if str(i.id)==str(product_data['id']):
                 product_arrays=i
-                break          
-        print(product_arrays)      
+                break              
         product_s = productSerializer(product_arrays, data=product_data) 
-        print(product_s.error_messages)  
         if product_s.is_valid():
             product_s.save() 
             return JsonResponse("Updated Successfully", safe=False)

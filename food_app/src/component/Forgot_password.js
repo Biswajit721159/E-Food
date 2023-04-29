@@ -31,7 +31,7 @@ function loaduser()
 };
 
 
-function login()
+function forgot()
 {   
   if(password!=confarmpassword)
   {
@@ -85,7 +85,7 @@ function login()
             type="password"
             class="form-control"
             id="validationCustom01"
-            placeholder="Password"
+            placeholder="New Password"
             value={password}
             onChange={(e)=>{setpassword(e.target.value)}}
             required
@@ -103,7 +103,7 @@ function login()
           />
         </div>
         <div class="col-md-3 mt-4">
-          <button class="btn btn-primary" type="submit" onClick={login}>
+          <button class="btn btn-primary" type="submit" onClick={forgot}>
             Procide to Go
           </button>
         </div>

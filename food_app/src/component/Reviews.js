@@ -59,7 +59,6 @@ export default function Reviews() {
         <div className="col-md-4 mt-3">
           <select className="form-select" value={rating} onChange={(e)=>setrating(e.target.value)} >
             <option>Over All Rating out of 5</option>
-            <option>0</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>

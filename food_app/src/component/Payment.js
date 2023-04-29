@@ -318,11 +318,6 @@ export default function Payment() {
                         cvv:cvv
                   })
                 })
-                .then(response=>response.json()).then((res)=>{
-                  alert(res)
-                },(error)=>{
-                  alert(error)
-                })
             }
             fetch('http://127.0.0.1:8000/product/',
             {
@@ -335,17 +330,13 @@ export default function Payment() {
                   id:input.product_id,
                   number_count:count_product-input.number_product,
               })
-            })
-            .then(response=>response.json()).then((res)=>{
-              alert(res)
-            },(error)=>{
-              alert(error)
+            }).then((result)=>{
+              history(`/MyOrder`);
             })
         },
         (error)=>{
           alert(error)
         })
-        history(`/MyOrder`);
       }
       else
       {

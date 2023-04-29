@@ -2,10 +2,10 @@ from django.db import models
 
 
 class user_detail(models.Model):
-    mobile=models.CharField(primary_key=True,max_length=10)
+    mobile=models.CharField(primary_key=True,max_length=100)
     first_name=models.CharField(max_length=50)
     last_name=models.CharField(max_length=300)
-    password=models.CharField(max_length=20)
+    password=models.CharField(max_length=20,default=True)
     address=models.CharField(max_length=300)
     pin=models.CharField(max_length=100)
     state=models.CharField(max_length=20)
@@ -16,8 +16,8 @@ class user_detail(models.Model):
 
 class product(models.Model):
     id=models.AutoField(primary_key=True)
-    product_url=models.CharField(max_length=200)
-    product_name=models.CharField(max_length=50)
+    product_url=models.CharField(max_length=200,default="No")
+    product_name=models.CharField(max_length=50,default="No")
     price=models.IntegerField(default=100)
     offer=models.IntegerField(default=5)
     product_type=models.CharField(max_length=100,default="non vage")

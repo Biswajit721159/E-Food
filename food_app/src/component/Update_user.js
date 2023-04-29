@@ -179,12 +179,12 @@ function subnit()
         .then((result)=>{
             alert(result);
             loaduser()
-            location(state)
+            location(city)
         },
         (error)=>{
             alert("Failed");
         })
-        //history('/User/Dashboard');
+        history('/User/Dashboard');
     }
     else if(x===false)
     {

@@ -48,6 +48,7 @@ export default function Userdetail() {
        <h4 style={{color:'green'}}>Address is :- {search.address} </h4>
        <h4 style={{color:'green'}}>State is :- {search.state} </h4>
        <h4 style={{color:'green'}}>Pin is :- {search.pin} </h4>
+       <h4 style={{color:'green'}}>City is :- {search.city} </h4>
        <Link to={'/update/detail'}><button className='btn btn-primary mt-5'>Update your detail</button></Link>
        {
            search!==undefined?<Link to={`/MyOrder`}><button className='btn btn-warning mt-5 mx-5'>My Order </button></Link>:""
