@@ -1,4 +1,4 @@
-import React, { useState ,useContext} from 'react'
+import React, { useState ,useContext, useEffect} from 'react'
 import { Routes, Route, useParams, useSearchParams } from 'react-router-dom';
 import { global } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +9,40 @@ export default function Reviews() {
   const {Mobile,Function,child,update,Location} =useContext(global);
   const [reviews,setreviews]=useState("");
   const[rating,setrating]=useState("Over All Rating Out of 5");
-
+  const [already_given_reviews,setalready_given_reviews]=useState(true)
   let { order_id,product_id } = useParams();
+
+  const [review_table,setreview_table]=useState([])
+  useEffect(()=>{
+    loadproduct();
+  },[Mobile])
+
+  function loadproduct()
+  {
+    fetch('http://127.0.0.1:8000/Reviews/').then(responce=>responce.json()).then((res)=>{
+      setreview_table(res)
+      check_already_exit(res)
+    })
+  }
   
+  function check_already_exit(nums)
+  {
+    for(let i=0;i<nums.length;i++)
+    {
+      if(nums[i].order_id==order_id && nums[i].product_id==product_id && nums[i].mobile==Mobile)
+      {
+        setalready_given_reviews(false)
+        break;
+      }
+    }
+  }
 
   function submit()
   {
+    if(Mobile.length!=10)
+    {
+      history('/Login')
+    }
     const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
     const current = new Date();
     const date = `${ monthNames[current.getMonth()]} ${current.getDate()}`;
@@ -42,10 +70,14 @@ export default function Reviews() {
        alert(`We are find some Error`);
      })
   }
+
   return (
+    <>
+    {
+    already_given_reviews ==true
+    ?
     <div className="container mt-3">
       <h3>Reviews Form</h3>
-      
         <div className="col-md-4 mt-3">
           <textarea
             type="textarea"
@@ -71,7 +103,10 @@ export default function Reviews() {
             Submit Feedback
           </button>
         </div>
-     
     </div>
+    :
+    <h2 className="col-md-12 text-center" id="notfound">Review is already given</h2>
+   }
+  </>
   );
 }

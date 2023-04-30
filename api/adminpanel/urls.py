@@ -28,7 +28,9 @@ urlpatterns = [
     path('order/search_date',views.order_search_date),
 
 
-    
+    #manage product
+
+    path('product',views.product),
 
 
 ]

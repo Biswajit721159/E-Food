@@ -180,11 +180,11 @@ function subnit()
             alert(result);
             loaduser()
             location(city)
+            history('/User/Dashboard');
         },
         (error)=>{
             alert("Failed");
         })
-        history('/User/Dashboard');
     }
     else if(x===false)
     {

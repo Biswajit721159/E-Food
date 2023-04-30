@@ -203,3 +203,6 @@ def order_search_date(request):
         return HttpResponse("Please wait")   
 
 
+def product(request):
+    data=requests.get('http://127.0.0.1:8000/product/').json()
+    return render(request,"admin/manage_product.html",{'productlist':data})
