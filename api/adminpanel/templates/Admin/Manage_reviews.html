@@ -67,65 +67,63 @@
             <div class="table-title" style="width: 85%;margin-left: 0%" >
                 <div class="row">
                     <div class="col-sm-6">
-                      <h2>Manage <b>Product</b></h2>
+                      <h2>Manage <b>Users</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="/adminpanel/product/adduser" class="btn btn-success btn-sm"><span>Add User</span></a>	
+                        <a href="/adminpanel/userinfo/adduser" class="btn btn-success btn-sm"><span>Add User</span></a>	
                         <a href="/adminpanel/dashboard"><button class="btn btn-dark btn-sm">Back to main page</button></a>	
-                        <a href="/adminpanel/product"><button class="btn btn-dark btn-sm">Clear Search</button></a>				
+                        <a href="/adminpanel/managereviews"><button class="btn btn-dark btn-sm">Clear Search</button></a>				
                     </div>  
                 </div>
             </div>
-            <div >
+            <div class="">
                 <table class="table table-striped table-hover" style="width:85%;margin-left:0%;margin-top:2%">
                     <thead>
                         <tr>
-                            <th>Product_id</th>
-                            <th>product_name</th>
-                            <th>price</th>
-                            <th>offer</th>
-                            <th>product_type</th>
-                            <th>location</th>
-                            <th>number_product</th>
+                            <th>Reviews_id</th>
+                            <th>order_id</th>
+                            <th>PhoneNo</th>
+                            <th>product_id</th>
+                            <th>rating</th>
+                            <th>review</th>
+                            <th>time_created</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <form action="/adminpanel/product/search_product_id" method="GET">
+                        <form action="/adminpanel/managereviews/search_Reviews_id" method="GET">
+                            <td><input type="search" class="searchInput" name="Reviews_id" class="form-control" placeholder="Search Reviews_id" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/managereviews/search_order_id" method="GET">
+                            <td><input type="search" class="searchInput" name="order_id" class="form-control" placeholder="Search order_id" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/managereviews/search_mobile" method="GET">
+                            <td><input type="search" class="searchInput" name="mobile" class="form-control" placeholder="Search phone_number" aria-label="Search" /></td>
+                        </form>
+                        <form action="/adminpanel/managereviews/search_product_id" method="GET">
                             <td><input type="search" class="searchInput" name="product_id" class="form-control" placeholder="Search product_id" aria-label="Search" /></td>
                         </form>
-                        <form action="/adminpanel/product/search_product_name" method="GET">
-                            <td><input type="search" class="searchInput" name="product_name" class="form-control" placeholder="Search product_name" aria-label="Search" /></td>
+                        <form action="/adminpanel/managereviews/search_rating" method="GET">
+                            <td><input type="search" class="searchInput" name="rating" class="form-control" placeholder="Search rating" aria-label="Search" /></td>
                         </form>
-                        <form action="/adminpanel/product/search_price" method="GET">
-                            <td><input type="search" class="searchInput" name="price" class="form-control" placeholder="Search price" aria-label="Search" /></td>
-                        </form>
-                        <form action="/adminpanel/product/search_offer" method="GET">
-                            <td><input type="search" class="searchInput" name="offer" class="form-control" placeholder="Search offer" aria-label="Search" /></td>
-                        </form>
-                        <form action="/adminpanel/product/search_product_type" method="GET">
-                            <td><input type="search" class="searchInput" name="product_type" class="form-control" placeholder="Search product_type" aria-label="Search" /></td>
-                        </form>
-                        <form action="/adminpanel/product/search_location" method="GET">
-                            <td><input type="search" class="searchInput" name="location" class="form-control" placeholder="Search location" aria-label="Search" /></td>
-                        </form>
-                        <form action="/adminpanel/product/search_number_product" method="GET">
-                            <td><input type="search" class="searchInput" name="number_product" class="form-control" placeholder="Number_product" aria-label="Search" /></td>
+                        <td colspan="1"></td>
+                        <form action="/adminpanel/managereviews/search_time_created" method="GET">
+                            <td><input type="search" class="searchInput" name="time_created" class="form-control" placeholder="Search time_created" aria-label="Search" /></td>
                         </form>
                         <td colspan="2"></td>
                         </tr>
-                        {% if productlist %}
-                            {% for i in productlist %}
+                        {% if reviews %}
+                            {% for i in reviews %}
                                 <tr>
-                                    <td>{{i.id}}</td>
-                                    <td>{{i.product_name}}</td>
-                                    <td>{{i.price}}</td>
-                                    <td>{{i.offer}}</td>
-                                    <td>{{i.product_type}}</td>
-                                    <td>{{i.location}}</td>
-                                    <td>{{i.number_count}}</td>
+                                    <td>{{i.Reviews_id}}</td>
+                                    <td>{{i.order_id}}</td>
+                                    <td>{{i.mobile}}</td>
+                                    <td>{{i.product_id}}</td>
+                                    <td>{{i.rating}}</td>
+                                    <td>{{i.review}}</td>
+                                    <td>{{i.time_created}}</td>
                                     <td>
                                         <a href="/adminpanel/userinfo/update/{{i.user_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
                                     </td>

@@ -30,7 +30,55 @@ urlpatterns = [
 
     #manage product
 
-    path('product',views.product),
+    path('product',views.product),   
+    path('product/search_product_id',views.product_search_product_id),
+    path('product/search_product_name',views.product_search_product_name),
+    path('product/search_price',views.product_search_price),
+    path('product/search_offer',views.product_search_offer),
+    path('product/search_product_type',views.product_search_product_type),
+    path('product/search_location',views.product_search_location),
+    path('product/search_number_product',views.product_search_number_product),
 
+    # reviews section 
+
+    path('managereviews',views.managereviews),
+    path('managereviews/search_Reviews_id',views.managereviews_search_Reviews_id),
+    path('managereviews/search_order_id',views.managereviews_search_order_id),
+    path('managereviews/search_mobile',views.managereviews_search_mobile),
+    path('managereviews/search_product_id',views.managereviews_search_product_id),
+    path('managereviews/search_rating',views.managereviews_search_rating),
+    path('managereviews/search_time_created',views.managereviews_search_time_created),
+
+    # manage_cart
+
+    path('manage_cart',views.manage_cart),
+    path('manage_cart/search_mobile',views.manage_cart_search_mobile),
+    path('manage_cart/search_product_id',views.manage_cart_search_product_id),
+    path('manage_cart/search_number_product',views.manage_cart_search_number_product),
+
+
+    # iswishlist
+    path('iswishlist',views.iswishlist),
+    path('iswishlist/search_love_id',views.iswishlist_search_love_id),
+    path('iswishlist/search_mobile',views.iswishlist_search_mobile),
+    path('iswishlist/search_product_id',views.iswishlist_search_product_id),
+
+    #manage_contact
+
+    path('manage_contact',views.manage_contact),
+    path('manage_contact/search_mobile',views.manage_contact_search_mobile),
+    path('manage_contact/search_contact_id',views.manage_contact_search_contact_id),
+    
+    #manage_card
+
+    path('manage_card',views.manage_card),
+    path('manage_card/search_card_id',views.manage_card_search_card_id),
+    path('manage_card/search_mobile',views.manage_card_search_mobile),
+    path('manage_card/search_card_number',views.manage_card_search_card_number),
+    path('manage_card/search_name',views.manage_card_search_name),
+    path('manage_card/search_expiry',views.manage_card_search_expiry),
+    path('manage_card/search_cvv',views.manage_card_search_cvv),
+
+    
 
 ]
