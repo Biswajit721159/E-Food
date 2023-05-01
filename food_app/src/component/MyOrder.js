@@ -69,6 +69,7 @@ export default function MyOrder() {
     setproduct([...reversed]);
     if(reversed.length<=10)
     {
+      setload(false)
       setmyproduct([...reversed]);
     }
     else

@@ -10,8 +10,6 @@ class user_detail(models.Model):
     pin=models.CharField(max_length=100)
     state=models.CharField(max_length=20)
     city=models.CharField(max_length=100,default="Jalpaiguri")
-    # def __str__(self):
-    #     return str(self.first_name)
 
 
 class product(models.Model):

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+    <link rel="stylesheet" href="shop/style.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    {% load static %}  
+<style>
+  .btn-primary:hover{
+      background-color:#081D45 !important;
+  }
+  .update{
+    margin-left:350px;
+    margin-right:300px;
+  }
+.modal-body{
+  margin: 5px;
+  padding: 0px;
+}
+.form-group
+{
+  margin: 5px;
+  padding: 5px;
+}
+.body {
+  background: white;
+  background-size: cover;
+}
+.message{
+  color:red;
+  margin-left:60px;
+}
+ol,ul {
+  padding-left: 0px;
+}
+</style>
+<body class="body">
+  {% if user.is_authenticated %}
+  <body>
+	<div  class ="update">
+		<div class="modal-dialog">
+			<div class="modal-content">
+                <div class="modal-header">						
+                    <h4 class="modal-title">Add user</h4>
+                    <div class="col-sm-10">
+                        <a href="/adminpanel/userinfo"><button class="btn btn-dark btn-sm">Back</button></a>				
+                    </div>  
+                </div>
+				<form action="/adminpanel/userinfo/submit_data" method="post">
+					{% csrf_token %}
+					<div class="modal-body">
+						<div class="form-group">
+							<label>First_Name</label>
+							<input type="text" name="first_name" class="form-control"   required>
+						</div>
+                        <div class="form-group">
+							<label>Last_Name</label>
+							<input type="text" name="last_name" class="form-control"   required>
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="text" class="form-control" placeholder="Enter a unique Email" name="email" required>
+						</div>	
+                        <div class="form-group">
+							<label>Password</label>
+							<input type="text" name="password" class="form-control" required>
+						</div>
+                        <div class="form-group">
+							<label>Phone No</label>
+							<input type="number" name="phonenumber" placeholder="Enter a 10 digit Phone Number" class="form-control" required>
+                         </div> 
+                        <div class="form-group">
+							<label>Role</label>
+                            <select class="form-control" name="role" >
+                                <option >rentee</option>
+                                <option >owner</option>
+                            </select>
+						</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-success" value="Submit">
+					</div>
+				</form>
+        <div class="mt-1 mb-5 pb-1">
+          {% for message in error%}
+          <p class='message'>{{message}}</p>
+          {%endfor%}
+        </div>    
+			</div>
+		</div>
+	</div>
+        
+      {%else%}
+        <h2 class="logout"> You are Logged Out<h1>
+      {%endif%}
+
+</body>
+</html>

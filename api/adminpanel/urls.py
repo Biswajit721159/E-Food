@@ -17,6 +17,7 @@ urlpatterns = [
     path('userinfo/search_pin',views.user_info_search_pin),
     path('userinfo/search_city',views.user_info_search_city),
     path('userinfo/search_state',views.user_info_search_state),
+    path('userinfo/adduser',views.adduser),
 
     # order section ---
     path('order',views.order),

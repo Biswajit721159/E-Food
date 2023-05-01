@@ -30,11 +30,15 @@ def connect(request):
         return HttpResponse("Something is wrong")
     
 def dashboard(request):
+    total_product=len(requests.get('http://127.0.0.1:8000/product/').json())
+    total_user=len(requests.get('http://127.0.0.1:8000/user/').json())
+    total_reviews=len(requests.get('http://127.0.0.1:8000/Reviews/').json())
+    total_order_product=len(requests.get('http://127.0.0.1:8000/order/').json())
     context = {
-        'Total_product': 0,
-        'Total_user': 0,
-        'Total_reviews': 0,
-        'Total_Order_product': 0,
+        'Total_product': total_product,
+        'Total_user': total_user,
+        'Total_reviews': total_reviews,
+        'Total_Order_product': total_order_product,
     }
     return render(request, "admin/dashboard.html", context)
 
@@ -116,7 +120,9 @@ def user_info_search_city(request):
         return render(request,"admin/User_info.html",{'userlist':arr})
     else:
         return HttpResponse("Wait some time") 
-    
+
+def adduser(request):
+    return render(request,"admin/user_info_add.html")   
 
 #order section 
 
