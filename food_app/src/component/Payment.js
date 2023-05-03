@@ -331,7 +331,7 @@ export default function Payment() {
                   number_count:count_product-input.number_product,
               })
             }).then((result)=>{
-              history(`/MyOrder`);
+              history(`/successfull_message`);
             })
         },
         (error)=>{

@@ -16,6 +16,8 @@ import Lovelist from "./component/Lovelist";
 import Reviews from "./component/Reviews";
 import Product_view from "./component/Product_view";
 import Forgot_password from "./component/Forgot_password";
+import Successfull from "./component/Successfull";
+import Daily_food from "./component/Daily_food";
 
 export const global = createContext();
 
@@ -54,6 +56,8 @@ function App() {
             <Route path="/Reviews/order_id/:order_id/product_id/:product_id" element={<Reviews/>}></Route>
             <Route path="/product_id/:id" element={<Product_view />} ></Route>
             <Route path="/forgot_password" element={<Forgot_password/>}></Route>
+            <Route path="successfull_message" element={<Successfull/>}></Route>
+            <Route path="Daily_food" element={<Daily_food/>}></Route>
             <Route path="*" element={<Error />}></Route>
           </Routes>
         </Router>

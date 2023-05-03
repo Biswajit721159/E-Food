@@ -51,9 +51,16 @@ class Reviews(models.Model):
     product_id=models.ForeignKey(product,on_delete=models.CASCADE) 
     rating = models.CharField(max_length=10)
     review = models.CharField(max_length=500)
-    time_created = models.CharField(max_length=100)  
-
-   
+    time_created = models.CharField(max_length=100)
+    image = models.ImageField(null=True, blank=True)  
+    
+    @property
+    def imageURL(self):
+            try:
+                url = self.image.url
+            except:
+                url = ''
+            return url
 
 
 class card_info(models.Model):
@@ -79,6 +86,11 @@ class contact(models.Model):
     contact_id=models.AutoField(primary_key=True)
     mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
     message=models.TextField()
+
+class daily_product(models.Model):
+    mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
+    product_id=models.ForeignKey(product,on_delete=models.CASCADE) 
+    food_type=models.CharField(max_length=100,default="none")  
 
     
  

@@ -18,8 +18,8 @@ const [review,setreview]=useState([])
 const [price_low_high,setprice_low_high]=useState(false);
 const [price_high_low,setprice_high_low]=useState(false);
 const [briyani,setbriyani]=useState(false);
-const [vage,setvage]=useState(false);
-const [notvage,setnonvage]=useState(false);
+const [veg,setveg]=useState(false);
+const [nonveg,setnonveg]=useState(false);
 const [name,setname]=useState("");
 
 
@@ -52,10 +52,10 @@ useEffect(()=>{
 },[briyani]);
 useEffect(()=>{
   searchvage();
-},[vage]);
+},[veg]);
 useEffect(()=>{
   searchnonvage();
-},[notvage]);
+},[nonveg]);
 
 
 function loadbag()
@@ -91,7 +91,7 @@ function loadbag()
 //sort by nonvage
 function searchnonvage()
 {
-  if(notvage==false)
+  if(nonveg==false)
   {
     setInTOproduct(user,currmybag,iswishlist,review);
   }
@@ -100,7 +100,7 @@ function searchnonvage()
     let arr=[];
     for(let i=0;i<product.length;i++)
     {
-      if(product[i].vage!="vage")
+      if(product[i].vage!="veg")
       {
         arr.push(product[i]);
       }
@@ -113,7 +113,7 @@ function searchnonvage()
 //sort by vage
 function searchvage()
 {
-  if(vage==false)
+  if(veg==false)
   {
     setInTOproduct(user,currmybag,iswishlist,review);
   }
@@ -122,7 +122,7 @@ function searchvage()
     let arr=[];
     for(let i=0;i<product.length;i++)
     {
-      if(product[i].vage=="vage")
+      if(product[i].vage=="veg")
       {
         arr.push(product[i]);
       }
@@ -832,15 +832,15 @@ function love(id)
         
         <div className="container col-sm mt-1">
               <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={vage} onChange={(e)=>setvage(e.target.checked)} id="flexCheckDefault"/>
+                <input className="form-check-input" type="checkbox" checked={veg} onChange={(e)=>setveg(e.target.checked)} id="flexCheckDefault"/>
                 <label className="form-check-label" htmlFor="flexCheckDefault">
-                Vage Food
+                Veg Food
                 </label>
               </div>
         </div>
         <div className="container col-sm mt-1">
               <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={notvage} onChange={(e)=>setnonvage(e.target.checked)} id="flexCheckDefault"/>
+                <input className="form-check-input" type="checkbox" checked={nonveg} onChange={(e)=>setnonveg(e.target.checked)} id="flexCheckDefault"/>
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                 Non Vage Food
                 </label>
@@ -891,7 +891,7 @@ function love(id)
               <div className='row'>
                 <div className='col'>
                   {
-                    item.rating=="0" ?  "":
+                    item.rating=="0" ?  <button className='btn btn-secondary btn-sm' style={{fontSize:"13px"}} ><span className="fa fa-star checked"></span>{item.rating}</button>:
                      item.rating >= "1.0" && item.rating<="2.5" ? (
                       <button className='btn btn-danger btn-sm' style={{fontSize:"13px"}} ><span className="fa fa-star checked"></span>{item.rating}</button>
                     ) : item.rating >"2.5" && item.rating<="3.5" ? (

@@ -48,7 +48,7 @@ class ReviewsSerializer(serializers.ModelSerializer):
     tracks3 = orderSerializer(many=True, read_only=True)
     class Meta:
         model=Reviews
-        fields =('tracks1','tracks2','tracks3','Reviews_id','order_id','mobile','product_id','rating','review','time_created')   
+        fields =('tracks1','tracks2','tracks3','Reviews_id','order_id','mobile','product_id','rating','review','time_created','image')   
 
 
 class card_infoSerializer(serializers.ModelSerializer):

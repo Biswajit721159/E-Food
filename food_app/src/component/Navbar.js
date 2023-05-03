@@ -106,6 +106,9 @@ return (
               Mobile.length==10?<Link to="/lovelist" className="fas fa-heart mx-2 my-2" style={{color:"red",textDecoration:"none" ,fontSize:"25px",marginTop:"20px"}}></Link>:""
             }
             {
+              Mobile.length==10?<Link to={'Daily_food'}><button className="btn btn-primary btn-sm mx-2 my-2">Your food</button></Link>:""
+            }
+            {
               Mobile.length==10?<Link to={`User/Dashboard`}><button className="btn btn-light" ><img src="https://i.ibb.co/7NB2cWh/icons8-user-48.png" style={{ height:33,width:33 }} alt="Wait"/></button></Link>:""
             }
             {Mobile.length==10?<button className="btn btn-info btn-sm mx-2" onClick={logout} >Logout</button>:""}
