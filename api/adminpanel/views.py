@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
+from all_api.models import user_detail
 
 
 def index(request):
@@ -122,7 +123,80 @@ def user_info_search_city(request):
         return HttpResponse("Wait some time") 
 
 def adduser(request):
-    return render(request,"admin/user_info_add.html")   
+    return render(request,"admin/user_info_add.html")  
+
+def submit_data(request):
+    if request.method=="POST":
+        first_name=request.POST.get('first_name')
+        last_name=request.POST.get('last_name')
+        mobile=request.POST.get('mobile')
+        password=request.POST.get('password')
+        address=request.POST.get('address')
+        pin=request.POST.get('pin')
+        state=request.POST.get('state')
+        city=request.POST.get('city')
+        data=user_detail(
+            first_name=first_name,
+            last_name=last_name,
+            mobile=mobile,
+            password=password,
+            address=address,
+            pin=pin,
+            city=city,
+            state=state,
+        )
+        count=0
+        nums=user_detail.objects.all()
+        for i in nums:
+            if str(i.mobile)==str(mobile):
+                count+=1
+        if count==0:
+            data.save()
+            return redirect('/adminpanel/userinfo')  
+        else:return HttpResponse("Mobile number is already exit")
+
+def delete_user(request,mobile):
+    data=user_detail.objects.get(mobile=mobile)
+    data.delete()
+    return redirect('/adminpanel/userinfo')
+
+def update_data(request,mobile):
+    data=user_detail.objects.get(mobile=mobile)
+    return render(request,"admin/userinfo_update.html",{'data':data})
+
+def submit_update_data(request):
+    if request.method=="POST":
+        first_name=request.POST.get('first_name')
+        last_name=request.POST.get('last_name')
+        mobile=request.POST.get('mobile')
+        password=request.POST.get('password')
+        address=request.POST.get('address')
+        pin=request.POST.get('pin')
+        state=request.POST.get('state')
+        city=request.POST.get('city')
+        print(first_name)
+        print(last_name)
+        print(mobile)
+        print(pin)
+        count=0
+        nums=user_detail.objects.all()
+        for i in nums:
+            if str(i.mobile)==str(mobile):
+                count+=1
+        if count==1:
+            data=user_detail.objects.get(mobile=mobile)
+            data.first_name=first_name
+            data.last_name=last_name
+            data.password=password
+            data.address=address
+            data.city=city
+            data.pin=pin
+            data.state=state
+            print(data)
+            data.save()
+            return redirect('/adminpanel/userinfo')  
+        else:return HttpResponse("Mobile number is already exit")
+
 
 #order section 
 
@@ -298,7 +372,9 @@ def product_search_number_product(request):
         return render(request,"admin/manage_product.html",{'productlist':arr})
     else:
         return HttpResponse("Please Wait")       
-    
+
+def product_add(request):
+    return render(request,"admin/product_add.html")    
 # managereviews
 
 def managereviews(request):

@@ -18,6 +18,10 @@ urlpatterns = [
     path('userinfo/search_city',views.user_info_search_city),
     path('userinfo/search_state',views.user_info_search_state),
     path('userinfo/adduser',views.adduser),
+    path('userinfo/submit_data',views.submit_data),
+    path('userinfo/delete/<str:mobile>',views.delete_user),
+    path('userinfo/update/<str:mobile>',views.update_data),
+    path('userinfo/submit_update_data',views.submit_update_data),
 
     # order section ---
     path('order',views.order),
@@ -39,6 +43,7 @@ urlpatterns = [
     path('product/search_product_type',views.product_search_product_type),
     path('product/search_location',views.product_search_location),
     path('product/search_number_product',views.product_search_number_product),
+    path('product/product_add',views.product_add),
 
     # reviews section 
 
