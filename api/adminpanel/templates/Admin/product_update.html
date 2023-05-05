@@ -11,20 +11,20 @@
 <body class="body">
     {% if user.is_authenticated %}
     <div class="container mt-3">
-        <h3>Product add</h3>
-        <form action="/adminpanel/product/submit_product_data" method="post">
+        <h3>Product update</h3>
+        <form action="/adminpanel/product/update_data/{{data.id}}" method="post">
             {% csrf_token %}
             <div class="row mt-2">
                 <div class="col">
                     <div class="form-group">
                         <label>Product image_url</label>
-                        <input type="text" name="product_url" class="form-control" placeholder="Enter product url"  required>
+                        <input type="text" name="product_url" class="form-control" value={{data.product_url}} placeholder="Enter product url"  required>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label>Product Name</label>
-                        <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name"  required>
+                        <input type="text" name="product_name" class="form-control" value={{data.product_name}} placeholder="Enter Product Name"  required>
                     </div>
                 </div>
             </div>
@@ -32,13 +32,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="number" name="price" class="form-control" placeholder="Enter price"  required>
+                        <input type="number" name="price" class="form-control" value={{data.price}} placeholder="Enter price"  required>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label>Offer</label>
-                        <input type="number" name="offer" class="form-control" placeholder="Enter Offer"  required>
+                        <input type="number" name="offer" class="form-control" value={{data.offer}} placeholder="Enter Offer"  required>
                     </div>
                 </div>
             </div>
@@ -46,23 +46,23 @@
                 <div class="col">
                     <div class="form-group">
                         <label>product_type</label>
-                        <input type="text" name="product_type" class="form-control" placeholder="Enter product_type"  required>
+                        <input type="text" name="product_type" class="form-control" value={{data.product_type}} placeholder="Enter product_type"  required>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label>Location</label>
-                        <input type="text" name="location" class="form-control" placeholder="Enter location"  required>
+                        <input type="text" name="location" class="form-control" value={{data.location}} placeholder="Enter location"  required>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label>No of product</label>
-                        <input type="number" name="number_count" class="form-control" placeholder="Enter product_count"  required>
+                        <input type="number" name="number_count" class="form-control" value={{data.number_count}} placeholder="Enter product_count"  required>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary mt-1" type="submit">Submit</button>
+            <button class="btn btn-primary mt-1" type="submit">Update</button>
         </form>
     </div>
     {%else%}

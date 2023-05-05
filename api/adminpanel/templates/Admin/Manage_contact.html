@@ -83,7 +83,6 @@
                             <th>contact_id</th>
                             <th>mobile</th>
                             <th>message</th>
-                            <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -105,10 +104,7 @@
                                     <td>{{i.mobile}}</td>
                                     <td>{{i.message}}</td>
                                     <td>
-                                        <a href="/adminpanel/userinfo/update/{{i.user_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
-                                    </td>
-                                    <td>
-                                        <a href="/adminpanel/userinfo/delete/{{i.user_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
+                                        <a href="/adminpanel/manage_contact/delete/{{i.contact_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
                                     </td>
                                 </tr>
                             {%endfor%}

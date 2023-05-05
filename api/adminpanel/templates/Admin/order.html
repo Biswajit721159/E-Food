@@ -70,13 +70,12 @@
                       <h2>Manage <b>Order</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="/adminpanel/userinfo/adduser" class="btn btn-success btn-sm"><span>Add User</span></a>	
                         <a href="/adminpanel/dashboard"><button class="btn btn-dark btn-sm">Back to main page</button></a>	
                         <a href="/adminpanel/order"><button class="btn btn-dark btn-sm">Clear Search</button></a>			
                     </div>  
                 </div>
             </div>
-            <div class="container">
+            <div class="">
                 <table class="table table-striped table-hover" style="width:85%;margin-left:0%;margin-top:2%">
                     <thead>
                         <tr>
@@ -122,10 +121,10 @@
                                     <td>{{i.number_product}}</td>
                                     <td>{{i.date}}</td>
                                     <td>
-                                        <a href="/adminpanel/userinfo/update/{{i.user_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
+                                        <a href="/adminpanel/order/update/{{i.order_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
                                     </td>
                                     <td>
-                                        <a href="/adminpanel/userinfo/delete/{{i.user_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
+                                        <a href="/adminpanel/order/delete/{{i.order_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
                                     </td>
                                 </tr>
                             {%endfor%}

@@ -83,7 +83,6 @@
                             <th>Phone Number</th>
                             <th>product_id</th>
                             <th>number_product</th>
-                            <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -107,10 +106,7 @@
                                     <td>{{i.product_id}}</td>
                                     <td>{{i.number_product}}</td>
                                     <td>
-                                        <a href="/adminpanel/userinfo/update/{{i.user_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
-                                    </td>
-                                    <td>
-                                        <a href="/adminpanel/userinfo/delete/{{i.user_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
+                                        <a href="/adminpanel/manage_cart/delete/{{i.mobile}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
                                     </td>
                                 </tr>
                             {%endfor%}

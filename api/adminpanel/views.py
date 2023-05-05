@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
-from all_api.models import user_detail
+from all_api.models import user_detail,product,Reviews,order_product,iswishlist,contact,mybag
 
 
 def index(request):
@@ -43,6 +43,12 @@ def dashboard(request):
     }
     return render(request, "admin/dashboard.html", context)
 
+def Logout(request):
+    logout(request)
+    return redirect('/adminpanel/logoutpage')
+
+def logoutpage(request):
+    return render(request,"admin/logoutpage.html")
 #user info section 
 
 def userinfo(request):
@@ -282,9 +288,14 @@ def order_search_date(request):
     else:
         return HttpResponse("Please wait")   
 
+def delete_order(reuqest,order_id):
+    data=order_product.objects.get(order_id=order_id)
+    data.delete()
+    return redirect('/adminpanel/order')
+
 #product section 
 
-def product(request):
+def Product(request):
     data=requests.get('http://127.0.0.1:8000/product/').json()
     return render(request,"admin/manage_product.html",{'productlist':data})
 
@@ -374,7 +385,60 @@ def product_search_number_product(request):
         return HttpResponse("Please Wait")       
 
 def product_add(request):
-    return render(request,"admin/product_add.html")    
+    return render(request,"admin/product_add.html") 
+
+def submit_product_data(request):
+
+    if request.method=="POST":
+        product_url=request.POST.get('product_url')
+        product_name=request.POST.get('product_name')
+        price=request.POST.get('price')
+        offer=request.POST.get('offer')
+        product_type=request.POST.get('product_type')
+        location=request.POST.get('location')
+        number_count=request.POST.get('number_count')
+        data=product(
+            product_url=product_url,
+            product_name=product_name,
+            price=price,
+            offer=offer,
+            product_type=product_type,
+            location=location,
+            number_count=number_count,
+        )
+        data.save()
+        return redirect('/adminpanel/product')
+    
+def product_delete(request,id):
+    data=product.objects.get(id=id)
+    data.delete()
+    return redirect('/adminpanel/product')   
+
+def product_update(request,id):
+    data=product.objects.get(id=id)
+    return render(request,"admin/product_update.html",{'data':data}) 
+
+def submit_update_data(request,id):
+
+    if request.method=="POST":
+        product_url=request.POST.get('product_url')
+        product_name=request.POST.get('product_name')
+        price=request.POST.get('price')
+        offer=request.POST.get('offer')
+        product_type=request.POST.get('product_type')
+        location=request.POST.get('location')
+        number_count=request.POST.get('number_count')
+        data=product.objects.get(id=id)
+        data.product_url=product_url
+        data.product_name=product_name
+        data.product_type=product_type
+        data.price=price
+        data.location=location
+        data.number_count=number_count
+        data.offer=offer
+        data.save()
+        return redirect('/adminpanel/product')
+
 # managereviews
 
 def managereviews(request):
@@ -435,6 +499,11 @@ def managereviews_search_time_created(request):
             arr.append(i)
     return render(request,"admin/Manage_reviews.html",{'reviews':arr})
 
+def managereviews_delete(request,id):
+    data=Reviews.objects.get(Reviews_id=id)
+    data.delete()
+    return redirect('/adminpanel/managereviews')
+    
 
 # manage_cart
 
@@ -477,10 +546,14 @@ def manage_cart_search_number_product(request):
         return render(request,"admin/manage_cart.html",{'cart':arr})
     else:
         return HttpResponse("Please wait some time")
-    
+
+def delete_bag(request,mobile):
+    data=mybag.objects.get(mobile=mobile)
+    data.delete()
+    return redirect('/adminpanel/manage_cart')    
 #iswishlist
 
-def iswishlist(request):
+def Iswishlist(request):
     data=requests.get('http://127.0.0.1:8000/iswishlist/').json()
     return render(request,"admin/iswishlist.html",{'cart':data})
 
@@ -508,7 +581,6 @@ def iswishlist_search_mobile(request):
     else:
         return HttpResponse("Please Wait")  
 
-
 def iswishlist_search_product_id(request):
     if request.method=="GET":
         data=requests.get('http://127.0.0.1:8000/iswishlist/').json()
@@ -520,6 +592,11 @@ def iswishlist_search_product_id(request):
         return render(request,"admin/iswishlist.html",{'cart':arr})
     else:
         return HttpResponse("Please Wait")  
+
+def delete_wishlist(request,loveid):
+    data=iswishlist.objects.get(loveid=loveid)
+    data.delete()
+    return redirect('/adminpanel/iswishlist')
 
 #manage_contact
 
@@ -551,6 +628,11 @@ def manage_contact_search_contact_id(request):
         return render(request,"admin/Manage_contact.html",{'data':arr})
     else:
         return HttpResponse("Wait for sometime") 
+
+def delete_contact(request,contact_id):
+    data=contact.objects.get(contact_id=contact_id)
+    data.delete()
+    return redirect('/adminpanel/manage_contact')
 
 #manage card 
 

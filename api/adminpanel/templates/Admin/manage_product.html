@@ -70,7 +70,7 @@
                       <h2>Manage <b>Product</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="/adminpanel/product/product_add" class="btn btn-success btn-sm"><span>Add User</span></a>	
+                        <a href="/adminpanel/product/product_add" class="btn btn-success btn-sm"><span>Add Product</span></a>	
                         <a href="/adminpanel/dashboard"><button class="btn btn-dark btn-sm">Back to main page</button></a>	
                         <a href="/adminpanel/product"><button class="btn btn-dark btn-sm">Clear Search</button></a>				
                     </div>  
@@ -127,10 +127,10 @@
                                     <td>{{i.location}}</td>
                                     <td>{{i.number_count}}</td>
                                     <td>
-                                        <a href="/adminpanel/userinfo/update/{{i.user_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
+                                        <a href="/adminpanel/product/update/{{i.id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
                                     </td>
                                     <td>
-                                        <a href="/adminpanel/userinfo/delete/{{i.user_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
+                                        <a href="/adminpanel/product/delete/{{i.id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
                                     </td>
                                 </tr>
                             {%endfor%}
