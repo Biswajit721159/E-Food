@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
-from all_api.models import user_detail,product,Reviews,order_product,iswishlist,contact,mybag
+from all_api.models import user_detail,product,Reviews,order_product,iswishlist,contact,mybag,card_info
 
 
 def index(request):
@@ -711,4 +711,8 @@ def manage_card_search_cvv(request):
         return render(request,"admin/card_info.html",{'data':arr})
     else:
         return HttpResponse("wait sometime")    
-    
+
+def card_delete(request,card_id):
+    data=card_info.objects.get(card_id=card_id)
+    data.delete()
+    return redirect('/adminpanel/manage_card')

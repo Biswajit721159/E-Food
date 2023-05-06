@@ -10,20 +10,42 @@ import MyOrder from "./component/MyOrder";
 import Index from "./component/Index";
 import Update_user from "./component/Update_user";
 import Login from "./component/Login";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Home from "./component/Home";
 import Lovelist from "./component/Lovelist";
 import Reviews from "./component/Reviews";
 import Product_view from "./component/Product_view";
 import Forgot_password from "./component/Forgot_password";
 import Successfull from "./component/Successfull";
+import Admin_register from "./component/Admin_register";
+import Admin_panel_Login from "./component/Admin_panel_Login";
+import Admin_front_page from "./Restaurant_Admin/Admin_front_page";
+import Admin_panel_Navbar from "./component/Admin_panel_Navbar";
+import Add_product from "./Restaurant_Admin/Add_product";
+import Product_update from "./Restaurant_Admin/Product_update";
+
 
 export const global = createContext();
 
 function App() {
+
+  useEffect(()=>{
+    if (localStorage.getItem('Restaurant_user_token') !== null  ) 
+    {
+      var retrievedObject = localStorage.getItem('Restaurant_user_token');
+      let data=JSON.parse(retrievedObject)
+      Setadmin_data(data)
+    }
+  },[])
+
   const [mobile,setmobile]=useState("");
   const [update,setupdate]=useState("normal");
   const [location,setlocation]=useState("");
+  const [admin_data,setadmin_data]=useState([]);
+  function Setadmin_data(data)
+  {
+    setadmin_data(data)
+  }
   function locationfunction(data)
   {
     setlocation(data);
@@ -38,7 +60,9 @@ function App() {
   }
   return (
     <div className="App">
-      <global.Provider value={{Mobile:mobile,Function:solve_Food,child:updateData,update,location:locationfunction,Location:location}}>
+    {
+      admin_data!=undefined && admin_data.length==0?
+      <global.Provider value={{Mobile:mobile,Function:solve_Food,child:updateData,update,location:locationfunction,Location:location,Setadmin_data:Setadmin_data}}>
         <Router>
           <Navbar />
           <Routes>
@@ -56,10 +80,27 @@ function App() {
             <Route path="/product_id/:id" element={<Product_view />} ></Route>
             <Route path="/forgot_password" element={<Forgot_password/>}></Route>
             <Route path="successfull_message" element={<Successfull/>}></Route>
+            <Route path="Admin_panel_Login" element={<Admin_panel_Login/>}></Route>
+            <Route path="Admin_Register" element={<Admin_register/>}></Route>
             <Route path="*" element={<Error />}></Route>
           </Routes>
         </Router>
       </global.Provider>
+    :
+      <global.Provider value={{Admin_data:admin_data,Setadmin_data:Setadmin_data}}>
+             <Router>
+              <Admin_panel_Navbar/>
+                <Routes>
+                    <Route path="Admin_front_page" element={<Admin_front_page/>}></Route>
+                    <Route path="product_add" element={<Add_product/>}></Route>
+                    <Route path="product/update/:id" element={<Product_update/>}></Route>
+                    <Route path="*" element={<Error />}></Route>
+                </Routes>
+             </Router>
+      </global.Provider>
+
+
+      }
     </div>
   );
 }

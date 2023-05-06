@@ -11,10 +11,11 @@ const [last_name,setlast_name]=useState("");
 const [address,setaddress]=useState("");
 const [state,setstate]=useState("");
 const [pin,setpin]=useState("");
-const [mobile,setmobile]=useState("");
+const [email,setemail]=useState("");
 const [password,setpassword]=useState("")
 const [confarmpassword,setconfarmpassowrd]=useState("")
 const [city,setcity]=useState("")
+const [Restaurant_name,setRestaurant_name]=useState("")
 const history=useNavigate();
 
 
@@ -26,7 +27,7 @@ useEffect(()=>{
 
 function loaduser()
 {
-  fetch('http://127.0.0.1:8000/user/')
+  fetch('http://127.0.0.1:8000/Restaurant_user/')
     .then(response=>response.json())
     .then((data) =>{
         setuser(data);
@@ -41,8 +42,8 @@ const [error_first_name,seterror_first_name]=useState(false)
 const [messagelast_name,setmessagelast_name]=useState("")
 const [error_last_name,seterror_last_name]=useState(false)
 
-const [messagemobile,setmessagemobile]=useState("")
-const [error_mobile,seterror_mobile]=useState(false)
+const [messageemail,setmessageemail]=useState("")
+const [error_email,seterror_email]=useState(false)
 
 const [messagepassword,setmessagepassword]=useState("")
 const [error_password,seterror_password]=useState(false)
@@ -113,29 +114,16 @@ function solve_last_name(s)
   return true;
 }
 
-function solve_mobile(s)
+function solve_email(s)
 {
-  if(s.length!==10)
+  if(s.length<=10)
   {
-    setmessagemobile("Mobile Number Must be 10 digit")
-    seterror_mobile(true)
+    setmessageemail("Email is invalid")
+    seterror_email(true)
     return false;
   }
   else 
   {
-    for(let i=0;i<s.length;i++)
-    {
-      if(s[i]>='0' && s[i]<='9')
-      {
-        continue;
-      }
-      else
-      {
-        setmessagemobile("Mobile Number Must be 10 digit")
-        seterror_mobile(true)
-        return false;
-      }
-    }
     return true;
   }
 }
@@ -144,10 +132,10 @@ function finalcheck(s)
 {
     for(let i=0;i<user.length;i++)
     {
-        if(user[i].mobile==mobile)
+        if(user[i].email==email)
         {
-          setmessagemobile("Mobile Number is already exit")
-          seterror_mobile(true)
+          setmessageemail("email Number is already exit")
+          seterror_email(true)
         }
     }
     return true;
@@ -238,21 +226,27 @@ function solve_state(s)
   return true;
 }
 
+function solve_Restaurant_name(s)
+{
+    return true;
+}
+
 function subnit()
 {
     let a=solve_first_name(first_name);
     let b=solve_last_name(last_name);
-    let c=solve_mobile(mobile);
-    let d=finalcheck(mobile)
+    let c=solve_email(email);
+    let d=finalcheck(email)
     let e=checkpassword(password)
     let f=checkpasssword_confarmpassword(password,confarmpassword)
     let g=solve_state(state);
     let h=solve_pin(pin);
     let i=solve_address(address);
+    let m=solve_Restaurant_name(Restaurant_name);
 
-    if(a==true && b==true && c==true && d==true && e==true && f==true && g==true && h==true && i==true)
+    if(a==true && b==true && c==true && d==true && e==true && f==true && g==true && h==true && i==true && m==true)
     {
-        fetch('http://127.0.0.1:8000/user/', 
+        fetch('http://127.0.0.1:8000/Restaurant_user/', 
         {
             method:'POST',
             headers:{
@@ -262,19 +256,20 @@ function subnit()
             body:JSON.stringify({
                 first_name:first_name,
                 last_name:last_name,
-                mobile:mobile,
+                email:email,
                 password:password,
                 address:address,
                 state:state,
                 pin:pin,
                 city:city,
+                Restaurant_name:Restaurant_name,
             })
         })
         .then(response=>response.json())
         .then((result)=>{
           if(result=="Added Successfully")
           {
-            history('/Login');
+            history('/Admin_panel_Login');
             swal(result);
           }
         },
@@ -312,14 +307,14 @@ function subnit()
         </div>
         <div className="col-md-4 mt-3 ">
           <input
-            type="number"
+            type="text"
             className="form-control"
-            placeholder="Mobile Number"
-            value={mobile}
-            onChange={(e)=>setmobile(e.target.value)}
+            placeholder="Email Id"
+            value={email}
+            onChange={(e)=>setemail(e.target.value)}
             required
           />
-         {error_mobile==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messagemobile}</label>:""}
+         {error_email==true?<label for="exampleFormControlInput1" style={{color:"red"}} className="form-label mx-5">{messageemail}</label>:""}
         </div>
         <div className="col-md-4 mt-3 ">
           <input
@@ -391,6 +386,17 @@ function subnit()
             placeholder="city"
             value={city}
             onChange={(e)=>setcity(e.target.value)}
+            required
+          />
+        </div>
+        <div className="col-md-4 mt-3">
+          <input
+            type="text"
+            className="form-control"
+            id="validationCustom05"
+            placeholder="Restaurant Name"
+            value={Restaurant_name}
+            onChange={(e)=>setRestaurant_name(e.target.value)}
             required
           />
         </div>

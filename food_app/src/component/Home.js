@@ -106,6 +106,9 @@ function submit()
                 <span>Your Message</span>
                 <textarea name="" placeholder="Write Your Message" value={message} onChange={(e)=>{setmessage(e.target.value)}}  cols="20" rows="5"></textarea>
             </div>
+            {Mobile.length!=10?<div className='col'>
+                <Link to={'Admin_panel_Login'}><button className='btn btn-warning mx-5 mt-5'>For Restaurant Admin</button></Link>
+            </div>:""}
         </div>
         <button className='btn btn-primary' onClick={submit}>Message</button>
     </div>

@@ -6,7 +6,7 @@ function Error(){
     
     return (
         <div className="container mt-5">
-            <h1>404 page Error</h1>
+            <h2 style={{margin:"center"}}>404 page Error</h2>
         </div>
     )
 };

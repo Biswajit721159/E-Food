@@ -6,10 +6,18 @@ from rest_framework import serializers
 from .models import *
  
 # Create a model serializer
+
+
+class Restaurant_user_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model=Restaurant_user
+        fields="__all__"
+
 class productSerializer(serializers.ModelSerializer):
+    tracks1 = Restaurant_user_Serializer(many=True, read_only=True)
     class Meta:
         model = product
-        fields = ('id', 'product_url','product_name', 'price','number_count','offer','product_type','location')
+        fields = ('tracks1','id', 'email','product_url','product_name', 'price','number_count','offer','product_type','location')
 
 
 class userSerializer(serializers.ModelSerializer):
@@ -68,4 +76,5 @@ class contact_Serializer(serializers.ModelSerializer):
     tracks = userSerializer(many=True, read_only=True)
     class Meta:
         model=contact
-        fields=('tracks','contact_id','mobile','message')   
+        fields=('tracks','contact_id','mobile','message')  
+

@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer,contact_Serializer
+from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer,contact_Serializer,Restaurant_user_Serializer
 from .models import *
 from .models import mybag,adminuser
  
@@ -112,7 +112,6 @@ def productapi(request,pk=0):
         product_serializer = productSerializer(arr, many=True)
         return JsonResponse(product_serializer.data,  safe=False)
     
-    
     elif request.method=="GET":
         all_product=product.objects.all()
         product_serializer = productSerializer(all_product, many=True)
@@ -131,6 +130,14 @@ def productapi(request,pk=0):
             product_s.save() 
             return JsonResponse("Updated Successfully", safe=False)
         return JsonResponse("Failed To Update",  safe=False)	
+    
+    elif request.method=="POST":
+        get_data=JSONParser().parse(request)
+        iswistlist_serializerr = productSerializer(data=get_data)
+        if iswistlist_serializerr.is_valid():
+            iswistlist_serializerr.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False)
     
 
 @csrf_exempt
@@ -218,16 +225,32 @@ def admin_user(request,pk=0):
           
 @csrf_exempt
 def contact_api(request,pk=0):
+
+
     if request.method=="GET":
         contactdata=contact.objects.all()
         contact_s=contact_Serializer(contactdata,many=True)
         return JsonResponse(contact_s.data, safe=False) 
     
     elif request.method=="POST":
-        
         get_data=JSONParser().parse(request)
         contact_serializerr = contact_Serializer(data=get_data)
         if contact_serializerr.is_valid():
             contact_serializerr.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False)         
+    
+@csrf_exempt
+def Restaurant_user_api(request,pk=0):
+    if request.method=="GET":
+        data=Restaurant_user.objects.all()
+        Restaurant_user_s=Restaurant_user_Serializer(data,many=True)
+        return JsonResponse(Restaurant_user_s.data,safe=False)
+    
+    elif request.method=="POST":
+        get_data=JSONParser().parse(request)
+        Restaurant_user_serilizer=Restaurant_user_Serializer(data=get_data)
+        if Restaurant_user_serilizer.is_valid():
+            Restaurant_user_serilizer.save()
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)         

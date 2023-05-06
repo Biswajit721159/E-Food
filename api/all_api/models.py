@@ -1,5 +1,16 @@
 from django.db import models
 
+class Restaurant_user(models.Model):
+    email=models.EmailField(primary_key=True)
+    first_name=models.CharField(max_length=100,default="")
+    last_name=models.CharField(max_length=100,default="")
+    password=models.CharField(max_length=100)
+    address=models.CharField(max_length=300)
+    Restaurant_name=models.CharField(max_length=100)
+    city=models.CharField(max_length=100)
+    state=models.CharField(max_length=100)
+    pin=models.CharField(max_length=100) 
+
 
 class user_detail(models.Model):
     mobile=models.CharField(primary_key=True,max_length=100)
@@ -14,6 +25,7 @@ class user_detail(models.Model):
 
 class product(models.Model):
     id=models.AutoField(primary_key=True)
+    email=models.ForeignKey(Restaurant_user,default="bg5050525@gmail.com",on_delete=models.CASCADE)
     product_url=models.CharField(max_length=200,default="No")
     product_name=models.CharField(max_length=50,default="No")
     price=models.IntegerField(default=100)
@@ -91,9 +103,6 @@ class daily_product(models.Model):
     mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
     product_id=models.ForeignKey(product,on_delete=models.CASCADE) 
     food_type=models.CharField(max_length=100,default="none")  
-
-    
- 
 
 
     

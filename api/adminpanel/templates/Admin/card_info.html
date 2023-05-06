@@ -67,16 +67,15 @@
             <div class="table-title" style="width: 85%;margin-left: 0%" >
                 <div class="row">
                     <div class="col-sm-6">
-                      <h2>Manage <b>Users</b></h2>
+                      <h2>Manage <b>card</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="/adminpanel/manage_card/adduser" class="btn btn-success btn-sm"><span>Add User</span></a>	
                         <a href="/adminpanel/dashboard"><button class="btn btn-dark btn-sm">Back to main page</button></a>	
                         <a href="/adminpanel/manage_card"><button class="btn btn-dark btn-sm">Clear Search</button></a>				
                     </div>  
                 </div>
             </div>
-            <div class="container">
+            <div class="">
                 <table class="table table-striped table-hover" style="width:85%;margin-left:0%;margin-top:2%">
                     <thead>
                         <tr>
@@ -122,10 +121,7 @@
                                     <td>{{i.expiry}}</td>
                                     <td>{{i.cvv}}</td>
                                     <td>
-                                        <a href="/adminpanel/userinfo/update/{{i.user_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
-                                    </td>
-                                    <td>
-                                        <a href="/adminpanel/userinfo/delete/{{i.user_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
+                                        <a href="/adminpanel/manage_card/delete/{{i.card_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
                                     </td>
                                 </tr>
                             {%endfor%}

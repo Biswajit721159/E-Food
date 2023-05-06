@@ -85,7 +85,7 @@
                             <th>price</th>
                             <th>number_product</th>
                             <th>date</th>
-                            <th>Edit</th>
+                            {% comment %} <th>Edit</th> {% endcomment %}
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -120,9 +120,9 @@
                                     <td>{{i.price}}</td>
                                     <td>{{i.number_product}}</td>
                                     <td>{{i.date}}</td>
-                                    <td>
+                                    {% comment %} <td>
                                         <a href="/adminpanel/order/update/{{i.order_id}}" class="edit" ><button class="btn btn-primary btn-sm">Edit</button></a>
-                                    </td>
+                                    </td> {% endcomment %}
                                     <td>
                                         <a href="/adminpanel/order/delete/{{i.order_id}}" class="delete" ><button class="btn btn-danger btn-sm">Delete</button></a>
                                     </td>
