@@ -92,11 +92,20 @@ def orderapi(request,pk=0):
             order_serializerr.save()
             return JsonResponse("Successfully order", safe=False)
         return JsonResponse("Failed To Add", safe=False)
+    
+    elif request.method=="PUT":
+        order_data = JSONParser().parse(request)
+        data1 = order_product.objects.get(order_id=order_data['order_id'])
+        order_s = orderSerializer(data1,data=order_data)
+        if order_s.is_valid():
+           order_s.save()
+           return JsonResponse("Sucessfully aadded", safe=False)
+        else:
+            return JsonResponse("Fail to added" ,safe=False)
 
 
 @csrf_exempt
 def productapi(request,pk=0):
-
     if request.method=="PATCH":
         location = JSONParser().parse(request)
         all_product=product.objects.all()
@@ -124,7 +133,7 @@ def productapi(request,pk=0):
         for i in data:
             if str(i.id)==str(product_data['id']):
                 product_arrays=i
-                break              
+                break                  
         product_s = productSerializer(product_arrays, data=product_data) 
         if product_s.is_valid():
             product_s.save() 
@@ -139,6 +148,23 @@ def productapi(request,pk=0):
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed To Add", safe=False)
     
+    elif request.method=="DELETE":
+        get_data=JSONParser().parse(request)
+        data=product.objects.all()
+        arr=[]
+        count=0
+        for i in data:
+            if str(i.email.email)==str(get_data['email']) and str(i.id)==str(get_data['product_id']):
+                arr=i
+                count+=1
+                break
+        if count:        
+            arr.isdeleted=True
+            arr.number_count=0
+            arr.save()       
+            return JsonResponse("SuccessFully Deleted",safe=False)
+        else:
+            return JsonResponse("We Find Some Error",safe=False)
 
 @csrf_exempt
 def iswishlistapi(request,pk=0):

@@ -891,7 +891,7 @@ function love(id)
               <div className='row'>
                 <div className='col'>
                   {
-                    item.rating=="0" ?  <button className='btn btn-secondary btn-sm' style={{fontSize:"13px"}} ><span className="fa fa-star checked"></span>{item.rating}</button>:
+                    item.rating=="0" ?  <button className='btn btn-secondary btn-sm' style={{fontSize:"13px"}} ><span className="fa fa-star checked"></span>No</button>:
                      item.rating >= "1.0" && item.rating<="2.5" ? (
                       <button className='btn btn-danger btn-sm' style={{fontSize:"13px"}} ><span className="fa fa-star checked"></span>{item.rating}</button>
                     ) : item.rating >"2.5" && item.rating<="3.5" ? (

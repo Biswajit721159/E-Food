@@ -17,7 +17,7 @@ class productSerializer(serializers.ModelSerializer):
     tracks1 = Restaurant_user_Serializer(many=True, read_only=True)
     class Meta:
         model = product
-        fields = ('tracks1','id', 'email','product_url','product_name', 'price','number_count','offer','product_type','location')
+        fields = ('tracks1','id', 'email','product_url','product_name', 'price','number_count','Restaurant_name','isdeleted','offer','product_type','location')
 
 
 class userSerializer(serializers.ModelSerializer):
@@ -39,7 +39,7 @@ class orderSerializer(serializers.ModelSerializer):
     tracks2 = productSerializer(many=True, read_only=True)
     class Meta:
         model=order_product
-        fields =('tracks1','tracks2','order_id','mobile','product_id','price','number_product','date')             
+        fields =('tracks1','tracks2','order_id','mobile','product_id','price','number_product','date','order_status')             
 
 
 class iswishlistSerializer(serializers.ModelSerializer):

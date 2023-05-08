@@ -151,7 +151,7 @@ export default function Product_view() {
                          product[0].number_count==0?
                             <div className="row">
                                 <div className="container col-sm">
-                                <h5 className="card-text" style={{color:'lightgray'}}>Closed</h5>
+                                <h5 className="card-text" style={{color:'lightgray'}}>**Closed</h5>
                                 </div>
                                 <div className="container col-sm">
                                 <h5 className="card-text" style={{color:'tomato'}}>₹{(product[0].price-((product[0].price*product[0].offer)/100))}</h5>
@@ -160,7 +160,7 @@ export default function Product_view() {
                             :
                             <div className="row">
                                 <div className="container col-sm">
-                                <h5 className="card-text" style={{color:'green'}}>Available</h5>
+                                <h6 className="card-text" style={{color:'green'}}>*Available</h6>
                                 </div>
                                 <div className="container col-sm">
                                 <h5 className="card-text" style={{color:'tomato'}}>₹{(product[0].price-((product[0].price*product[0].offer)/100))}</h5>
@@ -168,6 +168,7 @@ export default function Product_view() {
                             </div>
                             
                         }
+                        <h6>Restaurant Name- <strong>{product[0].Restaurant_name}</strong></h6>
                     </div>
                 </div>
                 <div className='col-6 col-sm-5'>

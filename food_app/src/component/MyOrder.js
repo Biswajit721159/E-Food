@@ -47,7 +47,8 @@ export default function MyOrder() {
             price:order[i].price,
             product_count:order[i].number_product,
             date:order[i].date,
-            isreviews:false
+            isreviews:false,
+            order_status:order[i].order_status,
           }
           arr.push(obj);
         }
@@ -100,17 +101,16 @@ export default function MyOrder() {
             <table className="table shadow-lg p-0 mb-2 bg-white rounded" key={ind}>
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Product</th>
                     <th scope="col">Price</th>
                     <th scope="col">Date</th>
                     <th scope='col'>No. Product</th>
+                    <th scope="col">Order Status</th>
                     <th scope="col">Feedback</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">{ind}</th>
                     <td><div className="card mt-0 mx-0 my-0" style={{ width: 200, height:200}} key={ind}>
                         <img
                             src={item.product_url}
@@ -125,6 +125,12 @@ export default function MyOrder() {
                     <td><h5>₹{item.price}</h5></td>
                     <td><h5>{item.date}</h5></td>
                     <td><h5>{item.product_count}</h5></td>
+                    <td>
+                    {
+                      item.order_status?<td><button className="btn btn-primary" disabled>Delivered</button></td>: 
+                      <td><button className="btn btn-primary" disabled>Pending</button></td>
+                    }
+                    </td>
                     {
                       item.isreviews==false?  
                       <td>

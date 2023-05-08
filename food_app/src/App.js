@@ -20,9 +20,10 @@ import Successfull from "./component/Successfull";
 import Admin_register from "./component/Admin_register";
 import Admin_panel_Login from "./component/Admin_panel_Login";
 import Admin_front_page from "./Restaurant_Admin/Admin_front_page";
-import Admin_panel_Navbar from "./component/Admin_panel_Navbar";
+import Admin_panel_Navbar from "./Restaurant_Admin/Admin_panel_Navbar";
 import Add_product from "./Restaurant_Admin/Add_product";
 import Product_update from "./Restaurant_Admin/Product_update";
+import Order from "./Restaurant_Admin/Order";
 
 
 export const global = createContext();
@@ -94,6 +95,7 @@ function App() {
                     <Route path="Admin_front_page" element={<Admin_front_page/>}></Route>
                     <Route path="product_add" element={<Add_product/>}></Route>
                     <Route path="product/update/:id" element={<Product_update/>}></Route>
+                    <Route path="/order" element={<Order/>}></Route>
                     <Route path="*" element={<Error />}></Route>
                 </Routes>
              </Router>

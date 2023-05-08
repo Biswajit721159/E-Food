@@ -6,6 +6,8 @@ export default function Add_product() {
 
     const {Admin_data} =useContext(global);
 
+    console.log(Admin_data)
+    
     const [img_url,setimg_url]=useState("")
     const [product_name,setproduct_name]=useState("")
     const [price,setprice]=useState()
@@ -32,7 +34,7 @@ export default function Add_product() {
                 offer:offer,
                 product_type:product_type,
                 location:Admin_data.city,
-
+                Restaurant_name:Admin_data.Restaurant_name
             })
         }).
         then(response=>response.json())
