@@ -4,6 +4,8 @@ import "../App.css";
 import { global } from "../App";
 import swal from "sweetalert";
 import { Link, json, useNavigate } from "react-router-dom";
+import loader from "../other/loader.gif"
+
 export default function Index() {
 
 const {Mobile,Function,child,update,Location} =useContext(global);
@@ -21,7 +23,7 @@ const [briyani,setbriyani]=useState(false);
 const [veg,setveg]=useState(false);
 const [nonveg,setnonveg]=useState(false);
 const [name,setname]=useState("");
-
+const [loading,setloading]=useState(true);
 
 const [index,setindex]=useState("first");
 const history=useNavigate();
@@ -73,6 +75,7 @@ function loadbag()
     })
   }
   ).then(response=>response.json()).then((product) =>{
+    setloading(true)
     fetch('http://127.0.0.1:8000/mybag/').then(response=>response.json()).then((mybag) =>{
       fetch('http://127.0.0.1:8000/iswishlist/').then(response=>response.json()).then((love) =>{
         fetch('http://127.0.0.1:8000/Reviews/').then(responce=>responce.json()).then((review)=>{
@@ -445,6 +448,7 @@ function sort_product_aviliable_not_avilible(product)
       }
     }
     setproduct([...arr]);
+    setloading(false)
   }
 }
 
@@ -800,62 +804,63 @@ function love(id)
 
   return (
     <>
-    
-<div className="container" >
-<div className="container" >
-        
-<div className="row">
-        <div className="container col-sm mt-1">
-              <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={price_low_high} onChange={(e)=>setprice_low_high(e.target.checked)}  id="flexCheckDefault" />
-                <label className="form-check-label" htmlFor="flexCheckDefault" >
-                  Price Low to High
-                </label>
+
+  {loading?<div className='container'><img src={loader}  style={{marginLeft:"340px",marginTop:"100px"}}/></div>:
+    <div className="container" >
+    <div className="container" >
+            
+    <div className="row">
+            <div className="container col-sm mt-1">
+                  <div className="form-check mt-2">
+                    <input className="form-check-input" type="checkbox" checked={price_low_high} onChange={(e)=>setprice_low_high(e.target.checked)}  id="flexCheckDefault" />
+                    <label className="form-check-label" htmlFor="flexCheckDefault" >
+                      Price Low to High
+                    </label>
+                  </div>
+            </div>
+            <div className="container col-sm mt-1">
+                  <div className="form-check mt-2">
+                    <input className="form-check-input" type="checkbox" checked={price_high_low} onChange={(e)=>setprice_high_low(e.target.checked)} value="" id="flexCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                    Price High to Low
+                    </label>
+                  </div>
+            </div>
+            <div className="container col-sm mt-1">
+                  <div className="form-check mt-2">
+                    <input className="form-check-input" type="checkbox" checked={briyani} onChange={(e)=>setbriyani(e.target.checked)} id="flexCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                    Briyani
+                    </label>
+                  </div>
+            </div>
+            
+            <div className="container col-sm mt-1">
+                  <div className="form-check mt-2">
+                    <input className="form-check-input" type="checkbox" checked={veg} onChange={(e)=>setveg(e.target.checked)} id="flexCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                    Veg Food
+                    </label>
+                  </div>
+            </div>
+            <div className="container col-sm mt-1">
+                  <div className="form-check mt-2">
+                    <input className="form-check-input" type="checkbox" checked={nonveg} onChange={(e)=>setnonveg(e.target.checked)} id="flexCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                    Non Vage Food
+                    </label>
+                  </div>
+            </div>
+            <div className="container col-sm mt-2">
+              <div className="container">
+              <input
+                    type="text"
+                    className="form-control"
+                    value={name} onChange={(e)=>setname(e.target.value)} autoComplete='off'  placeholder="Search Food"
+                  />
               </div>
-        </div>
-        <div className="container col-sm mt-1">
-              <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={price_high_low} onChange={(e)=>setprice_high_low(e.target.checked)} value="" id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                Price High to Low
-                </label>
-              </div>
-        </div>
-        <div className="container col-sm mt-1">
-              <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={briyani} onChange={(e)=>setbriyani(e.target.checked)} id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                Briyani
-                </label>
-              </div>
-        </div>
-        
-        <div className="container col-sm mt-1">
-              <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={veg} onChange={(e)=>setveg(e.target.checked)} id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                Veg Food
-                </label>
-              </div>
-        </div>
-        <div className="container col-sm mt-1">
-              <div className="form-check mt-2">
-                <input className="form-check-input" type="checkbox" checked={nonveg} onChange={(e)=>setnonveg(e.target.checked)} id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                Non Vage Food
-                </label>
-              </div>
-        </div>
-        <div className="container col-sm mt-2">
-          <div className="container">
-          <input
-                type="text"
-                className="form-control"
-                value={name} onChange={(e)=>setname(e.target.value)} autoComplete='off'  placeholder="Search Food"
-              />
-          </div>
-        </div>
-</div>
+            </div>
+    </div>
     </div >
       <div className="row mt-5">
         {product !== undefined && product.length!==0
@@ -973,6 +978,8 @@ function love(id)
           : <h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
       </div>
     </div>
+
+}  
     </>
   )
 }

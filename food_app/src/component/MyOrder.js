@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom'
 import { global } from '../App';
 import swal from 'sweetalert';
+import loader from "../other/loader.gif"
 
 export default function MyOrder() {
 
@@ -12,7 +13,7 @@ export default function MyOrder() {
  const [myproduct,setmyproduct]=useState([]);
  const [reviews,setreviews]=useState([]);
  const [load,setload]=useState(true);
- 
+ const [loading,setloading]=useState(true)
 
   useEffect(() => {
     loadproduct();
@@ -82,6 +83,7 @@ export default function MyOrder() {
       }
       setmyproduct([...newarr]);
     }
+    setloading(false)
   }
 
   function load_more()
@@ -92,61 +94,67 @@ export default function MyOrder() {
 
 
   return (
-    Mobile.length==10?
-    <div className='container mt-5'>
-        <h3>Your Order {Mobile}</h3>
-        <div className="col mt-5">
-        {(myproduct.length!==0)?
-          myproduct.map((item,ind)=>(
-            <table className="table shadow-lg p-0 mb-2 bg-white rounded" key={ind}>
-                <thead>
-                  <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Date</th>
-                    <th scope='col'>No. Product</th>
-                    <th scope="col">Order Status</th>
-                    <th scope="col">Feedback</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><div className="card mt-0 mx-0 my-0" style={{ width: 200, height:200}} key={ind}>
-                        <img
-                            src={item.product_url}
-                            className="card-img-top"
-                            style={{ width: 180, height: 180 ,marginLeft:10,marginTop:10 }}
-                            alt="Please Wait"
-                          />
-                          <div className="card-body">
-                            <h5 className="card-title">{item.product_name}</h5>
-                          </div>
-                        </div></td>
-                    <td><h5>₹{item.price}</h5></td>
-                    <td><h5>{item.date}</h5></td>
-                    <td><h5>{item.product_count}</h5></td>
-                    <td>
-                    {
-                      item.order_status?<td><button className="btn btn-primary" disabled>Delivered</button></td>: 
-                      <td><button className="btn btn-primary" disabled>Pending</button></td>
-                    }
-                    </td>
-                    {
-                      item.isreviews==false?  
-                      <td>
-                        <Link to={`/Reviews/order_id/${item.order_id}/product_id/${item.id}`}><button className='btn btn-primary mx-0' >Give Feedback</button></Link>
-                      </td>
-                      :<button className='btn btn-danger mt-2 mx-3' disabled> Already  Given</button>
-                     }
-                  </tr>
-                </tbody>
-              </table>
-          ))
-          : <h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
-          <div className='container my-5'>
-             {load==true?<button className='btn btn-primary mx' onClick={load_more}>Load More</button>:""}
+    <> 
+    {
+      loading?<div className='container'><img src={loader}  style={{marginLeft:"340px",marginTop:"100px"}}/></div>:
+          Mobile.length==10?
+          <div className='container mt-5'>
+              <h3>Your Order {Mobile}</h3>
+              <div className="col mt-5">
+              {(myproduct.length!==0)?
+                myproduct.map((item,ind)=>(
+                  <table className="table shadow-lg p-0 mb-2 bg-white rounded" key={ind}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Product</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Date</th>
+                          <th scope='col'>No. Product</th>
+                          <th scope="col">Order Status</th>
+                          <th scope="col">Feedback</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><div className="card mt-0 mx-0 my-0" style={{ width: 200, height:200}} key={ind}>
+                              <img
+                                  src={item.product_url}
+                                  className="card-img-top"
+                                  style={{ width: 180, height: 180 ,marginLeft:10,marginTop:10 }}
+                                  alt="Please Wait"
+                                />
+                                <div className="card-body">
+                                  <h5 className="card-title">{item.product_name}</h5>
+                                </div>
+                              </div></td>
+                          <td><h5>₹{item.price}</h5></td>
+                          <td><h5>{item.date}</h5></td>
+                          <td><h5>{item.product_count}</h5></td>
+                          <td>
+                          {
+                            item.order_status?<td><button className="btn btn-primary" disabled>Delivered</button></td>: 
+                            <td><button className="btn btn-primary" disabled>Pending</button></td>
+                          }
+                          </td>
+                          {
+                            item.isreviews==false?  
+                            <td>
+                              <Link to={`/Reviews/order_id/${item.order_id}/product_id/${item.id}`}><button className='btn btn-primary mx-0' >Give Feedback</button></Link>
+                            </td>
+                            :<button className='btn btn-danger mt-2 mx-3' disabled> Already  Given</button>
+                          }
+                        </tr>
+                      </tbody>
+                    </table>
+                ))
+                : <h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
+                <div className='container my-5'>
+                  {load==true?<button className='btn btn-primary mx' onClick={load_more}>Load More</button>:""}
+                </div>
+            </div>
           </div>
-      </div>
-    </div>:<h2 className="col-md-12 text-center" id="notfound">Record Not Found  ! </h2>
+          :<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>
+        }
+    </>
   )
 }
