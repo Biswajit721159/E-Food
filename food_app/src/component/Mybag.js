@@ -374,7 +374,7 @@ export default function Mybag() {
               </div>
             ))
           : ""}
-          <nav className="navbar navbar-expand-lg  bg-success my-2 mx-4 col-lg-9" style={{borderRadius:"50px"}}>
+          <nav className="navbar navbar-expand-lg  bg-success my-2 mx-4 col-lg-10" style={{borderRadius:"50px"}}>
             <div className="container">
               <div className="d-flex">
                  {
