@@ -17,15 +17,16 @@ const {Mobile,Function,child,update,location} =useContext(global);
 const [product_count, setproduct_count] = useState(0);
 const history=useNavigate();
 
+useEffect(() => {
+  loadproduct();    
+},[]);
 
 useEffect(() => {
-  loadproduct();   
-  set_product();   
+  loadproduct();    
 },[Mobile]);
 
 useEffect(()=>{
   loadproduct();    
-  set_product();   
 },[update]);
 
 
@@ -76,7 +77,7 @@ function set_product(allproduct)
 function logout(){
   localStorage.clear();
   Function("");
-  history('/Login')
+  history('/')
   location("");
 }
 

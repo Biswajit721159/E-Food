@@ -2,6 +2,7 @@ import React, { useEffect, useState,useContext } from 'react'
 import {global} from '../App'
 import swal from "sweetalert";
 import { Link, json, useNavigate,useParams } from "react-router-dom";
+import loader from "../other/loader.gif"
 
 
 export default function Product_view() {
@@ -124,6 +125,7 @@ export default function Product_view() {
   }
   
   return (
+    <>
       <div className='container'>
         {
             product!=undefined && product.length!=0 ?
@@ -257,9 +259,9 @@ export default function Product_view() {
                 }
                 </div>
             </div>    
-            :<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>
+            :<div className='container'><img src={loader}  style={{marginLeft:"340px",marginTop:"100px"}}/></div>
         }
       </div>
-    
+    </>
   )
 }

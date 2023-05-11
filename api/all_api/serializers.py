@@ -56,7 +56,7 @@ class ReviewsSerializer(serializers.ModelSerializer):
     tracks3 = orderSerializer(many=True, read_only=True)
     class Meta:
         model=Reviews
-        fields =('tracks1','tracks2','tracks3','Reviews_id','order_id','mobile','product_id','rating','review','time_created','image')   
+        fields =('tracks1','tracks2','tracks3','Reviews_id','order_id','mobile','product_id','rating','review','time_created')   
 
 
 class card_infoSerializer(serializers.ModelSerializer):
@@ -77,4 +77,10 @@ class contact_Serializer(serializers.ModelSerializer):
     class Meta:
         model=contact
         fields=('tracks','contact_id','mobile','message')  
+
+class image_detail_Serializer(serializers.ModelSerializer):  
+    tracks = productSerializer(many=True, read_only=True)
+    class Meta:
+        model=image_detail
+        fields=('tracks','image_id','product_id','image')          
 

@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
-from all_api.models import user_detail,product,Reviews,order_product,iswishlist,contact,mybag,card_info
+from all_api.models import user_detail,product,Reviews,order_product,iswishlist,contact,mybag,card_info,Restaurant_user
 
 
 def index(request):
@@ -716,3 +716,7 @@ def card_delete(request,card_id):
     data=card_info.objects.get(card_id=card_id)
     data.delete()
     return redirect('/adminpanel/manage_card')
+
+def manage_restaurent_user(request):
+    data=Restaurant_user.objects.all()
+    return render(request,"admin/manage_restaurent.html",{'data':data})

@@ -95,8 +95,10 @@ urlpatterns = [
     path('manage_card/search_name',views.manage_card_search_name),
     path('manage_card/search_expiry',views.manage_card_search_expiry),
     path('manage_card/search_cvv',views.manage_card_search_cvv),
-    path('manage_card/delete/<int:card_id>',views.card_delete)
+    path('manage_card/delete/<int:card_id>',views.card_delete),
 
-    
+    #manage_restaurent_user
+
+    path('manage_restaurent_user',views.manage_restaurent_user),
 
 ]

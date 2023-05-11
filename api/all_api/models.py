@@ -67,15 +67,7 @@ class Reviews(models.Model):
     rating = models.CharField(max_length=10)
     review = models.CharField(max_length=500)
     time_created = models.CharField(max_length=100)
-    image = models.ImageField(null=True, blank=True)  
     
-    @property
-    def imageURL(self):
-            try:
-                url = self.image.url
-            except:
-                url = ''
-            return url
 
 
 class card_info(models.Model):
@@ -86,8 +78,6 @@ class card_info(models.Model):
     expiry=models.CharField(max_length=15)
     cvv=models.CharField(max_length=4)  
 
-     
- 
 
 class adminuser(models.Model):
     username=models.CharField(primary_key=True,max_length=100)
@@ -102,10 +92,10 @@ class contact(models.Model):
     mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
     message=models.TextField()
 
-class daily_product(models.Model):
-    mobile=models.ForeignKey(user_detail,on_delete=models.CASCADE)
-    product_id=models.ForeignKey(product,on_delete=models.CASCADE) 
-    food_type=models.CharField(max_length=100,default="none")  
+class image_detail(models.Model):
+    image_id=models.AutoField(primary_key=True)
+    product_id=models.ForeignKey(product,on_delete=models.CASCADE)
+    image=models.ImageField(upload_to='image_data', blank=True, null=True) 
 
 
     

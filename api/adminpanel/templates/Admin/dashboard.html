@@ -138,16 +138,16 @@
     margin-left:500px;
     margin-top:200px;
   }
-.body {
-  background: white;
-  /* background: linear-gradient(to bottom, #0066ff 9%, #99ffcc 100%); */
-  /* background-image: url("{% static '23.jpg' %}"); */
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-ol,ul {
-  padding-left: 0px;
-}
+  .body {
+    background: white;
+    /* background: linear-gradient(to bottom, #0066ff 9%, #99ffcc 100%); */
+    /* background-image: url("{% static '23.jpg' %}"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  ol,ul {
+    padding-left: 0px;
+  }
   </style>
 <body class="body">
   {% if user.is_authenticated %}
@@ -209,6 +209,12 @@ ol,ul {
           <a href="/adminpanel/manage_card">
             {% comment %} <i class='bx bx-user' ></i> {% endcomment %}
             <span class="links_name">Manage Card</span>
+          </a>
+        </li>
+        <li>
+          <a href="/adminpanel/manage_restaurent_user">
+            {% comment %} <i class='bx bx-user' ></i> {% endcomment %}
+            <span class="links_name">Manage Restaurent User</span>
           </a>
         </li>
         <li class="log_out">

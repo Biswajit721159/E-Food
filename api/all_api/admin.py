@@ -23,3 +23,5 @@ admin.site.register(adminuser)
 admin.site.register(contact)
 
 admin.site.register(Restaurant_user)
+
+admin.site.register(image_detail)

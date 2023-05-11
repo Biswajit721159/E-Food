@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 
 from rest_framework import viewsets
-from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer,contact_Serializer,Restaurant_user_Serializer
+from .serializers import productSerializer,userSerializer,mybagSerializer,orderSerializer,iswishlistSerializer,ReviewsSerializer,card_infoSerializer,adminuser_Serializer,contact_Serializer,Restaurant_user_Serializer,image_detail_Serializer
 from .models import *
 from .models import mybag,adminuser
  
@@ -279,4 +279,13 @@ def Restaurant_user_api(request,pk=0):
         if Restaurant_user_serilizer.is_valid():
             Restaurant_user_serilizer.save()
             return JsonResponse("Added Successfully", safe=False)
-        return JsonResponse("Failed To Add", safe=False)         
+        return JsonResponse("Failed To Add", safe=False)  
+
+
+@csrf_exempt
+
+def image_detail_api(request,pk=0):
+    if request.method=="GET":
+        data=image_detail.objects.all()
+        image_detail_user=image_detail_Serializer(data,many=True)
+        return JsonResponse(image_detail_user.data,safe=False)

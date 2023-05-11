@@ -25,5 +25,5 @@ urlpatterns = [
     path('admin_user/',views.admin_user),
     path('contact_api/',views.contact_api),
     path('Restaurant_user/',views.Restaurant_user_api),
-
+    path('image_detail_api/',views.image_detail_api),
 ]
