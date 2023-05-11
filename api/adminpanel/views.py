@@ -385,11 +385,13 @@ def product_search_number_product(request):
         return HttpResponse("Please Wait")       
 
 def product_add(request):
-    return render(request,"admin/product_add.html") 
+    data=Restaurant_user.objects.all()
+    return render(request,"admin/product_add.html",{'data':data}) 
 
 def submit_product_data(request):
 
     if request.method=="POST":
+        email=request.POST.get('email')
         product_url=request.POST.get('product_url')
         product_name=request.POST.get('product_name')
         price=request.POST.get('price')
@@ -397,7 +399,9 @@ def submit_product_data(request):
         product_type=request.POST.get('product_type')
         location=request.POST.get('location')
         number_count=request.POST.get('number_count')
+        
         data=product(
+            email=Restaurant_user.objects.get(email=email),
             product_url=product_url,
             product_name=product_name,
             price=price,

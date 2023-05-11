@@ -17,7 +17,7 @@ class productSerializer(serializers.ModelSerializer):
     tracks1 = Restaurant_user_Serializer(many=True, read_only=True)
     class Meta:
         model = product
-        fields = ('tracks1','id', 'email','product_url','product_name', 'price','number_count','Restaurant_name','isdeleted','offer','product_type','location')
+        fields = ('tracks1','id', 'email','product_url','product_name', 'price','number_count','isdeleted','offer','product_type','location')
 
 
 class userSerializer(serializers.ModelSerializer):

@@ -26,14 +26,13 @@ class Restaurant_user(models.Model):
 class product(models.Model):
     id=models.AutoField(primary_key=True)
     email=models.ForeignKey(Restaurant_user,default="bg5050525@gmail.com",on_delete=models.CASCADE)
-    product_url=models.CharField(max_length=200,default="No")
+    product_url=models.CharField(max_length=2000,default="No")
     product_name=models.CharField(max_length=50,default="No")
     price=models.IntegerField(default=100)
     offer=models.IntegerField(default=5)
     product_type=models.CharField(max_length=100,default="non vage")
     location=models.CharField(max_length=100,default="Jalpaiguri")
     number_count=models.IntegerField(default=10)
-    Restaurant_name=models.CharField(max_length=100,default="Golden Tuble")
     isdeleted=models.BooleanField(default=False)
 
 
