@@ -51,43 +51,43 @@ export default function Reviews() {
 
   function submit()
   {
-    console.log(file)
-    // if(Mobile.length!=10)
-    // {
-    //   history('/Login')
-    // }
-    // const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
-    // const current = new Date();
-    // const date = `${ monthNames[current.getMonth()]} ${current.getDate()}`;
-    //  fetch('http://127.0.0.1:8000/Reviews/',{
-    //     method:'POST',
-    //     headers:{
-    //         'Accept':'application/json',
-    //         'Content-Type':'application/json'
-    //     },
-    //     body:JSON.stringify({
-    //       mobile:Mobile,
-    //       product_id:product_id,
-    //       order_id:order_id,
-    //       rating:rating,
-    //       review:reviews,
-    //       time_created:date,
-    //   })
-    //  })
-    //  .then(response=>response.json())
-    //  .then((result)=>{
-    //    alert(result);
-    //    history('/Myorder')
-    //  },
-    //  (error)=>{
-    //    alert(`We are find some Error`);
-    //  })
+
+    if(Mobile.length!=10)
+    {
+      history('/Login')
+    }
+    const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+    const current = new Date();
+    const date = `${ monthNames[current.getMonth()]} ${current.getDate()}`;
+     fetch('http://127.0.0.1:8000/Reviews/',{
+        method:'POST',
+        headers:{
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          mobile:Mobile,
+          product_id:product_id,
+          order_id:order_id,
+          rating:rating,
+          review:reviews,
+          time_created:date,
+      })
+     })
+     .then(response=>response.json())
+     .then((result)=>{
+       alert(result);
+       history('/Myorder')
+     },
+     (error)=>{
+       alert(`We are find some Error`);
+     })
   }
 
   return (
     <>
 
-{
+{/* {
   <div>
       <h1>{img.length}</h1>
       {
@@ -103,7 +103,7 @@ export default function Reviews() {
   </div>
 
         
-}
+} */}
 
 
     {
@@ -131,9 +131,9 @@ export default function Reviews() {
             <option>5</option>
           </select>
         </div>
-        <div className='mt-3'> 
+        {/* <div className='mt-3'> 
              <input type="file" name="image_url" value={file} accept="image/jpeg,image/png,image/gif" onChange={(e) => {setfile(e.target.value)}}/>
-         </div>
+         </div> */}
         <div className="col-md-3 mt-4">
           <button className="btn btn-primary" type="submit" onClick={submit}>
             Submit Feedback
