@@ -2,12 +2,14 @@ import React,{useState,useEffect,useContext} from 'react'
 import { global } from "../App";
 import "../App.css";
 import { Link } from 'react-router-dom';
+import loader from "../other/loader.gif"
+
 
 export default function Lovelist() {
 
   const {Mobile,Function,child,update,Location} =useContext(global);
   const [wistlist,setwishlist]=useState([]);
-  
+  const [loading,setloading]=useState(true)
 
   useEffect(()=>{
     loadwistlist();
@@ -24,6 +26,7 @@ export default function Lovelist() {
 
   function findproduct(wishlist,product)
   {
+    setloading(true)
     if(wishlist==undefined || product==undefined) return;
     let arr=[]
     for(let i=0;i<wishlist.length;i++)
@@ -44,7 +47,7 @@ export default function Lovelist() {
                 current_status:"",
                 product_count:0,
                 islove:false, 
-            }
+              }
               obj.id=product[j].id;
               obj.product_name=product[j].product_name
               obj.product_url=product[j].product_url;
@@ -59,6 +62,7 @@ export default function Lovelist() {
       }
     }
     setwishlist([...arr])
+    setloading(false)
   }
 
   function check_alreadylove_list(id)
@@ -157,7 +161,8 @@ export default function Lovelist() {
           </div>
         </div>
           ))
-        : <h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
+        : loading==true?<div className='container'><img src={loader}  style={{marginLeft:"340px",marginTop:"100px"}}/></div>
+        :<h2 className="col-md-12 text-center" id="notfound">Product Not Found  ! </h2>}
      </div>
   </div>
   )
