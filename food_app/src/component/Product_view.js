@@ -12,6 +12,7 @@ export default function Product_view() {
   const [review,setreview]=useState([])
   const {id}=useParams()
 
+  let [Restaurant_name,setRestaurant_name]=useState("")
   let [persentage_5_star,setpersentage_5_star]=useState(0);
   let [persentage_4_star,setpersentage_4_star]=useState(0);
   let [persentage_3_star,setpersentage_3_star]=useState(0);
@@ -35,26 +36,37 @@ export default function Product_view() {
   {
     fetch('http://127.0.0.1:8000/product/').then(response=>response.json()).then((product)=>{
         fetch('http://127.0.0.1:8000/Reviews/').then(responce=>responce.json()).then((reviews)=>{
-            findproduct(product,reviews);
+            fetch('http://127.0.0.1:8000/Restaurant_user/').then(responce=>responce.json()).then((Restaurant_user)=>{
+                findproduct(product,reviews,Restaurant_user);
+            })
         })
     })
   }
 
-  function findproduct(product,reviews)
+  function findproduct(product,reviews,Restaurant_user)
   {
-    if(Mobile.length!=10 || product==undefined || reviews==undefined)
+    if(Mobile.length!=10 || product==undefined || reviews==undefined || Restaurant_user==undefined)
     {
         return ;
     }
     else
     {
+        let Restaurant__email
         let arr=[];
         for(let i=0;i<product.length;i++)
         {
             if(product[i].id==id)
             {
                 arr.push(product[i]);
+                Restaurant__email=product[i].email;
                 break;
+            }
+        }
+        for(let i=0;i<Restaurant_user.length;i++)
+        {
+            if(Restaurant_user[i].email==Restaurant__email)
+            {
+                setRestaurant_name(Restaurant_user[i].Restaurant_name)
             }
         }
         setproduct([...arr]);
@@ -170,7 +182,7 @@ export default function Product_view() {
                             </div>
                             
                         }
-                        <h6>Restaurant Name- <strong>{product[0].Restaurant_name}</strong></h6>
+                        <h6>Restaurant Name- <strong>{Restaurant_name}</strong></h6>
                     </div>
                 </div>
                 <div className='col-6 col-sm-5'>

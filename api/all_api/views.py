@@ -289,3 +289,14 @@ def image_detail_api(request,pk=0):
         data=image_detail.objects.all()
         image_detail_user=image_detail_Serializer(data,many=True)
         return JsonResponse(image_detail_user.data,safe=False)
+    
+    elif request.method=="POST":
+        get_data=JSONParser().parse(request)
+        image_detail_s=image_detail_Serializer(data=get_data)
+        print(get_data['product_id'])
+        print(get_data['image'])
+        print(image_detail_s.error_messages)
+        if image_detail_s.is_valid():
+            image_detail_s.save()
+            return JsonResponse("Added Successfully", safe=False)
+        return JsonResponse("Failed To Add", safe=False) 

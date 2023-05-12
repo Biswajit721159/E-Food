@@ -10,14 +10,14 @@ export default function Reviews() {
 
   const [reviews,setreviews]=useState("");
   const[rating,setrating]=useState("Over All Rating Out of 5");
-  let [file,setfile]=useState("")
+  let [file_data,setfile_data]=useState(null)
 
 
 
   const [already_given_reviews,setalready_given_reviews]=useState(true)
   let { order_id,product_id } = useParams();
 
-  const [img,setimg]=useState([])
+  // const [img,setimg]=useState()
 
   const [review_table,setreview_table]=useState([])
 
@@ -31,10 +31,10 @@ export default function Reviews() {
       setreview_table(res)
       check_already_exit(res)
     })
-    fetch('http://127.0.0.1:8000/image_detail_api/').then(responce=>responce.json()).then((res)=>{
-      setimg(res)
-      console.log(res)
-    })
+    // fetch('http://127.0.0.1:8000/image_detail_api/').then(responce=>responce.json()).then((res)=>{
+    //   setimg(res)
+    //   console.log(res)
+    // })
   }
   
   function check_already_exit(nums)
@@ -59,29 +59,47 @@ export default function Reviews() {
     const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
     const current = new Date();
     const date = `${ monthNames[current.getMonth()]} ${current.getDate()}`;
-     fetch('http://127.0.0.1:8000/Reviews/',{
-        method:'POST',
-        headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-          mobile:Mobile,
-          product_id:product_id,
-          order_id:order_id,
-          rating:rating,
-          review:reviews,
-          time_created:date,
-      })
-     })
-     .then(response=>response.json())
-     .then((result)=>{
-       alert(result);
-       history('/Myorder')
-     },
-     (error)=>{
-       alert(`We are find some Error`);
-     })
+    //  fetch('http://127.0.0.1:8000/Reviews/',{
+    //     method:'POST',
+    //     headers:{
+    //         'Accept':'application/json',
+    //         'Content-Type':'application/json'
+    //     },
+    //     body:JSON.stringify({
+    //       mobile:Mobile,
+    //       product_id:product_id,
+    //       order_id:order_id,
+    //       rating:rating,
+    //       review:reviews,
+    //       time_created:date,
+    //   })
+    //  })
+    //  .then(response=>response.json())
+    //  .then((result)=>{
+    //    alert(result);
+    console.log(file_data.name)
+    console.log("nice")
+          fetch('http://127.0.0.1:8000/image_detail_api/',{
+                method:'POST',
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                  product_id:product_id,
+                  image:file_data.name,
+              })
+          }).then(responce=>responce.json()).then((res)=>{
+            alert(res)
+          },((error)=>{
+            alert(error)
+          }))
+
+    //    history('/Myorder')
+    //  },
+    //  (error)=>{
+    //    alert(`We are find some Error`);
+    //  })
   }
 
   return (
@@ -131,9 +149,9 @@ export default function Reviews() {
             <option>5</option>
           </select>
         </div>
-        {/* <div className='mt-3'> 
-             <input type="file" name="image_url" value={file} accept="image/jpeg,image/png,image/gif" onChange={(e) => {setfile(e.target.value)}}/>
-         </div> */}
+        <div className='mt-3'> 
+             <input type="file" name="image_url" accept="image/jpeg,image/png,image/gif" onChange={(e) => { setfile_data(e.target.files[0]) }}/>
+         </div>
         <div className="col-md-3 mt-4">
           <button className="btn btn-primary" type="submit" onClick={submit}>
             Submit Feedback
